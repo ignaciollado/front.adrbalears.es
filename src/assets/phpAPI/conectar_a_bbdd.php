@@ -1,9 +1,9 @@
 ﻿<?php
 
 $mysqlhost = '127.0.0.1';
-$username = 'booki_gH34__1';
+$username = 'book_adr_gH34__1';
 $password = 'YXZed48#58-^';
-$dbname = 'booki_espaimenorca';
+$dbname = 'book_adr_recinteMenorca';
 
 // Crear la conexión
 
