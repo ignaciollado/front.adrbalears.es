@@ -1,0 +1,63 @@
+.form-container-child {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-areas: "bookingForm bookingCalendar";
+  border-radius: .5rem;
+  border: 3px solid green;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+form {
+  padding-top: 1rem;
+  grid-area: bookingForm;
+}
+
+.theCalendar {
+  grid-area: bookingCalendar;
+}
+
+.my-custom-class {
+  background-color: greenyellow;
+  color: red;
+  font-weight: 900;
+  text-align: center;
+  padding: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.button-submit {
+    text-align: right;
+}
+
+.cal-day-column {
+  margin: auto;
+  width: 60%;
+}
+
+.cal-event{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  padding: 0 5px;
+  margin: auto;
+  width: 60%;
+  /* height: 28px; */
+  line-height: 28px;
+}
+
+.cal-event-title{
+  background-color: orangered!important;
+  padding: 0!important;
+}
+
+@media (max-width: 795px) {
+
+  .form-container-child {
+    grid-template-areas: "bookingForm" "bookingCalendar";
+  }
+
+}
