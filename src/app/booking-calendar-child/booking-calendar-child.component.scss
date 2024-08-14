@@ -57,6 +57,7 @@ mat-form-field {
 @media (max-width: 795px) {
 
   .form-container-child {
+    grid-template-columns: 100%;
     grid-template-areas: "bookingForm" "bookingCalendar";
   }
 
