@@ -37,7 +37,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>From date</mat-label>
-        <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="weekEndFilter" #fromDateInput (input)='fromDateSelected(fromDateInput.value)'>
+        <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="weekEndFilter">
         <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
       </mat-form-field>

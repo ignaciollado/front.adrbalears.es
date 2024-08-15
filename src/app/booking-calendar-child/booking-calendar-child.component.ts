@@ -194,14 +194,13 @@ export class BookingCalendarChildComponent {
     })
 
     this.bookingForm.valueChanges.subscribe((e) => {
-      console.log ("algo ha cambiado", e)
+     /*  console.log ("algo ha cambiado", e) */
       const currentYearTo = new Date(e.fromDate).getFullYear()
       const currentMonthTo = new Date(e.fromDate).getMonth()
       const currentDayTo = new Date(e.fromDate).getDate()
       this.minDateTo = new Date(currentYearTo, currentMonthTo, currentDayTo)
       this.resourceSelected(e.resourceToBook)
-      this.fromDateSelected(e.resourceToBook)
-      console.log (e.resourceToBook)
+      this.fromDateSelected(e.fromDate, e.resourceToBook)
     });
 
   }
@@ -278,8 +277,12 @@ export class BookingCalendarChildComponent {
 
   }
 
-  public fromDateSelected( resource: string ) {
-    alert (resource)
+  public fromDateSelected( resource: string, resourceType: string ) {
+    if(resource && resourceType.split("#")[1] === 'room') {
+      this.toDate.setValue(resource)
+    } else {
+      this.toDate.setValue('')
+    }
   }
 
   /* events: CalendarEvent[] = [] */
