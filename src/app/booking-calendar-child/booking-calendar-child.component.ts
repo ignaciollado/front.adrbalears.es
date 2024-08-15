@@ -23,11 +23,15 @@ export class BookingCalendarChildComponent {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | undefined;
 
-  minDate: Date;
-  minDateTo: Date;
-  maxDate: Date;
+  minDate: Date
+  minDateTo: Date
+  maxDate: Date
   fromDate: FormControl
+  fromDateFromTime!: FormControl
+  fromDateToTime!: FormControl
   toDate: FormControl
+  toDateFromTime!: FormControl
+  toDateToTime!: FormControl
   resourceToBook: UntypedFormControl
   bookerName: UntypedFormControl
   idCard: UntypedFormControl
@@ -46,7 +50,7 @@ export class BookingCalendarChildComponent {
   public enableMeridian = false;
   public touchUi = false;
   public disableMinute = false;
-  public hideTime = false;
+  public showTime = false;
   public color: ThemePalette = 'primary';
 
   view: CalendarView = CalendarView.Month
@@ -164,7 +168,7 @@ export class BookingCalendarChildComponent {
 
     this._locale = 'ca-ES'; /* 'es-ES' */
     this._adapter.setLocale(this._locale)
-    this.theBooking = new BookingDTO(this._adapter.today(), this._adapter.today(), 0, '', '', '', false, 'pending');
+    this.theBooking = new BookingDTO(this._adapter.today(), new Date().toLocaleTimeString('es-ES'), new Date().toLocaleTimeString('es-ES'), this._adapter.today(), 0, '', '', '', false, 'pending');
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
     const currentDay = new Date().getDate()
@@ -190,12 +194,14 @@ export class BookingCalendarChildComponent {
     })
 
     this.bookingForm.valueChanges.subscribe((e) => {
-      console.log (e)
+      console.log ("algo ha cambiado", e)
       const currentYearTo = new Date(e.fromDate).getFullYear()
       const currentMonthTo = new Date(e.fromDate).getMonth()
       const currentDayTo = new Date(e.fromDate).getDate()
       this.minDateTo = new Date(currentYearTo, currentMonthTo, currentDayTo)
-      this.resourceSelected(e.resourceToBook);
+      this.resourceSelected(e.resourceToBook)
+      this.fromDateSelected(e.resourceToBook)
+      console.log (e.resourceToBook)
     });
 
   }
@@ -265,11 +271,15 @@ export class BookingCalendarChildComponent {
   public resourceSelected( resource: string ) {
 
     if (resource.split("#")[1] === 'room') {
-      //alert (`vas a reservar la sala ${resource.split("#")[0]}, hay que cambiar el tipo de datepicker`)
+      this.showTime = true
     } else if (resource.split("#")[1] === 'pavillion') {
-      //alert (`vas a reservar el pavellón ${resource.split("#")[0]}`)
+      this.showTime = false
     }
 
+  }
+
+  public fromDateSelected( resource: string ) {
+    alert (resource)
   }
 
   /* events: CalendarEvent[] = [] */
@@ -378,6 +388,7 @@ export class BookingCalendarChildComponent {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+
   onSubmit():void {
     let resourceColor: any
 

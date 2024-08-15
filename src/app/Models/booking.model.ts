@@ -1,3 +1,5 @@
+import { Time } from "@angular/common"
+
 export class BookingDTO {
     bookingId!: string
     idCard: number
@@ -5,6 +7,8 @@ export class BookingDTO {
     email: string
     resource: string
     fromDate: Date
+    fromTime: string
+    toTime: string
     toDate: Date
     allDay: boolean
     state: string
@@ -12,6 +16,8 @@ export class BookingDTO {
 
     constructor(
         fromDate: Date,
+        fromTime: string,
+        toTime: string,
         toDate: Date,
         idCard: number,
         name: string,
@@ -22,6 +28,8 @@ export class BookingDTO {
       ) {
 
         this.fromDate = fromDate,
+        this.fromTime = fromTime,
+        this.toTime = toTime,
         this.toDate = toDate,
         this.idCard = idCard,
         this.name = name,
