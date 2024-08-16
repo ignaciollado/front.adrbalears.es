@@ -168,7 +168,7 @@ export class BookingCalendarChildComponent {
 
     this._locale = 'ca-ES'; /* 'es-ES' */
     this._adapter.setLocale(this._locale)
-    this.theBooking = new BookingDTO(this._adapter.today(), new Date().toLocaleTimeString('es-ES'), new Date().toLocaleTimeString('es-ES'), this._adapter.today(), 0, '', '', '', false, 'pending');
+    this.theBooking = new BookingDTO( 0, '', '', '', this._adapter.today(), this._adapter.today());
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
     const currentDay = new Date().getDate()
@@ -177,24 +177,27 @@ export class BookingCalendarChildComponent {
     this.minDateTo = this.minDate
     this.maxDate = new Date(currentYear + 1, 11, 31)
 
-    this.fromDate = new FormControl<Date | null>(null, [ Validators.required ])
-    this.toDate = new FormControl<Date | null>(null, [ Validators.required])
-    this.resourceToBook = new UntypedFormControl('', [ Validators.required ])
     this.bookerName = new UntypedFormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(60) ])
     this.idCard = new UntypedFormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(9)])
     this.bookerEMail = new UntypedFormControl('', [ Validators.required, Validators.email ])
+    this.resourceToBook = new UntypedFormControl('', [ Validators.required ])
+    this.fromDate = new FormControl<Date | null>(null, [ Validators.required ])
+    this.fromDateFromTime = new FormControl('')
+    this.toDate = new FormControl<Date | null>(null, [ Validators.required])
+    this.toDateToTime = new FormControl('')
 
     this.bookingForm = this.formBuilder.group ({
       bookerName: this.bookerName,
+      idCard: this.idCard,
       bookerEMail: this.bookerEMail,
       resourceToBook: this.resourceToBook,
-      idCard: this.idCard,
       fromDate: this.fromDate,
+      fromDateFromTime : this.fromDateFromTime,
       toDate: this.toDate,
+      toDateToTime : this.toDateToTime,
     })
 
     this.bookingForm.valueChanges.subscribe((e) => {
-     /*  console.log ("algo ha cambiado", e) */
       const currentYearTo = new Date(e.fromDate).getFullYear()
       const currentMonthTo = new Date(e.fromDate).getMonth()
       const currentDayTo = new Date(e.fromDate).getDate()
@@ -278,11 +281,11 @@ export class BookingCalendarChildComponent {
   }
 
   public fromDateSelected( resource: string, resourceType: string ) {
-    if(resource && resourceType.split("#")[1] === 'room') {
+    /* if(resource && resourceType.split("#")[1] === 'room') {
       this.toDate.setValue(resource)
     } else {
       this.toDate.setValue('')
-    }
+    } */
   }
 
   /* events: CalendarEvent[] = [] */

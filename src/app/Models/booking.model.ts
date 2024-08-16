@@ -7,35 +7,26 @@ export class BookingDTO {
     email: string
     resource: string
     fromDate: Date
-    fromTime: string
-    toTime: string
+    fromDateFromTime!: string
     toDate: Date
-    allDay: boolean
-    state: string
+    toDateToTime!: string
+    allDay!: boolean
+    state!: string
 
 
     constructor(
-        fromDate: Date,
-        fromTime: string,
-        toTime: string,
-        toDate: Date,
         idCard: number,
         name: string,
         email: string,
         resource: string,
-        allDay: boolean,
-        state: string
+        fromDate: Date,
+        toDate: Date,
       ) {
-
-        this.fromDate = fromDate,
-        this.fromTime = fromTime,
-        this.toTime = toTime,
-        this.toDate = toDate,
         this.idCard = idCard,
         this.name = name,
         this.email = email,
         this.resource = resource,
-        this.allDay = allDay,
-        this.state = state
+        this.fromDate = fromDate,
+        this.toDate = toDate
       }
 }
