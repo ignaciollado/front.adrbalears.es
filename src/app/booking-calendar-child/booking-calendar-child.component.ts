@@ -220,7 +220,6 @@ export class BookingCalendarChildComponent {
 
     this.bookingService.getAllBookings()
     .pipe( )
-
     .subscribe(
          (bookings: BookingDTO[]) => {
            this.bookings = bookings
@@ -271,7 +270,6 @@ export class BookingCalendarChildComponent {
   }
 
   public resourceSelected( resource: string ) {
-
     if (resource.split("#")[1] === 'room') {
       this.showTime = true
     } else if (resource.split("#")[1] === 'pavillion') {
@@ -399,10 +397,7 @@ export class BookingCalendarChildComponent {
     let resourceColor: any
 
     if (this.resourceToBook.value.split("#")[1] === 'room') {
-
       resourceColor = "colors."+ this.resourceToBook.value.split("#")[0]
-      //alert (`vas a reservar la sala ${resource.split("#")[0]}, hay que cambiar el tipo de datepicker`)
-
     } else if (this.resourceToBook.value === 'pavillion') {
       //alert (`vas a reservar el pavellón ${resource.split("#")[0]}`)
     }
@@ -440,11 +435,12 @@ export class BookingCalendarChildComponent {
             responseOK = true;
             this.resourceToBook.reset()
             this.fromDate.reset()
+            this.fromDateFromTime.reset()
             this.toDate.reset()
+            this.toDateFromTime.reset()
             this.bookerName.reset()
             this.bookerEMail.reset()
             this.idCard.reset()
-
             this.loadBookingList()
           },
           (error: HttpErrorResponse) => {
@@ -452,8 +448,6 @@ export class BookingCalendarChildComponent {
             this.sharedService.errorLog(errorResponse);
           }
         );
-
-
   }
 
   weekEndFilter: (date: Date | null) => boolean =

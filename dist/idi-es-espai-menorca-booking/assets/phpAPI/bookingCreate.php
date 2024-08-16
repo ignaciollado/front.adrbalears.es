@@ -10,13 +10,15 @@ mysqli_query($conn, "SET NAMES 'utf8'");
 $postedData = file_get_contents("php://input");
 $request = json_decode($postedData, TRUE);
 
-$sql = "INSERT INTO `booking_service` (name, idCard, email, resourceBooked, fromDate, toDate, allDay) VALUES('"
+$sql = "INSERT INTO `booking_service` (name, idCard, email, resourceBooked, fromDate, fromDateFromTime, toDate, toDateToTime, allDay) VALUES('"
           .$request['bookerName']."','"
           .$request['idCard']."','"
           .$request['bookerEMail']."','"
           .$request['resourceToBook']."','"
           .$request['fromDate']."','"
-          .$request['toDate']."',"
+          .$request['fromDateFromTime']."','"
+          .$request['toDate']."','"
+          .$request['toDateToTime']."',"
           .true.")";
 
 mysqli_free_result($result);

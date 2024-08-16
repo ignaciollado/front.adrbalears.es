@@ -17,7 +17,7 @@ $sql = "INSERT INTO `booking_service` (name, idCard, email, resourceBooked, from
           .$request['resourceToBook']."','"
           .$request['fromDate']."','"
           .$request['fromDateFromTime']."','"
-          .$request['toDate']."',"
+          .$request['toDate']."','"
           .$request['toDateToTime']."',"
           .true.")";
 
