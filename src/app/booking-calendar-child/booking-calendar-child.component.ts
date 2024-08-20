@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, Inject, TemplateRef, EventEmitter, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, Inject, TemplateRef, ElementRef, EventEmitter, ViewChild } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, finalize } from 'rxjs';
@@ -20,8 +20,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 
 export class BookingCalendarChildComponent {
-
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | undefined;
 
   minDate: Date
   minDateTo: Date
@@ -85,8 +83,8 @@ export class BookingCalendarChildComponent {
       },
     },
   ];
-
-   events: CalendarEvent[] = [
+ 
+  events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -165,7 +163,6 @@ export class BookingCalendarChildComponent {
     @Inject(MAT_DATE_LOCALE) private _locale: string,
 
     ) {
-
     this._locale = 'ca-ES'; /* 'es-ES' */
     this._adapter.setLocale(this._locale)
     this.theBooking = new BookingDTO( 0, '', '', '', this._adapter.today(), this._adapter.today());
@@ -203,7 +200,6 @@ export class BookingCalendarChildComponent {
       const currentDayTo = new Date(e.fromDate).getDate()
       this.minDateTo = new Date(currentYearTo, currentMonthTo, currentDayTo)
       this.resourceSelected(e.resourceToBook)
-      this.fromDateSelected(e.fromDate, e.resourceToBook)
     });
 
   }
@@ -215,6 +211,7 @@ export class BookingCalendarChildComponent {
   private loadBookingList() {
     let eventItem: CalendarEvent
     let myColor: any
+    let myTitle: string = ""
     /* this.events = [] */
     let errorResponse: any
 
@@ -223,25 +220,32 @@ export class BookingCalendarChildComponent {
     .subscribe(
          (bookings: BookingDTO[]) => {
            this.bookings = bookings
+           console.log ("Reservas: ", this.bookings)
            this.bookings.map( (event: any) => {
             switch(event.resourceBooked.split("#")[0]) {
               case 'red':
                 myColor = colors.red
+                myTitle = "SALA ROJA reservada desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime
                 break
               case 'blue':
                 myColor = colors.blue
+                myTitle = "SALA AZUL reservada desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime
                 break
               case 'white':
                 myColor = colors.white
+                myTitle = "SALA BLANCA reservada desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime
                 break
               case 'yellow':
                 myColor = colors.yellow
+                myTitle = "SALA AMARILLA reservada desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime
                 break
               case 'A':
                 myColor = colors.pavellonA
+                myTitle = "PAVELLÓN A reservado desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString()
                 break
               case 'B':
                 myColor = colors.pavellonB
+                myTitle = "PAVELLÓN B reservado desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString()
                 break
             }
             eventItem = {
@@ -249,10 +253,10 @@ export class BookingCalendarChildComponent {
               start: new Date(event.fromDate),
               end: new Date(event.toDate),
               /* end: addDays(new Date(event.toDate), 1), */
-              title: event.resourceBooked,
+              title: myTitle,
               color: myColor,
               allDay: event.allDay,
-              cssClass: 'my-custom-class',
+              cssClass: 'my-event-class',
               resizable: {
                 beforeStart: this.isbeforeStart,
                 afterEnd: this.isafterEnd,
@@ -260,6 +264,7 @@ export class BookingCalendarChildComponent {
               draggable: this.isDragable,
          }
           this.events.push(eventItem)
+          console.log ("this.events: ", this.events)
           })
          },
          (error: HttpErrorResponse) => {
@@ -275,15 +280,6 @@ export class BookingCalendarChildComponent {
     } else if (resource.split("#")[1] === 'pavillion') {
       this.showTime = false
     }
-
-  }
-
-  public fromDateSelected( resource: string, resourceType: string ) {
-    /* if(resource && resourceType.split("#")[1] === 'room') {
-      this.toDate.setValue(resource)
-    } else {
-      this.toDate.setValue('')
-    } */
   }
 
   /* events: CalendarEvent[] = [] */
@@ -293,6 +289,7 @@ export class BookingCalendarChildComponent {
   refresh = new Subject<void>();
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+    console.log ("day clicked", date)
     if (isSameMonth(date, this.viewDate)) {
       if ( (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||  events.length === 0 ) {
         this.activeDayIsOpen = false;
@@ -322,8 +319,8 @@ export class BookingCalendarChildComponent {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    this.modalData = { event, action }
+    document.getElementById("resourceDetail")!.innerHTML = "<span>" + event.title + "<br>" + event.start + "<br>" + event.end + "</span>"
   }
 
 /*   validateEventTimesChanged = (
@@ -456,6 +453,6 @@ export class BookingCalendarChildComponent {
     return day !== 0 && day !== 6;
     //0 means sunday
     //6 means saturday
-}
+  }
 }
 

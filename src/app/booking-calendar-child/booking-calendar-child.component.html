@@ -54,11 +54,13 @@
       <mat-form-field appearance="outline" *ngIf="showTime">
         <input matInput type="time" [formControl] = "toDateToTime">
       </mat-form-field>
+      <div>
+        <small class='alert'>** All reservations will remain pending validation. Once validated you will receive an informative email.</small>
+      </div>
     <section class="button-submit">
       <button mat-raised-button color="primary" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking proposal">Send</button>
     </section>
-
-    {{bookingForm.value | json}}
+    <small class='alert'>{{bookingForm.value | json}}</small>
   </form>
   <div class="theCalendar">
     <mwl-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate"></mwl-utils-calendar-header>
@@ -95,6 +97,10 @@
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-day-view>
     </div>
+  </div>
+
+  <div class='eventDetail' id="resourceDetail">
+
   </div>
 </div>
 
