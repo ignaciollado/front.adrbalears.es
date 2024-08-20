@@ -86,8 +86,8 @@ export class BookingCalendarChildComponent {
  
   events: CalendarEvent[] = [
     {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
+      start: subDays(startOfDay(new Date()), 0),
+      end: addDays(new Date(), 4),
       title: 'Reserva Pavellón A',
       color: colors.pavellonA,
       allDay: true,
@@ -97,7 +97,7 @@ export class BookingCalendarChildComponent {
       },
       draggable: this.isDragable,
     },
-    {
+   /*  {
       start: subDays(startOfDay(new Date()), 0),
       end: addDays(new Date(), 0),
       title: 'Reserva Pavellón B',
@@ -152,7 +152,7 @@ export class BookingCalendarChildComponent {
         afterEnd: this.isafterEnd,
       },
       draggable: this.isDragable,
-    },
+    }, */
   ];
 
   constructor(
@@ -212,7 +212,6 @@ export class BookingCalendarChildComponent {
     let eventItem: CalendarEvent
     let myColor: any
     let myTitle: string = ""
-    /* this.events = [] */
     let errorResponse: any
 
     this.bookingService.getAllBookings()
@@ -220,7 +219,6 @@ export class BookingCalendarChildComponent {
     .subscribe(
          (bookings: BookingDTO[]) => {
            this.bookings = bookings
-           console.log ("Reservas: ", this.bookings)
            this.bookings.map( (event: any) => {
             switch(event.resourceBooked.split("#")[0]) {
               case 'red':
@@ -249,12 +247,16 @@ export class BookingCalendarChildComponent {
                 break
             }
             eventItem = {
-              /* start: subDays(startOfDay(new Date( event.fromDate)), 1), */
-              start: new Date(event.fromDate),
-              end: new Date(event.toDate),
-              /* end: addDays(new Date(event.toDate), 1), */
               title: myTitle,
               color: myColor,
+              start: addHours(startOfDay(new Date(event.fromDate)), event.fromDateFromTime),
+              end: addHours(startOfDay(new Date(event.toDate)), event.toDateToTime),
+              //end: new Date(event.toDate),
+              /* start: subDays(startOfDay(new Date( event.fromDate)), 1), */
+              /* end: addDays(new Date(event.toDate), 1), */
+              meta: {
+                type: 'info'
+              },
               allDay: event.allDay,
               cssClass: 'my-event-class',
               resizable: {
@@ -264,7 +266,6 @@ export class BookingCalendarChildComponent {
               draggable: this.isDragable,
          }
           this.events.push(eventItem)
-          console.log ("this.events: ", this.events)
           })
          },
          (error: HttpErrorResponse) => {
@@ -320,7 +321,8 @@ export class BookingCalendarChildComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action }
-    document.getElementById("resourceDetail")!.innerHTML = "<span>" + event.title + "<br>" + event.start + "<br>" + event.end + "</span>"
+    document.getElementById("resourceDetail")?.classList.remove("ocultar")
+    document.getElementById("resourceDetail")!.innerHTML = event.title
   }
 
 /*   validateEventTimesChanged = (
