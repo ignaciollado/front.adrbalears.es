@@ -4,16 +4,16 @@ export const colors: any = {
       secondary: '#e3bc08',
     },
     red: {
-      primary: '#FF0000',
-      secondary: '#FFFFFF',
+      primary: '#ad2121',
+      secondary: '#FAE3E3',
     },
     blue: {
-      primary: '#0000FF',
-      secondary: '#FFFFFF',
+      primary: '#1e90ff',
+    secondary: '#D1E8FF',
     },
     yellow: {
-      primary: '#FFC436',
-      secondary: '#FFFFFF',
+      primary: '#e3bc08',
+      secondary: '#FDF1BA',
     },
     white: {
       primary: '#000000',
@@ -21,11 +21,11 @@ export const colors: any = {
     },
     pavellonA: {
       primary: '#D2DE32',
-      secondary: '#000000',
+      secondary: '#ffffff',
     },
     pavellonB: {
       primary: '#569700',
-      secondary: '#000000',
+      secondary: '#ffffff',
     }
   };
   

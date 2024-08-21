@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1724147070294,
+  "timestamp": 1724240039141,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -12,7 +12,7 @@
       },
       "urls": [
         "/index.html",
-        "/main.19487f6ae8ef9436.js",
+        "/main.237567781227caa0.js",
         "/manifest.webmanifest",
         "/polyfills.963c7bc622c70e51.js",
         "/runtime.c4e1692fd0f228b9.js",
@@ -61,15 +61,15 @@
     "/assets/icons/icon-96x96.png": "592885efcbfee27e5e20be4fa3043589390d2740",
     "/assets/icons/logo-adr-balears.png": "4c175478f8229724cd4ed1d831688c49e00dc1d5",
     "/assets/mocks/bookingItems.json": "e020bd21ebf3e461b9ce37be25bc2707a9976d1f",
-    "/assets/phpAPI/bookingCreate.php": "5102d6bba33a9e2cf28e86f9598fc6aeee0613ef",
+    "/assets/phpAPI/bookingCreate.php": "be8ef6eae16665a6894788bc49ad0b854ec1ba11",
     "/assets/phpAPI/bookingDelete.php": "e30a0f6dbdf56d6943ad05a24693c6a3e7b4c375",
     "/assets/phpAPI/bookingGetAll.php": "5e9cbc704be0c7e962c64221a5770003b05e81ee",
     "/assets/phpAPI/bookingGetByCompanyId.php": "a2e827afafce943166641610f915a37dc710c210",
     "/assets/phpAPI/bookingGetById.php": "543a57448d66b2370334e7c299baa305cecdd1aa",
     "/assets/phpAPI/bookingUpdate.php": "55b30fb9189ea81c5f828a99412163e5e2bf74aa",
     "/assets/phpAPI/conectar_a_bbdd.php": "a62ed2a11917357bff02a3e3c9d2177f1e4d274b",
-    "/index.html": "a57e1da31ce7acc164199c26c9a5414ed8124c44",
-    "/main.19487f6ae8ef9436.js": "b39f007d695a462020c5d81e135242afa3718d0d",
+    "/index.html": "fa82a6fed1ae6c8ab70ebd84ff4b4dc88e397de2",
+    "/main.237567781227caa0.js": "2fe40960f1777d933487f351c6ca78c007ab91bd",
     "/manifest.webmanifest": "b1df3c715d1c088872998afcea584131767acb14",
     "/polyfills.963c7bc622c70e51.js": "3ea8836d7a2dd7e11875fc9e2aecd3e611c91f98",
     "/runtime.c4e1692fd0f228b9.js": "da0ac87f56fd03b0862f91153f94691c1aa62ed6",

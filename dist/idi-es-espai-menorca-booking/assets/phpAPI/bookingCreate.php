@@ -19,7 +19,7 @@ $sql = "INSERT INTO `booking_service` (name, idCard, email, resourceBooked, from
           .$request['fromDateFromTime']."','"
           .$request['toDate']."','"
           .$request['toDateToTime']."',"
-          .true.")";
+          .false.")";
 
 mysqli_free_result($result);
 

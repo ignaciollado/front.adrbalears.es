@@ -1,9 +1,9 @@
 
 <div class="form-container-child">
   <form
-    [formGroup]="bookingForm"
-    (ngSubmit)="onSubmit()"
-    *ngIf="bookingForm">
+    [formGroup] = "bookingForm"
+    (ngSubmit) = "onSubmit()"
+    *ngIf = "bookingForm">
     <h2>Please, enter your booking selection:</h2>  
       <mat-form-field appearance="outline">
         <mat-label>Your name</mat-label>
@@ -42,7 +42,21 @@
         <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
       </mat-form-field>
       <mat-form-field appearance="outline" *ngIf="showTime">
-        <input matInput type="time" [formControl] = "fromDateFromTime">
+        <mat-select [formControl]="fromDateFromTime" id="fromDateFromTime">
+          <mat-option value="08.00">08.00</mat-option>
+          <mat-option value="09.00">09.00</mat-option>
+          <mat-option value="10.00">10.00</mat-option>
+          <mat-option value="11.00">11.00</mat-option>
+          <mat-option value="12.00">12.00</mat-option>
+          <mat-option value="13.00">13.00</mat-option>
+          <mat-option value="14.00">14.00</mat-option>
+          <mat-option value="15.00">15.00</mat-option>
+          <mat-option value="16.00">16.00</mat-option>
+          <mat-option value="17.00">17.00</mat-option>
+          <mat-option value="18.00">18.00</mat-option>
+          <mat-option value="19.00">19.00</mat-option>
+          <mat-option value="20.00">20.00</mat-option>
+        </mat-select>
       </mat-form-field>
       
       <mat-form-field appearance="outline">
@@ -52,16 +66,36 @@
         <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
       </mat-form-field>
       <mat-form-field appearance="outline" *ngIf="showTime">
-        <input matInput type="time" [formControl] = "toDateToTime">
+        <mat-select [formControl]="toDateToTime" id="toDateToTime">
+          <mat-option value="08.00">08.00</mat-option>
+          <mat-option value="09.00">09.00</mat-option>
+          <mat-option value="10.00">10.00</mat-option>
+          <mat-option value="11.00">11.00</mat-option>
+          <mat-option value="12.00">12.00</mat-option>
+          <mat-option value="13.00">13.00</mat-option>
+          <mat-option value="14.00">14.00</mat-option>
+          <mat-option value="15.00">15.00</mat-option>
+          <mat-option value="16.00">16.00</mat-option>
+          <mat-option value="17.00">17.00</mat-option>
+          <mat-option value="18.00">18.00</mat-option>
+          <mat-option value="19.00">19.00</mat-option>
+          <mat-option value="20.00">20.00</mat-option>
+        </mat-select>
       </mat-form-field>
       <div>
         <small class='alert'>** All reservations will remain pending validation. Once validated you will receive an informative email.</small>
       </div>
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [formControl]="acceptTerms">Accept terms and conditions</mat-checkbox>
+    </section>
     <section class="button-submit">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking proposal">Send</button>
+      <button mat-raised-button color="primary" id="submit" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking proposal">Send</button>
     </section>
     <small class='alert'>{{bookingForm.value | json}}</small>
+    <small class='alert'>{{bookingForm.status | json}}</small>
+
   </form>
+
   <div class="the-calendar">
     <mwl-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate"></mwl-utils-calendar-header>
     <div [ngSwitch]="view">
@@ -92,15 +126,13 @@
         [refresh]="refresh"
         [dayStartHour]="8"
         [dayEndHour]="18"
-        [hourSegments]="1"
+        [hourSegments]="4"
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-day-view>
     </div>
   </div>
 
-  <div class='event-detail ocultar' id="resourceDetail">
-
-  </div>
+  <div class='event-detail ocultar' id="resourceDetail"></div>
 </div>
 

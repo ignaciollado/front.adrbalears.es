@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, Inject, TemplateRef, ElementRef, EventEmitter, ViewChild } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, finalize } from 'rxjs';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarUtils, CalendarView } from 'angular-calendar';
 import { colors } from '../utils/colors';
-import { addDays, addHours, endOfDay, isSameDay, isSameMonth, setDay, startOfDay, subDays, subSeconds, } from 'date-fns';
+import { addDays, addHours, endOfDay, isSameDay, isSameMonth, setDay, startOfDay, subDays, subSeconds } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
 import { BookingDTO } from '../Models/booking.model';
 import { BookingService } from '../Services/booking.service';
@@ -15,8 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'app-booking-calendar-child',
   templateUrl: './booking-calendar-child.component.html',
   styleUrls: ['./booking-calendar-child.component.scss'],
-/*   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None, */
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class BookingCalendarChildComponent {
@@ -26,30 +25,29 @@ export class BookingCalendarChildComponent {
   maxDate: Date
   fromDate: FormControl
   fromDateFromTime!: FormControl
-  fromDateToTime!: FormControl
   toDate: FormControl
-  toDateFromTime!: FormControl
   toDateToTime!: FormControl
   resourceToBook: UntypedFormControl
   bookerName: UntypedFormControl
   idCard: UntypedFormControl
   bookerEMail: UntypedFormControl
   bookingForm: UntypedFormGroup
+  acceptTerms: FormControl<any>;
   modal: any;
   theBooking: BookingDTO
   bookings: BookingDTO[] = []
 
-  public disabled = false;
-  public showSpinners = true;
-  public showSeconds = false;
-  public stepHour = 1;
-  public stepMinute = 1;
-  public stepSecond = 1;
-  public enableMeridian = false;
-  public touchUi = false;
-  public disableMinute = false;
-  public showTime = false;
-  public color: ThemePalette = 'primary';
+  public disabled = false
+  public showSpinners = true
+  public showSeconds = false
+  public stepHour = .5
+  public stepMinute = 1
+  public stepSecond = 1
+  public enableMeridian = false
+  public touchUi = false
+  public disableMinute = false
+  public showTime = false
+  public color: ThemePalette = 'primary'
 
   view: CalendarView = CalendarView.Month
 
@@ -91,18 +89,20 @@ export class BookingCalendarChildComponent {
       title: 'Reserva Pavellón A',
       color: colors.pavellonA,
       allDay: true,
+      cssClass: 'event-class',
       resizable: {
         beforeStart: this.isbeforeStart,
         afterEnd: this.isafterEnd,
       },
       draggable: this.isDragable,
     },
-   /*  {
+    {
       start: subDays(startOfDay(new Date()), 0),
       end: addDays(new Date(), 0),
       title: 'Reserva Pavellón B',
       color: colors.pavellonB,
       allDay: true,
+      cssClass: 'event-class',
       resizable: {
         beforeStart: this.isbeforeStart,
         afterEnd: this.isafterEnd,
@@ -114,6 +114,8 @@ export class BookingCalendarChildComponent {
       end: subSeconds(addHours(startOfDay(setDay(new Date(), 3)), 16), 1),
       title: 'Reserva Sala GROGA',
       color: colors.yellow,
+      allDay: false,
+      cssClass: 'event-class',
       resizable: {
         beforeStart: this.isbeforeStart,
         afterEnd: this.isafterEnd,
@@ -125,6 +127,8 @@ export class BookingCalendarChildComponent {
       end: subSeconds(addHours(startOfDay(setDay(new Date(), 3)), 18), 1),
       title: 'Reserva sala BLAVA',
       color: colors.blue,
+      allDay: false,
+      cssClass: 'event-class',
       resizable: {
         beforeStart: this.isbeforeStart,
         afterEnd: this.isafterEnd,
@@ -134,8 +138,10 @@ export class BookingCalendarChildComponent {
     {
       start: addHours(startOfDay(setDay(new Date(), 3)), 10),
       end: subSeconds(addHours(startOfDay(setDay(new Date(), 3)), 11), 1),
-      title: 'Reserva sala VERMELLA',
+      title: `<b>SALA VERMELLA</b><br>reserva desde el 21/08/2024  a las 09.30 hasta el 21/08/2024 a las 10.30<br>estado: Pending`,
       color: colors.red,
+      allDay: false,
+      cssClass: 'event-class',
       resizable: {
         beforeStart: this.isbeforeStart,
         afterEnd: this.isafterEnd,
@@ -147,15 +153,17 @@ export class BookingCalendarChildComponent {
       end: subSeconds(addHours(startOfDay(setDay(new Date(), 3)), 9), 1),
       title: 'Reserva sala BLANCA',
       color: colors.white,
+      allDay: false,
+      cssClass: 'event-class',
       resizable: {
         beforeStart: this.isbeforeStart,
         afterEnd: this.isafterEnd,
       },
       draggable: this.isDragable,
-    }, */
+    },
   ];
 
-  constructor(
+  constructor (
     private formBuilder: UntypedFormBuilder,
     private bookingService: BookingService,
     private sharedService: SharedService,
@@ -163,9 +171,9 @@ export class BookingCalendarChildComponent {
     @Inject(MAT_DATE_LOCALE) private _locale: string,
 
     ) {
-    this._locale = 'ca-ES'; /* 'es-ES' */
+    this._locale = 'es'; /* 'es-ES' */
     this._adapter.setLocale(this._locale)
-    this.theBooking = new BookingDTO( 0, '', '', '', this._adapter.today(), this._adapter.today());
+    this.theBooking = new BookingDTO( 0, '', '', '', this._adapter.today(), this._adapter.today(), false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
     const currentDay = new Date().getDate()
@@ -182,6 +190,7 @@ export class BookingCalendarChildComponent {
     this.fromDateFromTime = new FormControl('')
     this.toDate = new FormControl<Date | null>(null, [ Validators.required])
     this.toDateToTime = new FormControl('')
+    this.acceptTerms = new FormControl(false, [Validators.requiredTrue])
 
     this.bookingForm = this.formBuilder.group ({
       bookerName: this.bookerName,
@@ -192,6 +201,7 @@ export class BookingCalendarChildComponent {
       fromDateFromTime : this.fromDateFromTime,
       toDate: this.toDate,
       toDateToTime : this.toDateToTime,
+      acceptTerms: this.acceptTerms,
     })
 
     this.bookingForm.valueChanges.subscribe((e) => {
@@ -201,7 +211,6 @@ export class BookingCalendarChildComponent {
       this.minDateTo = new Date(currentYearTo, currentMonthTo, currentDayTo)
       this.resourceSelected(e.resourceToBook)
     });
-
   }
 
   ngOnInit() {
@@ -223,49 +232,47 @@ export class BookingCalendarChildComponent {
             switch(event.resourceBooked.split("#")[0]) {
               case 'red':
                 myColor = colors.red
-                myTitle = "SALA ROJA reservada desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime
+                myTitle = `<b>SALA VERMELLA</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: ${event.state}`
                 break
               case 'blue':
                 myColor = colors.blue
-                myTitle = "SALA AZUL reservada desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime
+                myTitle = "<b>SALA BLAVA</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
                 break
               case 'white':
                 myColor = colors.white
-                myTitle = "SALA BLANCA reservada desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime
+                myTitle = "<b>SALA BLANCA</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
                 break
               case 'yellow':
                 myColor = colors.yellow
-                myTitle = "SALA AMARILLA reservada desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime
+                myTitle = "<b>SALA GROGA</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
                 break
               case 'A':
                 myColor = colors.pavellonA
-                myTitle = "PAVELLÓN A reservado desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString()
+                myTitle = "<b>PAVELLÓN A</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString()
                 break
               case 'B':
                 myColor = colors.pavellonB
-                myTitle = "PAVELLÓN B reservado desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString()
+                myTitle = "<b>PAVELLÓN B</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString()
                 break
             }
             eventItem = {
-              title: myTitle,
-              color: myColor,
-              start: addHours(startOfDay(new Date(event.fromDate)), event.fromDateFromTime),
-              end: addHours(startOfDay(new Date(event.toDate)), event.toDateToTime),
-              //end: new Date(event.toDate),
-              /* start: subDays(startOfDay(new Date( event.fromDate)), 1), */
-              /* end: addDays(new Date(event.toDate), 1), */
+              title:  myTitle,
+              color:  myColor,
+              start:  addHours((new Date(event.fromDate)), (event.fromDateFromTime-2)),
+              end:    addHours((new Date(event.toDate)), (event.toDateToTime-2)),
               meta: {
                 type: 'info'
               },
-              allDay: event.allDay,
-              cssClass: 'my-event-class',
+              allDay: false,
+              cssClass: 'event-class',
               resizable: {
                 beforeStart: this.isbeforeStart,
                 afterEnd: this.isafterEnd,
               },
               draggable: this.isDragable,
-         }
+            }
           this.events.push(eventItem)
+          this.refresh.next() /* Para que en la primera carga del calendario pinte los eventos que hay en la bbdd */
           })
          },
          (error: HttpErrorResponse) => {
@@ -285,14 +292,13 @@ export class BookingCalendarChildComponent {
 
   /* events: CalendarEvent[] = [] */
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
   refresh = new Subject<void>();
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    console.log ("day clicked", date)
     if (isSameMonth(date, this.viewDate)) {
-      if ( (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||  events.length === 0 ) {
+      if ( (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0 ) {
         this.activeDayIsOpen = false;
       } else {
         this.activeDayIsOpen = true;
@@ -325,7 +331,8 @@ export class BookingCalendarChildComponent {
     document.getElementById("resourceDetail")!.innerHTML = event.title
   }
 
-/*   validateEventTimesChanged = (
+
+  /*   validateEventTimesChanged = (
     { event, newStart, newEnd, allDay }: CalendarEventTimesChangedEvent,
     addCssClass = true
   ) => {
@@ -397,10 +404,7 @@ export class BookingCalendarChildComponent {
 
     if (this.resourceToBook.value.split("#")[1] === 'room') {
       resourceColor = "colors."+ this.resourceToBook.value.split("#")[0]
-    } else if (this.resourceToBook.value === 'pavillion') {
-      //alert (`vas a reservar el pavellón ${resource.split("#")[0]}`)
     }
-    console.log (this.resourceToBook.value, this.resourceToBook.value.split("#")[1], this.resourceToBook.value.split("#")[0], resourceColor)
     this.events = [
       ...this.events,
       {
@@ -436,7 +440,7 @@ export class BookingCalendarChildComponent {
             this.fromDate.reset()
             this.fromDateFromTime.reset()
             this.toDate.reset()
-            this.toDateFromTime.reset()
+            this.toDateToTime.reset()
             this.bookerName.reset()
             this.bookerEMail.reset()
             this.idCard.reset()
@@ -450,7 +454,7 @@ export class BookingCalendarChildComponent {
   }
 
   weekEndFilter: (date: Date | null) => boolean =
-  (date: Date | null) => {
+    (date: Date | null) => {
     const day = date?.getDay();
     return day !== 0 && day !== 6;
     //0 means sunday

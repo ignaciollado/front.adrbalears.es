@@ -1,5 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { BookingCalendarChildComponent } from './booking-calendar-child/booking-calendar-child.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
@@ -44,6 +45,7 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-mat
         MatInputModule,
         MatButtonModule,
         MatTooltipModule,
+        MatCheckboxModule,
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         
