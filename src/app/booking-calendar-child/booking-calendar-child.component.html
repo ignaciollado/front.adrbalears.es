@@ -30,8 +30,9 @@
           <mat-option value="yellow#room">Sala GROGA</mat-option>
           <mat-option value="red#room">Sala VERMELLA</mat-option>
           <mat-option value="blue#room">Sala BLAVA</mat-option>
-          <mat-option value="A#pavillion">Pavellón A</mat-option>
-          <mat-option value="B#pavillion">Pavellón B</mat-option>
+          <mat-option value="A#pavillion">Pavelló A</mat-option>
+          <mat-option value="B#pavillion">Pavelló B</mat-option>
+          <mat-option value="AB#pavillion">Pavelló A + B</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -91,9 +92,9 @@
     <section class="button-submit">
       <button mat-raised-button color="primary" id="submit" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking proposal">Send</button>
     </section>
-    <small class='alert'>{{bookingForm.value | json}}</small>
-    <small class='alert'>{{bookingForm.status | json}}</small>
-
+<!--     <small class='alert'>{{bookingForm.value | json}}</small>
+    <small class='alert'>{{bookingForm.status | json}}</small> -->
+    <span id="postFeedback"></span>
   </form>
 
   <div class="the-calendar">

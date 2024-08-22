@@ -11,7 +11,7 @@ export class BookingDTO {
     toDate: Date
     toDateToTime!: number
     allDay!: boolean
-    state!: string
+    state: string
     acceptTerms: boolean
 
 
@@ -22,14 +22,16 @@ export class BookingDTO {
       resource: string,
       fromDate: Date,
       toDate: Date,
+      state: string,
       acceptTerms: boolean
-      ) {
-        this.idCard = idCard,
-        this.name = name,
-        this.email = email,
-        this.resource = resource,
-        this.fromDate = fromDate,
-        this.toDate = toDate,
-        this.acceptTerms = acceptTerms
-      }
+    ) {
+      this.idCard = idCard,
+      this.name = name,
+      this.email = email,
+      this.resource = resource,
+      this.fromDate = fromDate,
+      this.toDate = toDate,
+      this.state = state,
+      this.acceptTerms = acceptTerms
+    }
 }

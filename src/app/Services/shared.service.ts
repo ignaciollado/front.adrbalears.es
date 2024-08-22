@@ -18,30 +18,30 @@ export interface ResponseError {
 export class SharedService {
   constructor() {}
 
-  async managementToast( element: string, validRequest: boolean, error?: ResponseError ): Promise<void> {
+  async managementToast( element: string, validRequest: boolean, error?: HttpErrorResponse ): Promise<void> {
     const toastMsg = document.getElementById(element);
     if (toastMsg) {
       if (validRequest) {
         toastMsg.className = 'show requestOk';
-        toastMsg.textContent = 'Form submitted successfully.';
+        toastMsg.textContent = 'Booking submitted in PENDING state.';
         await this.wait(4500);
         toastMsg.className = toastMsg.className.replace('show', '');
       } else {
         toastMsg.className = 'show requestKo';
-        if (error?.messageDetail) {
+        if (error?.status) {
           toastMsg.textContent =
-            'Error on form submitted, show logs. Message: ' +
+            'Error on form submitted. Message: ' +
             error?.message +
             '. Message detail: ' +
-            error?.messageDetail +
+            error?.statusText +
             '. Status code: ' +
-            error?.statusCode;
+            error?.status;
         } else {
           toastMsg.textContent =
-            'Error on form submitted, show logs. Message: ' +
+            'Error on form submitted. Message: ' +
             error?.message +
-            '. Status code: ' +
-            error?.statusCode;
+            '. Status text: ' +
+            error?.statusText;
         }
 
         await this.wait(4500);
@@ -50,12 +50,12 @@ export class SharedService {
     }
   }
 
-  errorLog(error: ResponseError): void {
-    console.error('path:', error.path);
-    console.error('timestamp:', error.timestamp);
+  errorLog(error: HttpErrorResponse): void {
+    console.error('name:', error.name);
+    console.error('type:', error.type);
     console.error('message:', error.message);
-    console.error('messageDetail:', error.messageDetail);
-    console.error('statusCode:', error.statusCode);
+    console.error('status:', error.status);
+    console.error('statusText:', error.statusText);
   }
 
   async wait(ms: number) {

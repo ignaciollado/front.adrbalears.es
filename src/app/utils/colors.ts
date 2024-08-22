@@ -26,6 +26,10 @@ export const colors: any = {
     pavellonB: {
       primary: '#569700',
       secondary: '#ffffff',
+    },
+    pavellonAB: {
+      primary: '#FA06B1',
+      secondary: '#D2DE32',
     }
   };
   

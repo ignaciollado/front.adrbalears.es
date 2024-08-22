@@ -10,6 +10,7 @@ import { BookingDTO } from '../Models/booking.model';
 import { BookingService } from '../Services/booking.service';
 import { SharedService } from '../Services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { EmailManagementService } from '../Services/emailManagement.service';
 
 @Component({
   selector: 'app-booking-calendar-child',
@@ -83,7 +84,7 @@ export class BookingCalendarChildComponent {
   ];
  
   events: CalendarEvent[] = [
-    {
+   /*  {
       start: subDays(startOfDay(new Date()), 0),
       end: addDays(new Date(), 4),
       title: 'Reserva Pavellón A',
@@ -160,7 +161,7 @@ export class BookingCalendarChildComponent {
         afterEnd: this.isafterEnd,
       },
       draggable: this.isDragable,
-    },
+    }, */
   ];
 
   constructor (
@@ -169,14 +170,14 @@ export class BookingCalendarChildComponent {
     private sharedService: SharedService,
     private _adapter: DateAdapter<any>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
-
+    private emailManagementService: EmailManagementService
     ) {
     this._locale = 'es'; /* 'es-ES' */
     this._adapter.setLocale(this._locale)
-    this.theBooking = new BookingDTO( 0, '', '', '', this._adapter.today(), this._adapter.today(), false);
+    this.theBooking = new BookingDTO( 0, '', '', '', this._adapter.today(), this._adapter.today(), 'Pending', false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
-    const currentDay = new Date().getDate()
+    const currentDay = new Date().getDate()+1
 
     this.minDate = new Date(currentYear, currentMonth, currentDay)
     this.minDateTo = this.minDate
@@ -231,29 +232,61 @@ export class BookingCalendarChildComponent {
            this.bookings.map( (event: any) => {
             switch(event.resourceBooked.split("#")[0]) {
               case 'red':
-                myColor = colors.red
-                myTitle = `<b>SALA VERMELLA</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: ${event.state}`
+                if (event.state === 'Pending') {
+                  myColor = colors.grey
+                } else {
+                  myColor = colors.red
+                }
+                myTitle = `<b>-SALA VERMELLA-</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: *${event.state}*`
                 break
               case 'blue':
-                myColor = colors.blue
-                myTitle = "<b>SALA BLAVA</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                if (event.state === 'Pending') {
+                  myColor = colors.grey
+                } else {
+                  myColor = colors.blue
+                }
+                myTitle = "<b>-SALA BLAVA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
                 break
               case 'white':
-                myColor = colors.white
-                myTitle = "<b>SALA BLANCA</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                if (event.state === 'Pending') {
+                  myColor = colors.grey
+                } else {
+                  myColor = colors.white
+                }
+                myTitle = "<b>-SALA BLANCA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
                 break
               case 'yellow':
-                myColor = colors.yellow
-                myTitle = "<b>SALA GROGA</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                if (event.state === 'Pending') {
+                  myColor = colors.grey
+                } else {
+                  myColor = colors.yellow
+                }
+                myTitle = "<b>-SALA GROGA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
                 break
               case 'A':
-                myColor = colors.pavellonA
-                myTitle = "<b>PAVELLÓN A</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString()
+                if (event.state === 'Pending') {
+                  myColor = colors.grey
+                } else {
+                  myColor = colors.pavellonA
+                }
+                myTitle = "<b>-PAVELLÓ A-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
                 break
               case 'B':
-                myColor = colors.pavellonB
-                myTitle = "<b>PAVELLÓN B</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString()
+                if (event.state === 'Pending') {
+                  myColor = colors.grey
+                } else {
+                  myColor = colors.pavellonB
+                }
+                myTitle = "<b>-PAVELLÓ B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
                 break
+                case 'AB':
+                  if (event.state === 'Pending') {
+                    myColor = colors.grey
+                  } else {
+                    myColor = colors.pavellonAB
+                  }
+                  myTitle = "<b>-PAVELLÓNS A + B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
+                  break                
             }
             eventItem = {
               title:  myTitle,
@@ -263,7 +296,7 @@ export class BookingCalendarChildComponent {
               meta: {
                 type: 'info'
               },
-              allDay: false,
+              allDay: event.allDay,
               cssClass: 'event-class',
               resizable: {
                 beforeStart: this.isbeforeStart,
@@ -402,10 +435,10 @@ export class BookingCalendarChildComponent {
   onSubmit():void {
     let resourceColor: any
 
-    if (this.resourceToBook.value.split("#")[1] === 'room') {
+    /* if (this.resourceToBook.value.split("#")[1] === 'room') { */
       resourceColor = "colors."+ this.resourceToBook.value.split("#")[0]
-    }
-    this.events = [
+    /* } */
+/*     this.events = [
       ...this.events,
       {
         title: this.resourceToBook.value+"<br>...PENDING CONFIRMATION !!!",
@@ -418,11 +451,13 @@ export class BookingCalendarChildComponent {
           afterEnd: this.isafterEnd,
         },
       },
-    ];
+    ]; */
 
     let errorResponse: any
     let responseOK: boolean = false
     this.theBooking = this.bookingForm.value
+    this.theBooking.fromDate.setDate(this.theBooking.fromDate.getDate()+1)
+    this.theBooking.toDate.setDate(this.theBooking.toDate.getDate()+1)
     this.bookingService.createBooking(this.theBooking)
         .pipe(
           finalize(async () => {
@@ -431,6 +466,12 @@ export class BookingCalendarChildComponent {
               responseOK,
               errorResponse
             );
+            if (responseOK) {
+              this.emailManagementService.sendCustomerEmail(this.bookingForm)
+              .subscribe((sendMailResult:any) => {
+                console.log("sendMailResult: ", sendMailResult)
+              })
+            }
           })
         )
         .subscribe(
@@ -447,7 +488,8 @@ export class BookingCalendarChildComponent {
             this.loadBookingList()
           },
           (error: HttpErrorResponse) => {
-            errorResponse = error.error;
+            errorResponse = error;
+            console.log (errorResponse, error.status, error.statusText)
             this.sharedService.errorLog(errorResponse);
           }
         );
