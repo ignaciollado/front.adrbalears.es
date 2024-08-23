@@ -11,6 +11,7 @@ import { BookingService } from '../Services/booking.service';
 import { SharedService } from '../Services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EmailManagementService } from '../Services/emailManagement.service';
+import { EventColor } from 'calendar-utils';
 
 @Component({
   selector: 'app-booking-calendar-child',
@@ -210,7 +211,9 @@ export class BookingCalendarChildComponent {
       const currentMonthTo = new Date(e.fromDate).getMonth()
       const currentDayTo = new Date(e.fromDate).getDate()
       this.minDateTo = new Date(currentYearTo, currentMonthTo, currentDayTo)
-      this.resourceSelected(e.resourceToBook)
+      if (e.resourceToBook) {
+        this.resourceSelected(e.resourceToBook)
+      }
     });
   }
 
@@ -220,74 +223,79 @@ export class BookingCalendarChildComponent {
 
   private loadBookingList() {
     let eventItem: CalendarEvent
-    let myColor: any
+    let myColor: EventColor
     let myTitle: string = ""
     let errorResponse: any
+    this.events = []
 
     this.bookingService.getAllBookings()
     .pipe( )
     .subscribe(
-         (bookings: BookingDTO[]) => {
-           this.bookings = bookings
-           this.bookings.map( (event: any) => {
-            switch(event.resourceBooked.split("#")[0]) {
-              case 'red':
-                if (event.state === 'Pending') {
-                  myColor = colors.grey
-                } else {
-                  myColor = colors.red
-                }
-                myTitle = `<b>-SALA VERMELLA-</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: *${event.state}*`
-                break
-              case 'blue':
-                if (event.state === 'Pending') {
-                  myColor = colors.grey
-                } else {
-                  myColor = colors.blue
-                }
-                myTitle = "<b>-SALA BLAVA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                break
-              case 'white':
-                if (event.state === 'Pending') {
-                  myColor = colors.grey
-                } else {
-                  myColor = colors.white
-                }
-                myTitle = "<b>-SALA BLANCA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                break
-              case 'yellow':
-                if (event.state === 'Pending') {
-                  myColor = colors.grey
-                } else {
-                  myColor = colors.yellow
-                }
-                myTitle = "<b>-SALA GROGA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                break
-              case 'A':
-                if (event.state === 'Pending') {
-                  myColor = colors.grey
-                } else {
-                  myColor = colors.pavellonA
-                }
-                myTitle = "<b>-PAVELLÓ A-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
-                break
-              case 'B':
-                if (event.state === 'Pending') {
-                  myColor = colors.grey
-                } else {
-                  myColor = colors.pavellonB
-                }
-                myTitle = "<b>-PAVELLÓ B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
-                break
-                case 'AB':
+        (bookings: BookingDTO[]) => {
+
+          this.bookings = bookings
+          if (this.bookings) {
+            this.bookings.map( (event: any) => {
+            /* if (event.resourceBooked) { */
+                switch(event.resourceBooked.split("-")[0]) {
+                case 'red':
                   if (event.state === 'Pending') {
                     myColor = colors.grey
                   } else {
-                    myColor = colors.pavellonAB
+                    myColor = colors.red
                   }
-                  myTitle = "<b>-PAVELLÓNS A + B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
-                  break                
-            }
+                  myTitle = `<b>-SALA VERMELLA-</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: *${event.state}*`
+                  break
+                case 'blue':
+                  if (event.state === 'Pending') {
+                    myColor = colors.grey
+                  } else {
+                    myColor = colors.blue
+                  }
+                  myTitle = "<b>-SALA BLAVA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                  break
+                case 'white':
+                  if (event.state === 'Pending') {
+                    myColor = colors.grey
+                  } else {
+                    myColor = colors.white
+                  }
+                  myTitle = "<b>-SALA BLANCA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                  break
+                case 'yellow':
+                  if (event.state === 'Pending') {
+                    myColor = colors.grey
+                  } else {
+                    myColor = colors.yellow
+                  }
+                  myTitle = "<b>-SALA GROGA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                  break
+                case 'A':
+                  if (event.state === 'Pending') {
+                    myColor = colors.grey
+                  } else {
+                    myColor = colors.pavellonA
+                  }
+                  myTitle = "<b>-PAVELLÓ A-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
+                  break
+                case 'B':
+                  if (event.state === 'Pending') {
+                    myColor = colors.grey
+                  } else {
+                    myColor = colors.pavellonB
+                  }
+                  myTitle = "<b>-PAVELLÓ B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
+                  break
+                  case 'AB':
+                    if (event.state === 'Pending') {
+                      myColor = colors.grey
+                    } else {
+                      myColor = colors.pavellonAB
+                    }
+                    myTitle = "<b>-PAVELLÓNS A + B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
+                    break                
+                }
+            /* } */
             eventItem = {
               title:  myTitle,
               color:  myColor,
@@ -296,7 +304,7 @@ export class BookingCalendarChildComponent {
               meta: {
                 type: 'info'
               },
-              allDay: event.allDay,
+              allDay: false,
               cssClass: 'event-class',
               resizable: {
                 beforeStart: this.isbeforeStart,
@@ -304,10 +312,12 @@ export class BookingCalendarChildComponent {
               },
               draggable: this.isDragable,
             }
-          this.events.push(eventItem)
-          this.refresh.next() /* Para que en la primera carga del calendario pinte los eventos que hay en la bbdd */
+            this.events.push(eventItem)
+            this.refresh.next() /* Para que en la primera carga del calendario pinte los eventos que hay en la bbdd */
           })
-         },
+        }
+         
+        },
          (error: HttpErrorResponse) => {
            errorResponse = error.error;
            this.sharedService.errorLog(errorResponse)
@@ -316,11 +326,13 @@ export class BookingCalendarChildComponent {
   }
 
   public resourceSelected( resource: string ) {
-    if (resource.split("#")[1] === 'room') {
-      this.showTime = true
-    } else if (resource.split("#")[1] === 'pavillion') {
-      this.showTime = false
-    }
+
+      if (resource.split("-")[1] === 'room') {
+        this.showTime = true
+      } else if (resource.split("-")[1] === 'pavillion') {
+        this.showTime = false
+      }
+
   }
 
   /* events: CalendarEvent[] = [] */
@@ -434,11 +446,10 @@ export class BookingCalendarChildComponent {
 
   onSubmit():void {
     let resourceColor: any
-
-    /* if (this.resourceToBook.value.split("#")[1] === 'room') { */
-      resourceColor = "colors."+ this.resourceToBook.value.split("#")[0]
-    /* } */
-/*     this.events = [
+    if (this.resourceToBook) {
+      resourceColor = "colors."+ this.resourceToBook.value.split("-")[0]
+    }
+    /* this.events = [
       ...this.events,
       {
         title: this.resourceToBook.value+"<br>...PENDING CONFIRMATION !!!",
@@ -467,9 +478,13 @@ export class BookingCalendarChildComponent {
               errorResponse
             );
             if (responseOK) {
-              this.emailManagementService.sendCustomerEmail(this.bookingForm)
+              this.emailManagementService.sendCustomerEmail(this.theBooking)
               .subscribe((sendMailResult:any) => {
                 console.log("sendMailResult: ", sendMailResult)
+              },
+              (error: HttpErrorResponse) => {
+                errorResponse = error;
+                this.sharedService.errorLog(errorResponse);
               })
             }
           })
@@ -489,7 +504,6 @@ export class BookingCalendarChildComponent {
           },
           (error: HttpErrorResponse) => {
             errorResponse = error;
-            console.log (errorResponse, error.status, error.statusText)
             this.sharedService.errorLog(errorResponse);
           }
         );

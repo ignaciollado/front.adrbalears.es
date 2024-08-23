@@ -30,30 +30,29 @@ export class SharedService {
         toastMsg.className = 'show requestKo';
         if (error?.status) {
           toastMsg.textContent =
-            'Error on form submitted. Message: ' +
-            error?.message +
-            '. Message detail: ' +
+            'Error. Message: ' +
+            error?.name +
+            '. Status text: ' +
             error?.statusText +
             '. Status code: ' +
             error?.status;
         } else {
           toastMsg.textContent =
-            'Error on form submitted. Message: ' +
-            error?.message +
+            'Error. Message: ' +
+            error?.name +
             '. Status text: ' +
             error?.statusText;
         }
 
-        await this.wait(4500);
+        await this.wait(16500);
         toastMsg.className = toastMsg.className.replace('show', '');
       }
     }
   }
 
   errorLog(error: HttpErrorResponse): void {
-    console.error('name:', error.name);
-    console.error('type:', error.type);
-    console.error('message:', error.message);
+    console.error('ok:', error.ok);
+    console.error('type:', error.name);
     console.error('status:', error.status);
     console.error('statusText:', error.statusText);
   }

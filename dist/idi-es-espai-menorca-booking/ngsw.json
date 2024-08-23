@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1724322489519,
+  "timestamp": 1724404732823,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -12,7 +12,7 @@
       },
       "urls": [
         "/index.html",
-        "/main.5b671e9cbffdcff6.js",
+        "/main.a4267a1747bdcc5b.js",
         "/manifest.webmanifest",
         "/polyfills.963c7bc622c70e51.js",
         "/runtime.c4e1692fd0f228b9.js",
@@ -68,8 +68,8 @@
     "/assets/phpAPI/bookingGetById.php": "543a57448d66b2370334e7c299baa305cecdd1aa",
     "/assets/phpAPI/bookingUpdate.php": "55b30fb9189ea81c5f828a99412163e5e2bf74aa",
     "/assets/phpAPI/conectar_a_bbdd.php": "a62ed2a11917357bff02a3e3c9d2177f1e4d274b",
-    "/index.html": "f5e2e1466bf51e8b2d7de4a91172a5768f6593b2",
-    "/main.5b671e9cbffdcff6.js": "defda4e84294693a6bb42021384b0a1e19678686",
+    "/index.html": "b276845b46800ff826702f8c68846a9ed5e078a8",
+    "/main.a4267a1747bdcc5b.js": "5d025772a7455b8ae3e0bea131a7d3c7d7700daa",
     "/manifest.webmanifest": "b1df3c715d1c088872998afcea584131767acb14",
     "/polyfills.963c7bc622c70e51.js": "3ea8836d7a2dd7e11875fc9e2aecd3e611c91f98",
     "/runtime.c4e1692fd0f228b9.js": "da0ac87f56fd03b0862f91153f94691c1aa62ed6",
