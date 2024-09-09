@@ -1,0 +1,61 @@
+footer {
+  z-index: +9999;
+  background-color: #fff;
+  opacity: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-areas: "logoBottom localizacionBottom socialMedia textosLegales";
+  text-align: left;
+  margin-bottom: .5rem;
+  margin-top: 4rem;
+}
+
+.logo-adr-balears {
+  grid-area: logoBottom;
+}
+
+.localizacion-adr-balears {
+  grid-area: localizacionBottom;
+  padding-left: 3rem;
+}
+
+.social-media {
+  grid-area: socialMedia;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding-left: 0;
+  color: red;
+}
+
+.textos-legales {
+  grid-area: textosLegales;
+  display: grid;
+  padding-left: 5rem;
+}
+
+
+@media screen and (max-width: 795px) {
+  footer{
+    grid-template-columns: 100%;
+    grid-template-areas: "logoBottom" "localizacionBottom" "socialMedia" "textosLegales";
+    text-align: center;
+  }
+  .localizacion-adr-balears {
+    margin-top: 2rem;
+    padding-left: 0;
+  }
+  .social-media {
+    margin-top: 3rem;
+  }
+  .textos-legales {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding-left: 0;
+  }
+  .logoFeder {
+    padding-left: 0;
+    width: 30%;
+  }
+  
+}

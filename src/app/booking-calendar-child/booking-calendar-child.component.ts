@@ -34,7 +34,7 @@ export class BookingCalendarChildComponent {
   idCard: UntypedFormControl
   bookerEMail: UntypedFormControl
   bookingForm: UntypedFormGroup
-  acceptTerms: FormControl<any>;
+  acceptTerms: FormControl<any>
   modal: any;
   theBooking: BookingDTO
   bookings: BookingDTO[] = []
@@ -480,7 +480,6 @@ export class BookingCalendarChildComponent {
             if (responseOK) {
               this.emailManagementService.sendCustomerEmail(this.theBooking)
               .subscribe((sendMailResult:any) => {
-                console.log("sendMailResult: ", sendMailResult)
               },
               (error: HttpErrorResponse) => {
                 errorResponse = error;

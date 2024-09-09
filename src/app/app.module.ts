@@ -22,13 +22,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BookingCalendarChildComponent } from './booking-calendar-child/booking-calendar-child.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { DissenyFormComponent } from './disseny-form/disseny-form.component';
+import { BodyComponent } from './body/body.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-       
         FormatBookingPipe,
         BookingCalendarChildComponent,
+        DissenyFormComponent,
+        BodyComponent,
+        FooterComponent
     ],
     providers: [],
     bootstrap: [AppComponent],

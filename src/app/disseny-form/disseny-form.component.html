@@ -1,0 +1,229 @@
+<h1>Registre de sol·licituds de disseny per part de les direccions generals de CAIB per al Servei de Disseny Gràfic i Audiovisual de l'ADR BALEARS.</h1>
+<form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col mb-3">
+      <div class="form-group">
+        <label for="contactName">
+          <span *ngIf="currentLang === 'es-ES'">Entidad/organismo</span>
+          <span *ngIf="currentLang === 'ca-ES'">Entitat/organisme</span>
+        </label>
+      <select class="form-select form-select-lg mb-3" formControlName="agency" aria-label="Default select example" [ngClass]="f['agency'].errors ? 'is-invalid':'is-valid'">
+        <option disabled selected>Per favor, seleccioni un</option>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Presidència Govern de les Illes Balears">
+          <option value="1">Gabinet de la Presidència</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Economia, Hisenda i Innovació">
+          <option value="2">Secretaria General</option>
+          <option value="3">Direcció General d'Economia i Estadística</option>
+          <option value="4">Direcció General de Pressuposts i Finançament</option>
+          <option value="5">Direcció General del Tresor, Política Financera i Patrimoni</option>
+          <option value="6">Direcció General de Fons Europeus</option>
+          <option value="7">Direcció General d'Estratègia Digital i Simplificació Administrativa</option>
+          <option value="8">Direcció General d'Innovació i Transformació Digital</option>
+          <option value="9">Intervenció General de la Comunitat Autònoma de les Illes Balears</option>
+          <option value="10">Junta Superior d’Hisenda de les Illes Balears</option>
+          <option value="11">Agència Tributària de les Illes Balears (ATIB)</option>
+          <option value="12">Institut d'Estadística de les Illes Balears (IBESTAT)</option>
+          <option value="13">Fundació Balear d'Innovació i Tecnologia (FBIT)</option>
+          <option value="14">Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de Presidència i Administracions Públiques">
+          <option value="15">Secretaria General</option>
+          <option value="16">Direcció General de Coordinació i Transparència</option>
+          <option value="17">Direcció General de Relacions Institucionals i de Relacions amb el Parlament</option>
+          <option value="18">Direcció General de Funció Pública</option>
+          <option value="19">Direcció General d'Emergències i Interior</option>
+          <option value="20">Direcció de l'Advocacia de la Comunitat Autònoma de les Illes Balears</option>
+          <option value="21">Escola Balear d'Administració Pública (EBAP)</option>
+          <option value="22">Ens Públic de Radiotelevisió de les Illes Balears (EPRTVIB)</option>
+          <option value="23">Gestió d'Emergències de les Illes Balears (GEIBSAU)</option>
+          <option value="24">Fundació Illes Balears d'Acció Exterior (FIBAE)</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Empresa, Ocupació i Energia">
+          <option value="25">Secretaria General</option>
+          <option value="26">Secretaria Autonòmica de Treball, Ocupació i Diàleg Social</option>
+          <option value="27">Direcció General d'Indústria i Polígons Industrials</option>
+          <option value="28">Direcció General d'Economia Circular, Transició Energètica i Canvi Climàtic</option>
+          <option value="29">Agència de Desenvolupament Regional de les Illes Balears (ADRBalears)</option>
+          <option value="30">Institut Balear de l'Energia (IBE)</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de Salut">
+          <option value="31">Secretaria General</option>
+          <option value="32">Direcció General de Salut Pública</option>
+          <option value="33">Direcció General de Recerca en Salut, Formació i Acreditació</option>
+          <option value="34">Direcció General de Prestacions, Farmàcia i Consum</option>
+          <option value="35">Direcció General de Salut Mental</option>
+          <option value="36">Servei de Salut de les Illes Balears (IBSALUT)</option>
+          <option value="37">Agència de Salut Pública de les Illes Balears</option>
+          <option value="38">Fundació Banc de Sang i Teixits de les Illles Balears</option>
+          <option value="39">Fundació Institut d'Investigació Sanitària de les Illes Balears (IdISBa)</option>
+          <option value="40">Gestió Sanitària i Assistencial de les Illes Balears</option>
+          <option value="41">Defensor dels Usuaris del Sistema Sanitari Públic de les Illes Balears</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Educació i Universitats">
+          <option value="42">Secretaria General</option>
+          <option value="43">Direcció General de Personal Docent i Centres Concertats</option>
+          <option value="44">Direcció General d'Universitats, Recerca i Ensenyaments Artístics Superiors</option>
+          <option value="45">Secretaria Autonòmica de Desenvolupament Educatiu</option>
+          <option value="46">Institut d'Avaluació i Qualitat del Sistema Educatiu (IAQSE)</option>
+          <option value="47">Direcció Territorial d'Educació de Menorca</option>
+          <option value="48">Direcció Territorial d'Educació d'Eivissa i Formentera</option>
+          <option value="49">Institut Balear d'Infraestructures i Serveis Educatius (IBISEC)</option>
+          <option value="50">Fundació per als Estudis Superiors de Música i Arts Escèniques de les Illes Balears (FESMAE-IB)</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Habitatge, Territori i Mobilitat">
+          <option value="51">Secretaria General</option>
+          <option value="52">Direcció General d'Habitatge i Arquitectura</option>
+          <option value="53">Direcció General de Mobilitat</option>
+          <option value="54">Direcció General de Territori i Paisatge</option>
+          <option value="55">Direcció General d'Harmonització Urbanística i Avaluació Ambiental</option>
+          <option value="56">Institut Balear de l'Habitatge (IBAVI)</option>
+          <option value="57">Serveis Ferroviaris de Mallorca (SFM)</option>
+          <option value="58">Consorci de Transports de Mallorca (CTM)</option>
+          <option value="59">Institut Cartogràfic i Geogràfic de les Illes Balears (ICGIB)</option>
+          <option value="60">Consorci per al Desenvolupament d'Actuacions de Millora i Construcció d'Infraestructures al Territori de l'Entitat Local Menor de Palmanyola</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de Turisme, Cultura i Esports">
+          <option value="61">Secretaria General</option>
+          <option value="62">Direcció General de Turisme</option>
+          <option value="63">Secretaria Autonòmica de Cultura i Esports</option>
+          <option value="64">Agència d'Estratègia Turística de les Illes Balears (AETIB)</option>
+          <option value="65">Consorci Escola d’Hoteleria de les Illes Balears (EHIB)</option>
+          <option value="66">Consorci d’Infraestructures de les Illes Balears</option>
+          <option value="67">Institut d'Indústries Culturals de les Illes Balears (ICIB)</option>
+          <option value="68">Institut d'Estudis Baleàrics (IEB)</option>
+          <option value="69">Fundació Orquestra Simfònica Illes Balears (OSIB)</option>
+          <option value="70">Fundació Robert Graves</option>
+          <option value="71">Fundació per a l'Esport Balear</option>
+        </optgroup>          
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de Famílies i Afers Socials">
+          <option value="72">Secretaria General</option>
+          <option value="73">Direcció General d'Afers Socials</option>
+          <option value="74">Direcció General d'Atenció a la Dependència</option>
+          <option value="75">Direcció General d'Infància, Joventut, Famílies, Igualtat i Diversitat</option>
+          <option value="76">Direcció General de Cooperació i Immigració</option>
+          <option value="77">Institut Balear de la Dona (IBDONA)</option>
+          <option value="78">Institut Balear de la Joventut (IBJOVE)</option>
+          <option value="79">Institut Balear de la Joventut (IBJOVE)</option>
+          <option value="80">Consorci de Recursos Sociosanitaris i Assistencials de les Illes Balears</option>
+          <option value="81">Fundació d'Atenció i Suport a la Dependència i de Promoció de l'Autonomia Personal de les Illes Balears</option>
+          <option value="82">Fundació Institut Socioeducatiu S'Estel</option>
+          <option value="83">Oficina Balear de la Infància i l'Adolescència (OBIA)</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de la Mar i del Cicle de l'Aigua">
+          <option value="84">Secretaria General</option>
+          <option value="85">Direcció General de Costes i Litoral</option>
+          <option value="86">Direcció General de Recursos Hídrics</option>
+          <option value="87">Direcció General de Ports i Transport Marítim</option>
+          <option value="88">Ports de les Illes Balears (Ports IB)</option>
+          <option value="89">Agència Balear de l'Aigua i la Qualitat Ambiental (ABAQUA)</option>
+          <option value="90">Consorci d'Aigües de les Illes Balears</option>
+        </optgroup>
+        <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Agricultura, Pesca i Medi Natural">
+          <option value="91">Secretaria General</option>
+          <option value="92">Direcció General d'Agricultura, Ramaderia i Desenvolupament Rural</option>
+          <option value="93">Direcció General de Pesca</option>
+          <option value="94">Direcció General de Medi Natural i Gestió Forestal</option>
+          <option value="95">Direcció General de Qualitat Agroalimentària i Producte Local</option>
+          <option value="96">Fons de Garantia Agrària i Pesquera de les Illes Balears (FOGAIBA)</option>
+          <option value="97">Institut de Recerca i Formació Agroalimentària i Pesquera de les Illes Balears (IRFAP)</option>
+          <option value="98">Institut Balear de la Natura (IBANAT)</option>
+          <option value="99">Consorci per a la Recuperació de la Fauna de les Illes Balears (COFIB)</option>
+        </optgroup>          
+      </select>
+      </div>
+      <div class="form-group">
+        <label for="contactName">
+          <span *ngIf="currentLang === 'es-ES'">Tu nombre</span>
+          <span *ngIf="currentLang === 'ca-ES'">El teu nom</span>
+        </label>
+        <input type="text"class="form-control form-control-lg" id="contactName" aria-describedby="nameHelp" formControlName="contactName"
+        [ngClass]="f['contactName'].errors ? 'is-invalid':'is-valid'">
+      </div>
+      <div class="form-group">
+        <label for="contactEmail">
+          <span *ngIf="currentLang === 'es-ES'">Dirección de correo electrónico</span>
+          <span *ngIf="currentLang === 'ca-ES'">Adreça de correu electrònic</span>
+        </label>
+        <input type="email" class="form-control form-control-lg" id="contactEmail" aria-describedby="emailHelp" formControlName="contactEmail" 
+        [ngClass]="f['contactEmail'].errors ? 'is-invalid':'is-valid'">
+       
+      </div>
+      <div class="form-group">
+        <label for="contactPhone">
+          <span *ngIf="currentLang === 'es-ES'">Teléfono</span>
+          <span *ngIf="currentLang === 'ca-ES'">Telèfon</span>
+        </label>
+        <input type="tel" class="form-control form-control-lg" id="contactPhone" aria-describedby="phoneHelp" maxlength="9" minlength="9" formControlName="contactPhone" 
+        [ngClass]="!f['contactPhone'].errors ? 'is-valid' : 'is-invalid'">
+      </div>
+      <div class='form-check-group'>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Fullet">
+        <label class="form-check-label" for="Fullet">
+          Fullet
+        </label>
+      </div>
+      <div class="form-check  form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Guia">
+        <label class="form-check-label" for="Guia">
+          Guia
+        </label>
+      </div>
+      <div class="form-check  form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Cartellsenyalistica">
+        <label class="form-check-label" for="Cartellsenyalistica">
+          Cartell, senyalística
+        </label>
+      </div>
+      <div class="form-check  form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Revisarpublicacio">
+        <label class="form-check-label" for="Revisarpublicacio">
+          Revisar publicació
+        </label>
+      </div>
+      <div class="form-check  form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Imatgecorporativa">
+        <label class="form-check-label" for="Imatgecorporativa">
+          Imatge corporativa
+        </label>
+      </div>
+      <div class="form-check  form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Papereria" >
+        <label class="form-check-label" for="Papereria">
+          Papereria
+        </label>
+      </div>  
+      </div>
+
+      <div class="form-group">
+        <label for="body">
+          <span *ngIf="currentLang === 'es-ES'">Breve explicación del encargo</span>
+          <span *ngIf="currentLang === 'ca-ES'">Breu explicació de l'encarreg</span>
+        </label>
+        <textarea class="form-control form-control-lg" rows="3" id="body" formControlName="body" 
+        [ngClass]="f['body'].errors ? 'is-invalid':'is-valid'"></textarea>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" class="form-check-input" formControlName="acceptTerms" 
+        [ngClass]="f['acceptTerms'].errors ? 'is-invalid':'is-valid'">
+        <label class="form-check-label" for="exampleCheck1"> &nbsp;<a routerLink="/aviso-legal/2772" aria-label="aviso legal">
+          <span *ngIf="currentLang === 'es-ES'">Aceptar los términos y condiciones</span>
+          <span *ngIf="currentLang === 'ca-ES'">Acceptar els termes i condicions</span>
+          </a></label>
+      </div>
+    </div>
+  </div>
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn btn-primary btn-lg" [disabled]="!contactForm.valid">
+      <div class="text-center" *ngIf ="!submitted">Enviar</div>
+      <div class="spinner-border" role="status" *ngIf ="contactForm.valid && submitted">
+        <span class="visually-hidden">
+          <span *ngIf="currentLang === 'es-ES'">Enviando consulta ...</span>
+          <span *ngIf="currentLang === 'ca-ES'">Enviant consulta ...</span>
+        </span>
+      </div>
+    </button>
+    <span id="postFeedback"></span>
+  </div>
+</form>

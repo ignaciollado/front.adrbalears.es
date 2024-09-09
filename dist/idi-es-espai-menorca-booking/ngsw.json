@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1724404929520,
+  "timestamp": 1725869406659,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -12,11 +12,11 @@
       },
       "urls": [
         "/index.html",
-        "/main.f5dbb169144a8b5a.js",
+        "/main.d57db5413344dafe.js",
         "/manifest.webmanifest",
         "/polyfills.963c7bc622c70e51.js",
         "/runtime.c4e1692fd0f228b9.js",
-        "/styles.c8718ff372609094.css"
+        "/styles.fa16f723a4f7e308.css"
       ],
       "patterns": []
     },
@@ -37,6 +37,15 @@
         "/assets/icons/icon-72x72.png",
         "/assets/icons/icon-96x96.png",
         "/assets/icons/logo-adr-balears.png",
+        "/assets/images/ADRBalears-conselleria-color.webp",
+        "/assets/images/logo-adr-balears.png",
+        "/assets/images/logo-adr-balears.webp",
+        "/assets/images/logo-adrbalears-conectar.webp",
+        "/assets/images/logo-adrbalears-emprender.webp",
+        "/assets/images/logo-adrbalears-proyectar.webp",
+        "/assets/images/logos-feder-webidi grisos3-02.jpg",
+        "/assets/images/logos-feder-webidi grisos3-03.jpg",
+        "/assets/images/logos-feder-webidi grisos3-04.jpg",
         "/assets/mocks/bookingItems.json",
         "/assets/phpAPI/bookingCreate.php",
         "/assets/phpAPI/bookingDelete.php",
@@ -60,6 +69,15 @@
     "/assets/icons/icon-72x72.png": "279825a1ac4377032ae996a1832c641e33ccf1b6",
     "/assets/icons/icon-96x96.png": "592885efcbfee27e5e20be4fa3043589390d2740",
     "/assets/icons/logo-adr-balears.png": "4c175478f8229724cd4ed1d831688c49e00dc1d5",
+    "/assets/images/ADRBalears-conselleria-color.webp": "0f9dd3b34f07674b42271ecb3529b24b2b6a29b8",
+    "/assets/images/logo-adr-balears.png": "a4ed9fe34161f9c617afc6bc2b418dedc67012be",
+    "/assets/images/logo-adr-balears.webp": "58f3a091d9ec6b587729fd8b20d092c867f5b907",
+    "/assets/images/logo-adrbalears-conectar.webp": "6b7d47bfdef02815c7ed753447e0f65e59f6c48d",
+    "/assets/images/logo-adrbalears-emprender.webp": "9ea625c57c5e42a25c20c5e44ec6da9304cec07f",
+    "/assets/images/logo-adrbalears-proyectar.webp": "c38235f51d03072cc4c6896d553715e968cac8a1",
+    "/assets/images/logos-feder-webidi grisos3-02.jpg": "9cc138969eb5ce128b1622fb579ec1012e56d90b",
+    "/assets/images/logos-feder-webidi grisos3-03.jpg": "6c26f013aae7b12a07bcbfd1daf8ca015b83ebcc",
+    "/assets/images/logos-feder-webidi grisos3-04.jpg": "33f441804732d40d5afd4e6c20539e24a6d556dd",
     "/assets/mocks/bookingItems.json": "e020bd21ebf3e461b9ce37be25bc2707a9976d1f",
     "/assets/phpAPI/bookingCreate.php": "86f254fab845590d8adb4291d85c5c81ae378c8c",
     "/assets/phpAPI/bookingDelete.php": "e30a0f6dbdf56d6943ad05a24693c6a3e7b4c375",
@@ -68,12 +86,12 @@
     "/assets/phpAPI/bookingGetById.php": "543a57448d66b2370334e7c299baa305cecdd1aa",
     "/assets/phpAPI/bookingUpdate.php": "55b30fb9189ea81c5f828a99412163e5e2bf74aa",
     "/assets/phpAPI/conectar_a_bbdd.php": "a62ed2a11917357bff02a3e3c9d2177f1e4d274b",
-    "/index.html": "c9ab21cb20a17be48b353c27ac11cf52ce96ebe1",
-    "/main.f5dbb169144a8b5a.js": "580dd27e1484d2f8058a11cc3d3f49332c3ca387",
+    "/index.html": "6302ad0230e90eea81b1427dbfe09c0f7a1907f3",
+    "/main.d57db5413344dafe.js": "efac69b347a9a350ab55788232beef430f518981",
     "/manifest.webmanifest": "b1df3c715d1c088872998afcea584131767acb14",
     "/polyfills.963c7bc622c70e51.js": "3ea8836d7a2dd7e11875fc9e2aecd3e611c91f98",
     "/runtime.c4e1692fd0f228b9.js": "da0ac87f56fd03b0862f91153f94691c1aa62ed6",
-    "/styles.c8718ff372609094.css": "6f4a37d907c46c9f179837ff13d239fa4533ddde"
+    "/styles.fa16f723a4f7e308.css": "420a03eb09713ee1b2e4bcc28baf2a75449009ea"
   },
   "navigationUrls": [
     {

@@ -3,4 +3,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 html, body { height: 100%; }
-body { margin: 1rem; font-family: Inter, "Helvetica Neue", sans-serif; }
+body { font-family: Inter, "Helvetica Neue", sans-serif; max-width: 1120px; margin: 6rem auto; }
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0098CB;
+}
+
+a:hover {
+  color: #003747;
+}
