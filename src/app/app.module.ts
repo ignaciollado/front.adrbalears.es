@@ -20,8 +20,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 import { BookingCalendarChildComponent } from './booking-calendar-child/booking-calendar-child.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { HeaderComponent } from './header/header.component';
 import { DissenyFormComponent } from './disseny-form/disseny-form.component';
 import { BodyComponent } from './body/body.component';
 import { FooterComponent } from './footer/footer.component';
@@ -32,6 +34,7 @@ import { FooterComponent } from './footer/footer.component';
         FormatBookingPipe,
         BookingCalendarChildComponent,
         DissenyFormComponent,
+        HeaderComponent,
         BodyComponent,
         FooterComponent
     ],
@@ -51,6 +54,7 @@ import { FooterComponent } from './footer/footer.component';
         MatButtonModule,
         MatTooltipModule,
         MatCheckboxModule,
+        MatRadioModule,
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         

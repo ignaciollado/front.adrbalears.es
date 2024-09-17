@@ -8,6 +8,11 @@ import { SharedService } from '../Services/shared.service';
 import { finalize } from 'rxjs';
 import {Title} from "@angular/platform-browser";
 
+interface unitOrganization {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-disseny-form',
   templateUrl: './disseny-form.component.html',
@@ -19,13 +24,18 @@ export class DissenyFormComponent {
   submitted: boolean = false
   currentLang: string = ""
 
+  unitOrganizations: unitOrganization[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'},
+  ];
+
   constructor(private formBuilder: FormBuilder, private sendMail: MessageService, private sharedService: SharedService, private titleService:Title) { 
     this.titleService.setTitle("ADR Balears, Departament de disseny");
     this.formData = new genericMailDTO('', '', '', '', '')
   }
 
   ngOnInit() {
-
     switch ( localStorage.getItem('preferredLang') ) {
       case 'cat':
         this.currentLang = 'ca-ES'
