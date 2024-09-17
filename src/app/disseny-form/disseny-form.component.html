@@ -1,15 +1,15 @@
 <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="col mb-3">
-        <h4>Basic native select</h4>
+        <!-- <h4>Directori d'organismes</h4> -->
         <mat-form-field appearance="outline" [style.width.px]=600>
-          <mat-label >Entitat/organisme</mat-label>
+          <mat-label >Directori d'organismes</mat-label>
           <select matNativeControl formControlName="agency" aria-label="Default select example">
             <option disabled selected>Per favor, seleccioni un</option>
             <optgroup style="background-color:#0098cb;color:#fff;" label="Presidència Govern de les Illes Balears">
               <option value="1">Gabinet de la Presidència</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Economia, Hisenda i Innovació">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria d'Economia, Hisenda i Innovació">
               <option value="2">Secretaria General</option>
               <option value="3">Direcció General d'Economia i Estadística</option>
               <option value="4">Direcció General de Pressuposts i Finançament</option>
@@ -24,7 +24,7 @@
               <option value="13">Fundació Balear d'Innovació i Tecnologia (FBIT)</option>
               <option value="14">Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de Presidència i Administracions Públiques">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria de Presidència i Administracions Públiques">
               <option value="15">Secretaria General</option>
               <option value="16">Direcció General de Coordinació i Transparència</option>
               <option value="17">Direcció General de Relacions Institucionals i de Relacions amb el Parlament</option>
@@ -36,7 +36,7 @@
               <option value="23">Gestió d'Emergències de les Illes Balears (GEIBSAU)</option>
               <option value="24">Fundació Illes Balears d'Acció Exterior (FIBAE)</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Empresa, Ocupació i Energia">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria d'Empresa, Ocupació i Energia">
               <option value="25">Secretaria General</option>
               <option value="26">Secretaria Autonòmica de Treball, Ocupació i Diàleg Social</option>
               <option value="27">Direcció General d'Indústria i Polígons Industrials</option>
@@ -44,7 +44,7 @@
               <option value="29">Agència de Desenvolupament Regional de les Illes Balears (ADRBalears)</option>
               <option value="30">Institut Balear de l'Energia (IBE)</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de Salut">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria de Salut">
               <option value="31">Secretaria General</option>
               <option value="32">Direcció General de Salut Pública</option>
               <option value="33">Direcció General de Recerca en Salut, Formació i Acreditació</option>
@@ -57,7 +57,7 @@
               <option value="40">Gestió Sanitària i Assistencial de les Illes Balears</option>
               <option value="41">Defensor dels Usuaris del Sistema Sanitari Públic de les Illes Balears</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Educació i Universitats">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria d'Educació i Universitats">
               <option value="42">Secretaria General</option>
               <option value="43">Direcció General de Personal Docent i Centres Concertats</option>
               <option value="44">Direcció General d'Universitats, Recerca i Ensenyaments Artístics Superiors</option>
@@ -68,7 +68,7 @@
               <option value="49">Institut Balear d'Infraestructures i Serveis Educatius (IBISEC)</option>
               <option value="50">Fundació per als Estudis Superiors de Música i Arts Escèniques de les Illes Balears (FESMAE-IB)</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Habitatge, Territori i Mobilitat">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria d'Habitatge, Territori i Mobilitat">
               <option value="51">Secretaria General</option>
               <option value="52">Direcció General d'Habitatge i Arquitectura</option>
               <option value="53">Direcció General de Mobilitat</option>
@@ -80,7 +80,7 @@
               <option value="59">Institut Cartogràfic i Geogràfic de les Illes Balears (ICGIB)</option>
               <option value="60">Consorci per al Desenvolupament d'Actuacions de Millora i Construcció d'Infraestructures al Territori de l'Entitat Local Menor de Palmanyola</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de Turisme, Cultura i Esports">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria de Turisme, Cultura i Esports">
               <option value="61">Secretaria General</option>
               <option value="62">Direcció General de Turisme</option>
               <option value="63">Secretaria Autonòmica de Cultura i Esports</option>
@@ -93,7 +93,7 @@
               <option value="70">Fundació Robert Graves</option>
               <option value="71">Fundació per a l'Esport Balear</option>
             </optgroup>          
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de Famílies i Afers Socials">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria de Famílies i Afers Socials">
               <option value="72">Secretaria General</option>
               <option value="73">Direcció General d'Afers Socials</option>
               <option value="74">Direcció General d'Atenció a la Dependència</option>
@@ -107,7 +107,7 @@
               <option value="82">Fundació Institut Socioeducatiu S'Estel</option>
               <option value="83">Oficina Balear de la Infància i l'Adolescència (OBIA)</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria de la Mar i del Cicle de l'Aigua">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria de la Mar i del Cicle de l'Aigua">
               <option value="84">Secretaria General</option>
               <option value="85">Direcció General de Costes i Litoral</option>
               <option value="86">Direcció General de Recursos Hídrics</option>
@@ -116,7 +116,7 @@
               <option value="89">Agència Balear de l'Aigua i la Qualitat Ambiental (ABAQUA)</option>
               <option value="90">Consorci d'Aigües de les Illes Balears</option>
             </optgroup>
-            <optgroup style="background-color:#0098cb;color:#fff;" label="Conselleria d'Agricultura, Pesca i Medi Natural">
+            <optgroup style="background-color:#0098cb;color:#000;" label="Conselleria d'Agricultura, Pesca i Medi Natural">
               <option value="91">Secretaria General</option>
               <option value="92">Direcció General d'Agricultura, Ramaderia i Desenvolupament Rural</option>
               <option value="93">Direcció General de Pesca</option>
