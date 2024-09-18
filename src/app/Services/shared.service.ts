@@ -23,7 +23,7 @@ export class SharedService {
     if (toastMsg) {
       if (validRequest) {
         toastMsg.className = 'show requestOk';
-        toastMsg.textContent = 'Booking submitted in PENDING state.';
+        toastMsg.textContent = 'Request submitted in PENDING state.';
         await this.wait(4500);
         toastMsg.className = toastMsg.className.replace('show', '');
       } else {

@@ -3,7 +3,7 @@ import { genericMailDTO } from '../Models/generic-data.dto';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const URL_API_SEND = 'https://tramits.idi.es/public/assets/utils/enviaCorreoElectronicoANGULAR.php'
+const URL_API_SEND = 'https://tramits.idi.es/public/assets/utils/enviaCorreoElectronicoDisseny.php'
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,12 +23,14 @@ export class MessageService {
   sendMail(formData: any, bodyText: string, project: string): Observable<genericMailDTO[]> {
     const email: string = formData.contactEmail
     const requester: string = formData.contactName
+    const caibAgency: string = formData.agency
     const contactPhone: string = formData.contactPhone
-    const subject: string = "ADR Balears - contact"
+    const subject: string = "ADR Balears - contacte"
+    const workType: string = formData.workType
     const body: string = formData.body
     const projectContact: string = project
     return this.http
-      .get<genericMailDTO[]>(`${URL_API_SEND}?${email}/${requester}/${contactPhone}/${subject}/${body}/${projectContact}`, httpOptions)
+      .get<genericMailDTO[]>(`${URL_API_SEND}?${email}/${requester}/${contactPhone}/${subject}/${body}/${projectContact}/${caibAgency}/${workType}`, httpOptions)
   }
 
   add(message: string) {

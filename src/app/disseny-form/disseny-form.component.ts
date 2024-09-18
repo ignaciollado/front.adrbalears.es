@@ -56,6 +56,7 @@ export class DissenyFormComponent {
       contactName:  ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       contactEmail: ['', [Validators.required, Validators.email]],
       contactPhone: ['', [Validators.minLength, Validators.maxLength]],
+      workType: ['', [Validators.required]],
       body: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
       acceptTerms: [false, [Validators.requiredTrue]]
     })
@@ -69,7 +70,7 @@ export class DissenyFormComponent {
     let responseOK: boolean = false
     this.submitted = true
     this.formData = this.contactForm.value
-    this.sendMail.sendMail(this.formData, "Consulta des-de la web corporativa:", 'Comunicació')
+    this.sendMail.sendMail(this.formData, "Sol·licitud d'encarreg:", 'Disseny')
     .pipe(
       finalize(async () => {
         await this.sharedService.managementToast( 'postFeedback', responseOK )
