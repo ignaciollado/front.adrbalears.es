@@ -9,3 +9,36 @@ h1 {
 .form-check-group {
   margin-bottom: 2rem;
 }
+
+/* #postFeedback {
+  visibility: hidden;
+  min-width: 250px;
+  color: #fff;
+  text-align: left;
+  border-radius: 10px;
+  padding: 16px;
+  z-index: 1;
+  font-size: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#postFeedback.requestOk {
+  background-color: green;
+}
+
+#postFeedback.requestKo {
+  background-color: red;
+}
+
+#postFeedback.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+} */
+
+mat-form-field {
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

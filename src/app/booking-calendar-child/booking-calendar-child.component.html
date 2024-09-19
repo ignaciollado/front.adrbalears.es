@@ -31,8 +31,8 @@
           <mat-option value="yellow-room">Sala GROGA</mat-option>
           <mat-option value="red-room">Sala VERMELLA</mat-option>
           <mat-option value="A-pavillion">Pavelló A</mat-option>
-          <mat-option value="B-pavillion">Pavelló B</mat-option>
-          <mat-option value="AB-pavillion">Pavelló A + B</mat-option>
+<!--           <mat-option value="B-pavillion">Pavelló B</mat-option>
+          <mat-option value="AB-pavillion">Pavelló A + B</mat-option> -->
         </mat-select>
       </mat-form-field>
 
@@ -42,6 +42,7 @@
         <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
       </mat-form-field>
+      
       <mat-form-field appearance="outline" *ngIf="showTime">
         <mat-select [formControl]="fromDateFromTime" id="fromDateFromTime">
           <mat-option value="08.00">08.00</mat-option>

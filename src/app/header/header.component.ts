@@ -10,9 +10,10 @@ import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 export class HeaderComponent {
     currentLang: string ="en-EN";
 
-constructor( private router: Router ) { }
+    constructor( private router: Router ) { }
 
-ngOnInit(): void {
+    ngOnInit(): void {
+
     switch (localStorage.getItem('preferredLang')) {
       case 'cat':
         this.currentLang = 'ca-ES'
@@ -163,7 +164,6 @@ openCustomPanelClass(content: TemplateRef<any>) {
     this.offcanvasService.open(content, { panelClass: 'bg-info' });
 }
 
-
 scroll(el: string) {
     console.log (window.innerHeight, window.innerWidth)
 }
@@ -176,4 +176,8 @@ projectLandingPage(projectName: string, contentID: string, categoryID: string, s
     this.router.navigate([`landing-page/${projectName}/${contentID}/${categoryID}/${showLinks}/${faseProCSSClass}/${newsCategory}/${agendaCategory}`])
 }
 
+switchLanguage( lang:string ) {
+    localStorage.setItem('preferredLang', lang)
+    location.reload() 
+}
 }

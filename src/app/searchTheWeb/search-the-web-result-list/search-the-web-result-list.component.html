@@ -1,0 +1,41 @@
+<h1>
+  <span *ngIf="currentLang === 'es-ES'">Lista de resultados para la búsqueda de: </span>
+  <span *ngIf="currentLang === 'ca-ES'">Llista de resultats per a la cerca de: </span>
+  <span class="badge text-bg-info">{{searchTerm}}</span></h1>
+<div *ngIf="contenidos">
+  <div class="row">
+  <div *ngFor="let noticia of contenidos">
+    <div class="col">
+    <a [routerLink]="['/news-agenda-detail', noticia.attributes.alias, noticia.id]">
+      <div class="card">
+        <img class="card-img-top" src={{noticia.attributes.images.image_intro}} alt={{noticia.attributes.title}} title={{noticia.attributes.title}} />
+        <div class="card-body">
+          <h4 class="card-title">{{noticia.attributes.title}}</h4>
+        </div>
+      </div>
+    </a>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div *ngIf="!contenidos">
+  <div class="row">
+  <div *ngFor="let item of [1,2,3,4]">
+  <div class="card" aria-hidden="true" id="noticiaUnoPlaceHolder">
+    <div>
+      <img src="https://via.placeholder.com/260x145.png?text=...loading results list" class="card-img-top" alt="loading image">
+    </div>
+   
+    <div class="card-body">
+      <h5 class="card-title placeholder-glow">
+        <span class="placeholder col-6"></span>
+      </h5>
+      <p class="card-text placeholder-glow">
+        <span class="placeholder col-7"></span>
+      </p>
+    </div>
+  </div> 
+</div>
+</div> 
+</div>

@@ -7,11 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from '../Services/shared.service';
 import { finalize } from 'rxjs';
 import {Title} from "@angular/platform-browser";
-
-interface unitOrganization {
-  value: string;
-  viewValue: string;
-}
+import { BookingService } from '../Services/booking.service';
+import { designOrderDTO } from '../Models/design-order';
 
 @Component({
   selector: 'app-disseny-form',
@@ -20,36 +17,31 @@ interface unitOrganization {
 })
 export class DissenyFormComponent {
   contactForm: FormGroup
-  formData: genericMailDTO
+  formData: designOrderDTO
   submitted: boolean = false
   currentLang: string = ""
 
-  unitOrganizations: unitOrganization[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
-
-  constructor(private formBuilder: FormBuilder, private sendMail: MessageService, private sharedService: SharedService, private titleService:Title) { 
+  constructor(private formBuilder: FormBuilder, private sendMail: MessageService, 
+              private sharedService: SharedService, 
+              private titleService:Title, private bookingService: BookingService) { 
     this.titleService.setTitle("ADR Balears, Departament de disseny");
-    this.formData = new genericMailDTO('', '', '', '', '')
+    this.formData = new designOrderDTO('', '', '', '', '', '')
   }
 
   ngOnInit() {
     switch ( localStorage.getItem('preferredLang') ) {
-      case 'cat':
+      case 'ca-ES':
         this.currentLang = 'ca-ES'
       break
-      case 'cas':
+      case 'es-ES':
         this.currentLang = 'es-ES'      
       break
-      case 'en':
+      case 'en-EN':
         this.currentLang = 'en-EN'
       break
       default:
         this.currentLang = 'ca-ES'
     }
-
 
     this.contactForm = this.formBuilder.group({
       agency:  ['', [Validators.required]],
@@ -67,17 +59,32 @@ export class DissenyFormComponent {
   }
 
   onSubmit() {
+    let errorResponse: any
     let responseOK: boolean = false
     this.submitted = true
     this.formData = this.contactForm.value
-    this.sendMail.sendMail(this.formData, "Sol·licitud d'encarreg:", 'Disseny')
+    this.bookingService.createDesignRequest(this.formData)
     .pipe(
       finalize(async () => {
-        await this.sharedService.managementToast( 'postFeedback', responseOK )
+        await this.sharedService.managementToast(
+          'postFeedback',
+          responseOK,
+          errorResponse
+        );
+        if (responseOK) {
+          this.sendMail.sendMail(this.formData,this.formData.body,"Disseny")
+          .subscribe((sendMailResult:any) => {
+          },
+          (error: HttpErrorResponse) => {
+            errorResponse = error;
+            this.sharedService.errorLog(errorResponse);
+          })
+        }
       })
     )
     .subscribe(() => {
       responseOK = true
+      this.contactForm.reset()
     },
     (error: HttpErrorResponse) => {
       if ( error.status === 200 ) {

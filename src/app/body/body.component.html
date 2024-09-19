@@ -2,7 +2,9 @@
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-       Booking Recinte Menorca
+        <span *ngIf="currentLang === 'es-ES'">Reservas Centro Empresarial ADR Balears MENORCA</span>
+        <span *ngIf="currentLang === 'ca-ES'">Reserves Centre Empresarial ADR Balears MENORCA</span>
+        <span *ngIf="currentLang === 'en-EN'">Booking Centre Empresarial ADR Balears MENORCA</span>
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionHomeForms">
@@ -30,6 +32,7 @@
           <li>Corporate image</li>
           <li>Stationery</li>
         </ul>
+        <a routerLink="listDesignRequests">View design requests</a>
       </div>
     </div>
   </div>

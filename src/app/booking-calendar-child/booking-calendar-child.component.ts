@@ -180,7 +180,7 @@ export class BookingCalendarChildComponent {
     const currentMonth = new Date().getMonth()
     const currentDay = new Date().getDate()+1
 
-    this.minDate = new Date(currentYear, currentMonth, currentDay)
+    this.minDate = new Date(currentYear, currentMonth, currentDay+10) /* Reservas con una antelación de 10 días */
     this.minDateTo = this.minDate
     this.maxDate = new Date(currentYear + 1, 11, 31)
 

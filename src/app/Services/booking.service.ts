@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SharedService } from './shared.service';
 import { Observable, catchError } from 'rxjs';
 import { BookingDTO } from '../Models/booking.model';
+import { designOrderDTO } from '../Models/design-order';
 
 const URL_API = '../../assets/phpAPI/'
 
@@ -52,6 +53,27 @@ export class BookingService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
+  createDesignRequest(booking: designOrderDTO): Observable<designOrderDTO> {
+    return this.http
+      .post<designOrderDTO>(`${URL_API}designOrderCreate.php`, booking)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+  getAllDesignRequests(): Observable<designOrderDTO[]> {
+    return this.http
+      .get<designOrderDTO[]>(`${URL_API}designOrdersGetAll.php`, httpOptions)
+  }
+
+  getAllDesignRequestsByClient(companyId:any): Observable<designOrderDTO[]> {
+    return this.http
+      .get<designOrderDTO[]>(`${URL_API}designOrderGetByClient.php?companyId=${companyId}`, httpOptions)
+  }
+
+  getDesignRequestById(bookingId: string): Observable<designOrderDTO> {
+    return this.http
+      .get<designOrderDTO>(`${URL_API}designOrderGetById.php?bookingId=${bookingId}`)
+  }
+
   updateBooking(bookingId: string, booking: BookingDTO): Observable<BookingDTO> {
     return this.http
       .put<BookingDTO>(`${URL_API}bookingUpdate.php?bookingId=${bookingId}`, booking)
@@ -62,5 +84,4 @@ export class BookingService {
       .delete<deleteResponse>(`${URL_API}bookingDelete.php?bookingId=${bookingId}`)
       .pipe(catchError(this.sharedService.handleError));
   }
-
 }

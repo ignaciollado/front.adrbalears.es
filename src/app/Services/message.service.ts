@@ -25,10 +25,23 @@ export class MessageService {
     const requester: string = formData.contactName
     const caibAgency: string = formData.agency
     const contactPhone: string = formData.contactPhone
-    const subject: string = "ADR Balears - contacte"
+    let subject: string = "ADR Balears - contacte"
     const workType: string = formData.workType
     const body: string = formData.body
     const projectContact: string = project
+
+    switch (localStorage.getItem('preferredLang')) {
+      case 'en-EN':
+        subject = "ADR Balears - Contact"
+        break
+      case 'es-ES':
+        subject = "ADR Balears - Contacto"
+        break
+      case 'ca-ES':
+        subject = "ADR Balears - Contacte"
+        break
+    }
+
     return this.http
       .get<genericMailDTO[]>(`${URL_API_SEND}?${email}/${requester}/${contactPhone}/${subject}/${body}/${projectContact}/${caibAgency}/${workType}`, httpOptions)
   }

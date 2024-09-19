@@ -1,9 +1,9 @@
 ﻿<?php
 
 $mysqlhost = '127.0.0.1';
-$username = 'book_adr_gH34__1';
+$username = 'forms_req_gH34_1';
 $password = 'YXZed48#58-^';
-$dbname = 'book_adr_recinteMenorca';
+$dbname = 'forms_request_to_adrbalears';
 
 // Crear la conexión
 
@@ -13,7 +13,7 @@ $conn = mysqli_connect($mysqlhost, $username, $password, $dbname);
 
 if (!$conn) {
 
-    die("Connexió fallida: " . mysqli_connect_error());
+    die("failed connection: " . mysqli_connect_error());
 
 }
 // Change character set to utf8

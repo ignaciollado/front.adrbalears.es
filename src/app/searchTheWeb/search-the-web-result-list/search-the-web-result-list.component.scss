@@ -1,0 +1,28 @@
+h2 {
+  box-shadow: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+
+.col {
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 1320px) {
+  .row {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .row {
+    grid-template-columns: auto;
+  }
+  .card-body {
+    min-height: 12rem;
+    max-height: 12rem;
+  }
+}

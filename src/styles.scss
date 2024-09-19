@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+ */
 html, body { height: 100%; }
 body { font-family: Inter, "Helvetica Neue", sans-serif; max-width: 1120px; margin: 0 auto; }
 
@@ -15,4 +15,32 @@ a:visited {
 
 a:hover {
   color: #003747;
+}
+
+
+#postFeedback {
+  visibility: hidden;
+  min-width: 250px;
+  color: #fff;
+  text-align: left;
+  border-radius: 10px;
+  padding: 16px;
+  z-index: 1;
+  font-size: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#postFeedback.requestOk {
+  background-color: green;
+}
+
+#postFeedback.requestKo {
+  background-color: red;
+}
+
+#postFeedback.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }

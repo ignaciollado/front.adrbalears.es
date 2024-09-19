@@ -20,6 +20,7 @@ export class SharedService {
 
   async managementToast( element: string, validRequest: boolean, error?: HttpErrorResponse ): Promise<void> {
     const toastMsg = document.getElementById(element);
+    console.log (validRequest, error)
     if (toastMsg) {
       if (validRequest) {
         toastMsg.className = 'show requestOk';
@@ -51,6 +52,7 @@ export class SharedService {
   }
 
   errorLog(error: HttpErrorResponse): void {
+    console.log (error)
     console.error('ok:', error.ok);
     console.error('type:', error.name);
     console.error('status:', error.status);
