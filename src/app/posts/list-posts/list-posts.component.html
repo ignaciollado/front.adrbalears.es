@@ -1,54 +1,90 @@
-<h3>List design requests</h3>
+<h3>
+  <span *ngIf="currentLang === 'es-ES'">Listado de encargos</span>
+  <span *ngIf="currentLang === 'ca-ES'">Llistat d'encàrrecs</span>
+  <span *ngIf="currentLang === 'en-EN'">List design requests</span>
+</h3>
 <section class="data-container mat-elevation-z8" tabindex="0">
   <mat-table [dataSource]="dataSource">
-
-    <!-- Position Column -->
     <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> Order number </th>
+      <th mat-header-cell *matHeaderCellDef> 
+        <span *ngIf="currentLang === 'es-ES'">Número de orden</span>
+        <span *ngIf="currentLang === 'ca-ES'">Número d'ordre</span>
+        <span *ngIf="currentLang === 'en-EN'">Order number</span>
+      </th>
       <td mat-cell *matCellDef="let element"> {{element.position}} </td>
     </ng-container>
 
     <ng-container matColumnDef="orderDate">
-      <th mat-header-cell *matHeaderCellDef> Order date </th>
+      <th mat-header-cell *matHeaderCellDef> 
+        <span *ngIf="currentLang === 'es-ES'">Fecha encargo</span>
+        <span *ngIf="currentLang === 'ca-ES'">Data d'encàrrec</span>
+        <span *ngIf="currentLang === 'en-EN'">Order date</span>
+       </th>
       <td mat-cell *matCellDef="let element"> {{element.orderDate}} </td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="agency">
-      <th mat-header-cell *matHeaderCellDef> Agency </th>
+      <th mat-header-cell *matHeaderCellDef> 
+        <span *ngIf="currentLang === 'es-ES'">Organismo</span>
+        <span *ngIf="currentLang === 'ca-ES'">Organisme</span>
+        <span *ngIf="currentLang === 'en-EN'">Agency</span>
+       </th>
       <td mat-cell *matCellDef="let element"> {{element.agency}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="contactPerson">
-      <th mat-header-cell *matHeaderCellDef> Contact person </th>
+      <th mat-header-cell *matHeaderCellDef> 
+        <span *ngIf="currentLang === 'es-ES'">Persona de contacto</span>
+        <span *ngIf="currentLang === 'ca-ES'">Persona de contacte</span>
+        <span *ngIf="currentLang === 'en-EN'">Contact person</span>
+         </th>
       <td mat-cell *matCellDef="let element"> {{element.contactPerson}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="contactMail">
-      <th mat-header-cell *matHeaderCellDef> Contact E.mail </th>
+      <th mat-header-cell *matHeaderCellDef> 
+        <span *ngIf="currentLang === 'es-ES'">Dirección de contacto</span>
+        <span *ngIf="currentLang === 'ca-ES'">Adreça de contacte</span>
+        <span *ngIf="currentLang === 'en-EN'">Contact E.mail</span>
+       </th>
       <td mat-cell *matCellDef="let element"> {{element.contactMail}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="contactPhone">
+      <th mat-header-cell *matHeaderCellDef>
+        <span *ngIf="currentLang === 'es-ES'">Teléfono de contacto</span>
+        <span *ngIf="currentLang === 'ca-ES'">Telèfon de contacte</span>
+        <span *ngIf="currentLang === 'en-EN'">Contact Phone</span>
+       </th>
+      <td mat-cell *matCellDef="let element"> {{element.contactPhone}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="workType">
-      <th mat-header-cell *matHeaderCellDef> Work type </th>
+      <th mat-header-cell *matHeaderCellDef> 
+        <span *ngIf="currentLang === 'es-ES'">Tipo de encargo</span>
+        <span *ngIf="currentLang === 'ca-ES'">Tipus per encàrrec</span>
+        <span *ngIf="currentLang === 'en-EN'">Work type</span>
+         </th>
       <td mat-cell *matCellDef="let element"> {{element.workType}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="description">
+<!--     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> Work description </th>
       <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
+    </ng-container> -->
 
-    <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef> State </th>
-      <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+    <ng-container matColumnDef="orderState">
+      <th mat-header-cell *matHeaderCellDef> 
+        <span *ngIf="currentLang === 'es-ES'">Situación</span>
+        <span *ngIf="currentLang === 'ca-ES'">Situació</span>
+        <span *ngIf="currentLang === 'en-EN'">Order State</span>
+       </th>
+      <td mat-cell *matCellDef="let element"> {{element.orderState}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </mat-table>
 </section>
-*********<span id="postFeedback"></span>*********
+<span id="postFeedback"></span>
 

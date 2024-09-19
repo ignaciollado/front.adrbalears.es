@@ -6,7 +6,10 @@ require_once 'conectar_a_bbdd.php';
 
 mysqli_query($conn, "SET NAMES 'utf8'");
 
-$sql = "SELECT * FROM design_dep_orders  ORDER BY order_date DESC";
+$sql = "SELECT id as position, order_date as orderDate, order_state as orderState, agency, contact_name as contactPerson, 
+        contact_mail as contactMail, contact_phone as contactPhone,
+        work_type as workType, description
+                FROM design_dep_orders  ORDER BY order_date DESC";
 
 $result = mysqli_query($conn, $sql);
 

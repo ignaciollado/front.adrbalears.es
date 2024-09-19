@@ -18,13 +18,26 @@ export interface ResponseError {
 export class SharedService {
   constructor() {}
 
-  async managementToast( element: string, validRequest: boolean, error?: HttpErrorResponse ): Promise<void> {
+  async managementToast( element: string, validRequest: boolean, error?: HttpErrorResponse, actionDone?: string ): Promise<void> {
     const toastMsg = document.getElementById(element);
-    console.log (validRequest, error)
+    console.log (element, validRequest, error, actionDone)
     if (toastMsg) {
       if (validRequest) {
         toastMsg.className = 'show requestOk';
-        toastMsg.textContent = 'Request submitted in PENDING state.';
+        switch ( localStorage.getItem('preferredLang') ) {
+          case 'ca-ES':
+            toastMsg.textContent = actionDone
+          break
+          case 'es-ES':
+            toastMsg.textContent = actionDone
+          break
+          case 'en-EN':
+            toastMsg.textContent = actionDone
+          break
+          default:
+            toastMsg.textContent = actionDone
+        }
+
         await this.wait(4500);
         toastMsg.className = toastMsg.className.replace('show', '');
       } else {

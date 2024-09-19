@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { genericMailDTO } from '../Models/generic-data.dto';
 import { MessageService } from '../Services/message.service';
 
 import { HttpErrorResponse } from '@angular/common/http';
@@ -60,6 +59,7 @@ export class DissenyFormComponent {
 
   onSubmit() {
     let errorResponse: any
+    let actionDone: string = ""
     let responseOK: boolean = false
     this.submitted = true
     this.formData = this.contactForm.value
@@ -69,7 +69,8 @@ export class DissenyFormComponent {
         await this.sharedService.managementToast(
           'postFeedback',
           responseOK,
-          errorResponse
+          errorResponse,
+          actionDone
         );
         if (responseOK) {
           this.sendMail.sendMail(this.formData,this.formData.body,"Disseny")
@@ -84,6 +85,7 @@ export class DissenyFormComponent {
     )
     .subscribe(() => {
       responseOK = true
+      actionDone = "Request sended successfully!!!"
       this.contactForm.reset()
     },
     (error: HttpErrorResponse) => {

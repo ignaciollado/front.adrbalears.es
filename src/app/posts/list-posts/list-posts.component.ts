@@ -14,44 +14,66 @@ import { SharedService } from 'src/app/Services/shared.service';
 })
 
 export class ListPostsComponent {
-  displayedColumns: any = ['position', 'orderDate', 'agency', 'contactPerson', 'contactMail', 'workType', 'description', 'state'];
+  displayedColumns: any = ['position', 'orderDate', 'agency', 'contactPerson', 'contactMail', 'contactPhone', 'workType', 'orderState']
   //dataSource: any = ELEMENT_DATA;
-  designRequests!: designOrderDTO[];
   dataSource = new MatTableDataSource<designOrderDTO>()
-
+  currentLang: string = ""
+  
   constructor( private postService: BookingService, private sharedService: SharedService ) {
     this.loadPosts();
   }
 
+  ngOnInit() {
+    switch ( localStorage.getItem('preferredLang') ) {
+      case 'ca-ES':
+        this.currentLang = 'ca-ES'
+      break
+      case 'es-ES':
+        this.currentLang = 'es-ES'
+      break
+      case 'en-EN':
+        this.currentLang = 'en-EN'
+      break
+      default:
+        this.currentLang = 'ca-ES'
+
+    }
+  }
+  
   @ViewChild(MatSort) sort: MatSort;
 
 
   private loadPosts(): void {
-    let errorResponse: any;
+    let errorResponse: any
+    let actionDone: string = ""
     let responseOK: boolean = false
-    this.postService.getAllDesignRequests().subscribe(
+    this.postService.getAllDesignRequests()
+    .pipe(
+      finalize(async () => {
+        await this.sharedService.managementToast(
+          'postFeedback',
+          responseOK,
+          errorResponse, actionDone
+        )
+      })
+    )
+    .subscribe(
         (requests: designOrderDTO[]) => {
           this.dataSource.data = requests
-
           responseOK = true
-          finalize(async () => {
-            await this.sharedService.managementToast( 'postFeedback', responseOK )
-          })
+          actionDone = "Data listed"
         },
         (error: HttpErrorResponse) => {
-          errorResponse = error.error;
-         /*  this.sharedService.errorLog(errorResponse) */
-          if ( error.status === 200 ) {
-            responseOK = true
+          if ( error.message.includes('Http failure during parsing for') ) {
+            responseOK = false
+            actionDone = "No data found to list"
           }
-         /*  this.sharedService.errorLog(error) */
           finalize(async () => {
             await this.sharedService.managementToast( 'postFeedback', responseOK, error )
           })
         }
       );
   }
-
 }
 
 export interface designOrder {
@@ -60,32 +82,33 @@ export interface designOrder {
   agency: string
   contactPerson: string
   contactMail: string
+  contactPhone: string
   workType: string
-  description: string
-  state?: string
+  /* description: string */
+  orderState?: string
 }
-const currDate: Date = new Date();
-const orderDate: string = currDate.toDateString();
+/* const currDate: Date = new Date();
+const orderDate: string = currDate.toDateString(); */
 
-const ELEMENT_DATA: designOrder[] = [
-  {position: 1, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 2, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 3, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 4, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 5, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 6, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 7, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 8, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 9, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 10, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 1, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 2, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 3, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 4, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 5, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 6, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 7, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 8, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 9, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-  {position: 10, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', state: 'pending'},
-];
+/* const ELEMENT_DATA: designOrder[] = [
+  {position: 1, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 2, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 3, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 4, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 5, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 6, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 7, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 8, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 9, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 10, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 1, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 2, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 3, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 4, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 5, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 6, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 7, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 8, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 9, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+  {position: 10, orderDate, agency: 'Agència de Desenvolupament Regional de les Illes Balears (ADR Balears)', contactPerson: 'ignacio lladó vidal', contactMail: 'nachollv@hotmail.com', contactPhone: '999999999', workType: 'Revisar cartell', description:'bla bla bla bla cccccc ddddddd', orderState: 'pending'},
+]; */

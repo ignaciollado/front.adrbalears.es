@@ -1,6 +1,6 @@
 {
-  "name": "adr-balears-es-recinte-menorca-booking",
-  "short_name": "adr-balears-es-recinte-menorca-booking",
+  "name": "adr-balears-es-requests",
+  "short_name": "adr-balears-es-requests",
   "theme_color": "#003747",
   "background_color": "#0098cb",
   "display": "standalone",
