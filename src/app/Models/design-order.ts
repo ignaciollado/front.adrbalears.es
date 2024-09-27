@@ -5,6 +5,7 @@ export class designOrderDTO {
   contact_phone: string;
   work_type:  string;
   body:     string;
+  state: string;
 
   constructor(
     agency:    string,
@@ -12,7 +13,9 @@ export class designOrderDTO {
     contact_mail: string,
     contact_phone: string,
     work_type:  string,
-    body:     string
+    body:     string,
+    state: string
+
    )
     {
     this.agency = agency,
@@ -20,6 +23,7 @@ export class designOrderDTO {
     this.contact_mail = contact_mail,
     this.contact_phone = contact_phone,
     this.work_type = work_type,
-    this.body = body
+    this.body = body,
+    this.state = state
     }
 }

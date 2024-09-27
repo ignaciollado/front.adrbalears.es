@@ -68,11 +68,6 @@
       <td mat-cell *matCellDef="let element"> {{element.workType}} </td>
     </ng-container>
 
-<!--     <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Work description </th>
-      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container> -->
-
     <ng-container matColumnDef="orderState">
       <th mat-header-cell *matHeaderCellDef> 
         <span *ngIf="currentLang === 'es-ES'">Situación</span>
@@ -80,6 +75,17 @@
         <span *ngIf="currentLang === 'en-EN'">Order State</span>
        </th>
       <td mat-cell *matCellDef="let element"> {{element.orderState}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="viewDetail">
+      <mat-header-cell *matHeaderCellDef>
+        <span *ngIf="currentLang === 'es-ES'">Ver detalles del encargo</span>
+        <span *ngIf="currentLang === 'ca-ES'">View order details</span>
+        <span *ngIf="currentLang === 'en-EN'">View order details</span>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-fab extended (click)="openDialog('300ms', '300ms', 'Order details', element)">View detail</button>
+      </mat-cell>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

@@ -10,6 +10,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { UtilsModule } from "./utils/module";
 import { FormatBookingPipe } from './Pipe/format-quantity.pipe';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -22,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule} from '@angular/material/dialog';
 import { BookingCalendarChildComponent } from './booking-calendar-child/booking-calendar-child.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { HeaderComponent } from './header/header.component';
@@ -30,7 +32,10 @@ import { BodyComponent } from './body/body.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListPostsComponent } from './posts/list-posts/list-posts.component';
 import { DetailPostComponent } from './posts/detail-post/detail-post.component';
-
+import { DialogModule } from '@angular/cdk/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 @NgModule({
     declarations: [
         AppComponent,
@@ -41,7 +46,8 @@ import { DetailPostComponent } from './posts/detail-post/detail-post.component';
         BodyComponent,
         FooterComponent,
         ListPostsComponent,
-        DetailPostComponent
+        DetailPostComponent,
+        ConfirmDialogComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -61,6 +67,11 @@ import { DetailPostComponent } from './posts/detail-post/detail-post.component';
         MatTooltipModule,
         MatCheckboxModule,
         MatRadioModule,
+        MatDialogModule,
+        DialogModule,
+        MatCardModule,
+        MatChipsModule,
+        MatButtonToggleModule,
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         

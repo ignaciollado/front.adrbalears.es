@@ -69,9 +69,16 @@ export class BookingService {
       .get<designOrderDTO[]>(`${URL_API}designOrderGetByClient.php?companyId=${companyId}`, httpOptions)
   }
 
-  getDesignRequestById(bookingId: string): Observable<designOrderDTO> {
+  getDesignRequestById(orderID: string): Observable<designOrderDTO> {
+    console.log("id:", orderID)
     return this.http
-      .get<designOrderDTO>(`${URL_API}designOrderGetById.php?bookingId=${bookingId}`)
+      .get<designOrderDTO>(`${URL_API}designOrderGetById.php?orderID=${orderID}`)
+  }
+
+  updateDesignRequest(orderID: string, newState: string): Observable<any> {
+  
+    return this.http
+      .patch<designOrderDTO>(`${URL_API}designOrderUpdate.php?orderID=${orderID}&newState=${newState}`, newState)
   }
 
   updateBooking(bookingId: string, booking: BookingDTO): Observable<BookingDTO> {

@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>{{data.dialogTitle}}</h2>
+<mat-dialog-content>
+     <mat-card class="order-card" appearance="outlined" *ngIf="orderDetail">
+        <mat-card-header>
+          <mat-card-title>{{orderDetail[0].agency}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{orderDetail[0].order_date | date}}</p>
+          <p>{{orderDetail[0].work_type}}</p>
+          <p>{{orderDetail[0].contact_name}}</p>
+          <p>{{orderDetail[0].contact_mail}}</p>
+          <p>{{orderDetail[0].contact_phone}}</p>
+          <p>{{orderDetail[0].description}}</p>
+        </mat-card-content>
+        <mat-card-footer class="order-card-footer">
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle extended value="pending" (click)="setStatus(orderDetail[0].id, 'pending')">Pending</mat-button-toggle>
+            <mat-button-toggle extended value="workingIn" (click)="setStatus(orderDetail[0].id, 'workingIn')">Working-in</mat-button-toggle>
+            <mat-button-toggle extended value="finished" (click)="setStatus(orderDetail[0].id, 'finished')">Fihished</mat-button-toggle>
+            <mat-button-toggle extended value="discarted" (click)="setStatus(orderDetail[0].id, 'discarted')">Discarted</mat-button-toggle>
+          </mat-button-toggle-group>
+        </mat-card-footer>
+      </mat-card>
+      
+     <span id="postFeedback" *ngIf="!orderDetail">No data found</span>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button color="primary" [mat-dialog-close]>Close</button>
+    <button *ngIf="confirmDialog" color="warn" mat-raised-button (click)="onCommand()">Delete</button>
+</mat-dialog-actions>

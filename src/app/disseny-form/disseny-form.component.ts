@@ -24,7 +24,7 @@ export class DissenyFormComponent {
               private sharedService: SharedService, 
               private titleService:Title, private bookingService: BookingService) { 
     this.titleService.setTitle("ADR Balears, Departament de disseny");
-    this.formData = new designOrderDTO('', '', '', '', '', '')
+    this.formData = new designOrderDTO('', '', '', '', '', '', '')
   }
 
   ngOnInit() {
