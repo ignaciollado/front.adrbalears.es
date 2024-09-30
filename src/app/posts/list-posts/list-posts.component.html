@@ -78,14 +78,14 @@
     </ng-container>
 
     <ng-container matColumnDef="viewDetail">
-      <mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef>
         <span *ngIf="currentLang === 'es-ES'">Ver detalles del encargo</span>
         <span *ngIf="currentLang === 'ca-ES'">View order details</span>
         <span *ngIf="currentLang === 'en-EN'">View order details</span>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <button mat-fab extended (click)="openDialog('300ms', '300ms', 'Order details', element)">View detail</button>
-      </mat-cell>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-fab extended (click)="openDialog('300ms', '300ms', 'Order details', element)"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

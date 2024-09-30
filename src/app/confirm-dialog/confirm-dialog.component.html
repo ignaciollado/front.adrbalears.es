@@ -14,10 +14,10 @@
         </mat-card-content>
         <mat-card-footer class="order-card-footer">
           <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle extended value="pending" (click)="setStatus(orderDetail[0].id, 'pending')">Pending</mat-button-toggle>
-            <mat-button-toggle extended value="workingIn" (click)="setStatus(orderDetail[0].id, 'workingIn')">Working-in</mat-button-toggle>
-            <mat-button-toggle extended value="finished" (click)="setStatus(orderDetail[0].id, 'finished')">Fihished</mat-button-toggle>
-            <mat-button-toggle extended value="discarted" (click)="setStatus(orderDetail[0].id, 'discarted')">Discarted</mat-button-toggle>
+            <mat-button-toggle mat-raised-button extended value="pending" (click)="setStatus(orderDetail[0].id, 'pending')">Pending</mat-button-toggle>
+            <mat-button-toggle mat-raised-button extended value="workingIn" (click)="setStatus(orderDetail[0].id, 'workingIn')">Working-in</mat-button-toggle>
+            <mat-button-toggle mat-raised-button extended value="finished" (click)="setStatus(orderDetail[0].id, 'finished')">Fihished</mat-button-toggle>
+            <mat-button-toggle mat-raised-button extended value="discarted" (click)="setStatus(orderDetail[0].id, 'discarted')">Discarted</mat-button-toggle>
           </mat-button-toggle-group>
         </mat-card-footer>
       </mat-card>
