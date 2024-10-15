@@ -10,7 +10,7 @@ mysqli_query($conn, "SET NAMES 'utf8'");
 $postedData = file_get_contents("php://input");
 $request = json_decode($postedData, TRUE);
 
-$sql = "INSERT INTO `booking_service` (name, idCard, email, resourceBooked, fromDate, fromDateFromTime, toDate, toDateToTime, allDay, acceptTerms) VALUES('"
+$sql = "INSERT INTO `booking_service` (name, idCard, email, resourceBooked, fromDate, fromDateFromTime, toDate, toDateToTime, allDay, acceptedTerms) VALUES('"
           .$request['bookerName']."','"
           .$request['idCard']."','"
           .$request['bookerEMail']."','"

@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, Inject, TemplateRef, ElementRef, EventEmitter, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, Inject } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { AbstractControl, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, finalize } from 'rxjs';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarUtils, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { colors } from '../utils/colors';
-import { addDays, addHours, endOfDay, isSameDay, isSameMonth, setDay, startOfDay, subDays, subSeconds } from 'date-fns';
+import { addDays, addHours, isSameDay, isSameMonth, setDay, startOfDay, subDays, subSeconds } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
 import { BookingDTO } from '../Models/booking.model';
 import { BookingService } from '../Services/booking.service';
@@ -225,6 +225,8 @@ export class BookingCalendarChildComponent {
     let eventItem: CalendarEvent
     let myColor: EventColor
     let myTitle: string = ""
+    let startHour: string  
+    let endHour: string
     let errorResponse: any
     this.events = []
 
@@ -232,11 +234,9 @@ export class BookingCalendarChildComponent {
     .pipe( )
     .subscribe(
         (bookings: BookingDTO[]) => {
-
           this.bookings = bookings
           if (this.bookings) {
             this.bookings.map( (event: any) => {
-            /* if (event.resourceBooked) { */
                 switch(event.resourceBooked.split("-")[0]) {
                 case 'red':
                   if (event.state === 'Pending') {
@@ -245,6 +245,24 @@ export class BookingCalendarChildComponent {
                     myColor = colors.red
                   }
                   myTitle = `<b>-SALA VERMELLA-</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: *${event.state}*`
+                  startHour = event.fromDateFromTime
+                  endHour = event.toDateToTime
+                  eventItem = {
+                    title:  myTitle,
+                    color:  myColor,
+                    start:  addHours(startOfDay(setDay(new Date(event.fromDate), 1)), +startHour.split(':')[0]),
+                    end:    subSeconds(addHours(startOfDay(setDay(new Date(event.toDate), 1)), +endHour.split(':')[0]), 1),
+                    meta: {
+                      type: 'info'
+                    },
+                    allDay: false,
+                    cssClass: 'event-class',
+                    resizable: {
+                      beforeStart: this.isbeforeStart,
+                      afterEnd: this.isafterEnd,
+                    },
+                    draggable: this.isDragable,
+                  }
                   break
                 case 'blue':
                   if (event.state === 'Pending') {
@@ -253,6 +271,24 @@ export class BookingCalendarChildComponent {
                     myColor = colors.blue
                   }
                   myTitle = "<b>-SALA BLAVA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                  startHour = event.fromDateFromTime
+                  endHour = event.toDateToTime
+                  eventItem = {
+                    title:  myTitle,
+                    color:  myColor,
+                    start:  addHours(startOfDay(setDay(new Date(event.fromDate), 1)), +startHour.split(':')[0]),
+                    end:    subSeconds(addHours(startOfDay(setDay(new Date(event.toDate), 1)), +endHour.split(':')[0]), 1),
+                    meta: {
+                      type: 'info'
+                    },
+                    allDay: false,
+                    cssClass: 'event-class',
+                    resizable: {
+                      beforeStart: this.isbeforeStart,
+                      afterEnd: this.isafterEnd,
+                    },
+                    draggable: this.isDragable,
+                  }                  
                   break
                 case 'white':
                   if (event.state === 'Pending') {
@@ -261,6 +297,24 @@ export class BookingCalendarChildComponent {
                     myColor = colors.white
                   }
                   myTitle = "<b>-SALA BLANCA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                  startHour = event.fromDateFromTime
+                  endHour = event.toDateToTime
+                  eventItem = {
+                    title:  myTitle,
+                    color:  myColor,
+                    start:  addHours(startOfDay(setDay(new Date(event.fromDate), 1)), +startHour.split(':')[0]),
+                    end:    subSeconds(addHours(startOfDay(setDay(new Date(event.toDate), 1)), +endHour.split(':')[0]), 1),
+                    meta: {
+                      type: 'info'
+                    },
+                    allDay: false,
+                    cssClass: 'event-class',
+                    resizable: {
+                      beforeStart: this.isbeforeStart,
+                      afterEnd: this.isafterEnd,
+                    },
+                    draggable: this.isDragable,
+                  }                  
                   break
                 case 'yellow':
                   if (event.state === 'Pending') {
@@ -269,6 +323,24 @@ export class BookingCalendarChildComponent {
                     myColor = colors.yellow
                   }
                   myTitle = "<b>-SALA GROGA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
+                  startHour = event.fromDateFromTime
+                  endHour = event.toDateToTime
+                  eventItem = {
+                    title:  myTitle,
+                    color:  myColor,
+                    start:  addHours(startOfDay(setDay(new Date(event.fromDate), 1)), +startHour.split(':')[0]),
+                    end:    subSeconds(addHours(startOfDay(setDay(new Date(event.toDate), 1)), +endHour.split(':')[0]), 1),
+                    meta: {
+                      type: 'info'
+                    },
+                    allDay: false,
+                    cssClass: 'event-class',
+                    resizable: {
+                      beforeStart: this.isbeforeStart,
+                      afterEnd: this.isafterEnd,
+                    },
+                    draggable: this.isDragable,
+                  }                  
                   break
                 case 'A':
                   if (event.state === 'Pending') {
@@ -277,6 +349,22 @@ export class BookingCalendarChildComponent {
                     myColor = colors.pavellonA
                   }
                   myTitle = "<b>-PAVELLÓ A-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
+                  eventItem = {
+                    title:  myTitle,
+                    color:  myColor,
+                    start:  subDays(startOfDay(new Date(event.fromDate)), 0),
+                    end:    addDays(new Date(event.toDate), 0),
+                    meta: {
+                      type: 'info'
+                    },
+                    allDay: false,
+                    cssClass: 'event-class',
+                    resizable: {
+                      beforeStart: this.isbeforeStart,
+                      afterEnd: this.isafterEnd,
+                    },
+                    draggable: this.isDragable,
+                  }
                   break
                 case 'B':
                   if (event.state === 'Pending') {
@@ -286,7 +374,7 @@ export class BookingCalendarChildComponent {
                   }
                   myTitle = "<b>-PAVELLÓ B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
                   break
-                  case 'AB':
+                case 'AB':
                     if (event.state === 'Pending') {
                       myColor = colors.grey
                     } else {
@@ -295,28 +383,11 @@ export class BookingCalendarChildComponent {
                     myTitle = "<b>-PAVELLÓNS A + B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
                     break                
                 }
-            /* } */
-            eventItem = {
-              title:  myTitle,
-              color:  myColor,
-              start:  addHours((new Date(event.fromDate)), (event.fromDateFromTime-2)),
-              end:    addHours((new Date(event.toDate)), (event.toDateToTime-2)),
-              meta: {
-                type: 'info'
-              },
-              allDay: false,
-              cssClass: 'event-class',
-              resizable: {
-                beforeStart: this.isbeforeStart,
-                afterEnd: this.isafterEnd,
-              },
-              draggable: this.isDragable,
-            }
             this.events.push(eventItem)
             this.refresh.next() /* Para que en la primera carga del calendario pinte los eventos que hay en la bbdd */
           })
         }
-         
+        console.log(eventItem) 
         },
          (error: HttpErrorResponse) => {
            errorResponse = error.error;

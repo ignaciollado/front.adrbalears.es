@@ -1,9 +1,9 @@
 ﻿<?php
 
 $mysqlhost = '127.0.0.1';
-$username = 'forms_req_gH34_1';
-$password = 'YXZed48#58-^';
-$dbname = 'forms_request_to_adrbalears';
+$username = 'front_';
+$password = 'cKjfX010#]9#';
+$dbname = 'front_adrbalears_generlly';
 
 // Crear la conexión
 
