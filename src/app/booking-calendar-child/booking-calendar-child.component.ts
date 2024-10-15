@@ -245,8 +245,8 @@ export class BookingCalendarChildComponent {
                     myColor = colors.red
                   }
                   myTitle = `<b>-SALA VERMELLA-</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: *${event.state}*`
-                  startHour = event.fromDateFromTime+" "+event.fromDateFromTime
-                  endHour = event.toDateToTime+" "+event.toDateToTime
+                  startHour = event.fromDate+" "+event.fromDateFromTime
+                  endHour = event.toDate+" "+event.toDateToTime
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
@@ -271,8 +271,9 @@ export class BookingCalendarChildComponent {
                     myColor = colors.blue
                   }
                   myTitle = "<b>-SALA BLAVA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDateFromTime+" "+event.fromDateFromTime
-                  endHour = event.toDateToTime+" "+event.toDateToTime
+                  startHour = event.fromDate+" "+event.fromDateFromTime
+                  endHour = event.toDate+" "+event.toDateToTime
+                  console.log (startHour, endHour, new Date( startHour ), new Date( endHour ))
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
@@ -297,8 +298,8 @@ export class BookingCalendarChildComponent {
                     myColor = colors.white
                   }
                   myTitle = "<b>-SALA BLANCA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDateFromTime+" "+event.fromDateFromTime
-                  endHour = event.toDateToTime+" "+event.toDateToTime
+                  startHour = event.fromDate+" "+event.fromDateFromTime
+                  endHour = event.toDate+" "+event.toDateToTime
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
@@ -323,8 +324,8 @@ export class BookingCalendarChildComponent {
                     myColor = colors.yellow
                   }
                   myTitle = "<b>-SALA GROGA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDateFromTime+" "+event.fromDateFromTime
-                  endHour = event.toDateToTime+" "+event.toDateToTime
+                  startHour = event.fromDate+" "+event.fromDateFromTime
+                  endHour = event.toDate+" "+event.toDateToTime
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
