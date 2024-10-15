@@ -245,13 +245,13 @@ export class BookingCalendarChildComponent {
                     myColor = colors.red
                   }
                   myTitle = `<b>-SALA VERMELLA-</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: *${event.state}*`
-                  startHour = event.fromDateFromTime
-                  endHour = event.toDateToTime
+                  startHour = event.fromDateFromTime+" "+event.fromDateFromTime
+                  endHour = event.toDateToTime+" "+event.toDateToTime
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
-                    start:  addHours(startOfDay(setDay(new Date(event.fromDate), 1)), +startHour.split(':')[0]),
-                    end:    subSeconds(addHours(startOfDay(setDay(new Date(event.toDate), 1)), +endHour.split(':')[0]), 1),
+                    start:  new Date( startHour ),
+                    end:    new Date( endHour ),
                     meta: {
                       type: 'info'
                     },
@@ -271,13 +271,13 @@ export class BookingCalendarChildComponent {
                     myColor = colors.blue
                   }
                   myTitle = "<b>-SALA BLAVA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDateFromTime
-                  endHour = event.toDateToTime
+                  startHour = event.fromDateFromTime+" "+event.fromDateFromTime
+                  endHour = event.toDateToTime+" "+event.toDateToTime
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
-                    start:  addHours(startOfDay(setDay(new Date(event.fromDate), 1)), +startHour.split(':')[0]),
-                    end:    subSeconds(addHours(startOfDay(setDay(new Date(event.toDate), 1)), +endHour.split(':')[0]), 1),
+                    start:  new Date( startHour ),
+                    end:    new Date( endHour ),
                     meta: {
                       type: 'info'
                     },
@@ -297,13 +297,13 @@ export class BookingCalendarChildComponent {
                     myColor = colors.white
                   }
                   myTitle = "<b>-SALA BLANCA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDateFromTime
-                  endHour = event.toDateToTime
+                  startHour = event.fromDateFromTime+" "+event.fromDateFromTime
+                  endHour = event.toDateToTime+" "+event.toDateToTime
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
-                    start:  addHours(startOfDay(setDay(new Date(event.fromDate), 1)), +startHour.split(':')[0]),
-                    end:    subSeconds(addHours(startOfDay(setDay(new Date(event.toDate), 1)), +endHour.split(':')[0]), 1),
+                    start:  new Date( startHour ),
+                    end:    new Date( endHour ),
                     meta: {
                       type: 'info'
                     },
@@ -323,13 +323,13 @@ export class BookingCalendarChildComponent {
                     myColor = colors.yellow
                   }
                   myTitle = "<b>-SALA GROGA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDateFromTime
-                  endHour = event.toDateToTime
+                  startHour = event.fromDateFromTime+" "+event.fromDateFromTime
+                  endHour = event.toDateToTime+" "+event.toDateToTime
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
-                    start:  addHours(startOfDay(setDay(new Date(event.fromDate), 1)), +startHour.split(':')[0]),
-                    end:    subSeconds(addHours(startOfDay(setDay(new Date(event.toDate), 1)), +endHour.split(':')[0]), 1),
+                    start:  new Date( startHour ),
+                    end:    new Date( endHour ),
                     meta: {
                       type: 'info'
                     },
