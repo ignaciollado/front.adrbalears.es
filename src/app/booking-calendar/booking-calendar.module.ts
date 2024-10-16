@@ -11,4 +11,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     CommonModule
   ]
 })
-export class BookingCalendarModule { }
+export class BookingCalendarModule {
+
+ }

@@ -1,25 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ViewEncapsulation, Input
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import {
-  CalendarEvent,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
-} from 'angular-calendar';
+import { CalendarEvent, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { colors } from './utils/colors';
 
-import {
-  addDays,
-  addHours,
-  isSameDay,
-  setDay,
-  startOfDay,
-  subDays,
-  subSeconds,
-} from 'date-fns';
+import { addDays, addHours, isSameDay, setDay, startOfDay, subDays, subSeconds } from 'date-fns';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +22,7 @@ export class AppComponent {
   @Input() bookingData: string = ""
 
   events: CalendarEvent[] = [
-    {
+  /*   {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'Reserva Pavellón A',
@@ -105,7 +89,7 @@ export class AppComponent {
         afterEnd: this.isafterEnd,
       },
       draggable: this.isDragable,
-    },
+    }, */
   ];
 
   refresh = new Subject<void>();

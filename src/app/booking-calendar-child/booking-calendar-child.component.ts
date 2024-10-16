@@ -4,7 +4,7 @@ import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, 
 import { Subject, finalize } from 'rxjs';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { colors } from '../utils/colors';
-import { addDays, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
+import { addDays, isSameDay, isSameMonth, startOfDay, startOfWeek, subDays } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
 import { BookingDTO } from '../Models/booking.model';
 import { BookingService } from '../Services/booking.service';
@@ -12,7 +12,6 @@ import { SharedService } from '../Services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EmailManagementService } from '../Services/emailManagement.service';
 import { EventColor } from 'calendar-utils';
-import { NGX_MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER } from '@angular-material-components/datetime-picker/lib/date-selection-model';
 
 @Component({
   selector: 'app-booking-calendar-child',
@@ -170,13 +169,11 @@ export class BookingCalendarChildComponent {
     private formBuilder: UntypedFormBuilder,
     private bookingService: BookingService,
     private sharedService: SharedService,
-    private _adapter: DateAdapter<any>,
-    @Inject(MAT_DATE_LOCALE) private _locale: string,
+    private dateAdapter: DateAdapter<Date>,
     private emailManagementService: EmailManagementService
     ) {
-    this._locale = 'es'; /* 'es-ES' */
-    this._adapter.setLocale(this._locale)
-    this.theBooking = new BookingDTO( 0, '', '', '', this._adapter.today(), this._adapter.today(), 'Pending', false);
+    this.dateAdapter.getFirstDayOfWeek = () => 1
+    this.theBooking = new BookingDTO( 0, '', '', '', this.dateAdapter.today(), this.dateAdapter.today(), 'Pending', false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
     const currentDay = new Date().getDate()+1

@@ -35,8 +35,13 @@ import { DetailPostComponent } from './posts/detail-post/detail-post.component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { LOCALE_ID } from '@angular/core'
+import { registerLocaleData } from '@angular/common'
+import localeEs from '@angular/common/locales/es'
+
+registerLocaleData(localeEs);
 
 @NgModule({
     declarations: [
@@ -52,7 +57,7 @@ import {MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
         ConfirmDialogComponent
     ],
   /*   providers: [{provide: DateAdapter, useClass: CustomDateAdapter}], */
-    providers: [],
+    providers: [{ provide: LOCALE_ID, useValue: 'es-ES' }, { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
