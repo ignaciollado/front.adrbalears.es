@@ -6,26 +6,32 @@
           (click)="viewChange.emit(CalendarView.Month)"
           [class.active]="view === CalendarView.Month"
         >
-          Month
+          <span *ngIf="locale === 'en-EN'">Month</span>
+          <span *ngIf="locale === 'es-ES'">Mes</span>
+          <span *ngIf="locale === 'ca-ES'">Mes</span>
         </div>
         <div
           class="btn btn-primary"
           (click)="viewChange.emit(CalendarView.Week)"
           [class.active]="view === CalendarView.Week"
         >
-          Week
+          <span *ngIf="locale === 'en-EN'">Week</span>
+          <span *ngIf="locale === 'es-ES'">Semana</span>
+          <span *ngIf="locale === 'ca-ES'">Setmana</span>
         </div>
         <div
           class="btn btn-primary"
           (click)="viewChange.emit(CalendarView.Day)"
           [class.active]="view === CalendarView.Day"
         >
-          Day
+          <span *ngIf="locale === 'en-EN'">Day</span>
+          <span *ngIf="locale === 'es-ES'">Día</span>
+          <span *ngIf="locale === 'ca-ES'">Dia</span>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <h4>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h4>
+      <h5>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h5>
     </div>
     <div class="col-md-4">
       <div class="btn-group">
@@ -36,7 +42,9 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          Previous
+          <span *ngIf="locale === 'en-EN'">Previous</span>
+          <span *ngIf="locale === 'es-ES'">Anterior</span>
+          <span *ngIf="locale === 'ca-ES'">Anterior</span>
         </div>
         <div
           class="btn btn-outline-secondary"
@@ -44,7 +52,9 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          Today
+          <span *ngIf="locale === 'en-EN'">Today</span>
+          <span *ngIf="locale === 'es-ES'">Hoy</span>
+          <span *ngIf="locale === 'ca-ES'">Avui</span> 
         </div>
         <div
           class="btn btn-primary"
@@ -53,7 +63,9 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          Next
+          <span *ngIf="locale === 'en-EN'">Next</span>
+          <span *ngIf="locale === 'es-ES'">Siguiente</span>
+          <span *ngIf="locale === 'ca-ES'">Següent</span> 
         </div>
       </div>
     </div>

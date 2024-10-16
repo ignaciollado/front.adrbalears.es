@@ -102,9 +102,11 @@
     <span id="postFeedback"></span>
   </form>
   <div class='event-detail ocultar' id="resourceDetail"></div>
+
   <div class="the-calendar">
-    <mwl-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate"></mwl-utils-calendar-header>
+    <mwl-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate" [locale]="currentLang"></mwl-utils-calendar-header>
     <div [ngSwitch]="view">
+
       <mwl-calendar-month-view
         *ngSwitchCase="CalendarView.Month"
         [viewDate]="viewDate"
