@@ -14,19 +14,7 @@ export class HeaderComponent {
 
     ngOnInit(): void {
 
-    switch (localStorage.getItem('preferredLang')) {
-      case 'cat':
-        this.currentLang = 'ca-ES'
-      break
-      case 'cas':
-        this.currentLang = 'es-ES'      
-      break
-      case 'en':
-        this.currentLang = 'en-EN'
-      break
-      default:
-        this.currentLang = 'en-EN'
-    }
+    this.currentLang = localStorage.getItem('preferredLang')
 }
     
 private offcanvasService = inject(NgbOffcanvas);

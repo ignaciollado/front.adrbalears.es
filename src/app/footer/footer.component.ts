@@ -11,19 +11,7 @@ export class FooterComponent {
 
   ngOnInit() {
 
-    switch ( localStorage.getItem('preferredLang') ) {
-      case 'cat':
-        this.currentLang = 'ca-ES'
-      break
-      case 'cas':
-        this.currentLang = 'es-ES'      
-      break
-      case 'en':
-        this.currentLang = 'en-EN'
-      break
-      default:
-        this.currentLang = 'ca-ES'
-    }
+    this.currentLang = localStorage.getItem('preferredLang')
   }
 
 }

@@ -13,19 +13,6 @@ export class BodyComponent {
     }
 
     ngOnInit(): void {
-    
-      switch (localStorage.getItem('preferredLang')) {
-        case 'ca-ES':
-          this.currentLang = 'ca-ES'
-        break
-        case 'es-ES':
-          this.currentLang = 'es-ES'      
-        break
-        case 'en-EN':
-          this.currentLang = 'en-EN'
-        break
-        default:
-          this.currentLang = 'en-EN'
-      }
+      this.currentLang = localStorage.getItem('preferredLang')
   }
 }
