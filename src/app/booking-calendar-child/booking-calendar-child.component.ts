@@ -217,23 +217,7 @@ export class BookingCalendarChildComponent {
   }
 
   ngOnInit() {
-
-
-      switch ( localStorage.getItem('preferredLang') ) {
-        case 'ca-ES':
-          this.currentLang = 'ca-ES'
-        break
-        case 'es-ES':
-          this.currentLang = 'es-ES'      
-        break
-        case 'en-EN':
-          this.currentLang = 'en-EN'
-        break
-        default:
-          this.currentLang = 'ca-ES'
-      }
-
-
+    this.currentLang = localStorage.getItem('preferredLang')
     this.loadBookingList()
   }
 
