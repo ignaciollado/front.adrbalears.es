@@ -46,19 +46,19 @@
       
       <mat-form-field appearance="outline" *ngIf="showTime">
         <mat-select [formControl]="fromDateFromTime" id="fromDateFromTime">
-          <mat-option value="08.00">08.00</mat-option>
-          <mat-option value="09.00">09.00</mat-option>
-          <mat-option value="10.00">10.00</mat-option>
-          <mat-option value="11.00">11.00</mat-option>
-          <mat-option value="12.00">12.00</mat-option>
-          <mat-option value="13.00">13.00</mat-option>
-          <mat-option value="14.00">14.00</mat-option>
-          <mat-option value="15.00">15.00</mat-option>
-          <mat-option value="16.00">16.00</mat-option>
-          <mat-option value="17.00">17.00</mat-option>
-          <mat-option value="18.00">18.00</mat-option>
-          <mat-option value="19.00">19.00</mat-option>
-          <mat-option value="20.00">20.00</mat-option>
+          <mat-option value="08:00:00">08.00</mat-option>
+          <mat-option value="09:00:00">09.00</mat-option>
+          <mat-option value="10:00:00">10.00</mat-option>
+          <mat-option value="11:00:00">11.00</mat-option>
+          <mat-option value="12:00:00">12.00</mat-option>
+          <mat-option value="13:00:00">13.00</mat-option>
+          <mat-option value="14:00:00">14.00</mat-option>
+          <mat-option value="15:00:00">15.00</mat-option>
+          <mat-option value="16:00:00">16.00</mat-option>
+          <mat-option value="17:00:00">17.00</mat-option>
+          <mat-option value="18:00:00">18.00</mat-option>
+          <mat-option value="19:00:00">19.00</mat-option>
+          <mat-option value="20:00:00">20.00</mat-option>
         </mat-select>
       </mat-form-field>
       
@@ -69,23 +69,25 @@
         <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
       </mat-form-field>
+
       <mat-form-field appearance="outline" *ngIf="showTime">
         <mat-select [formControl]="toDateToTime" id="toDateToTime">
-          <mat-option value="08.00">08.00</mat-option>
-          <mat-option value="09.00">09.00</mat-option>
-          <mat-option value="10.00">10.00</mat-option>
-          <mat-option value="11.00">11.00</mat-option>
-          <mat-option value="12.00">12.00</mat-option>
-          <mat-option value="13.00">13.00</mat-option>
-          <mat-option value="14.00">14.00</mat-option>
-          <mat-option value="15.00">15.00</mat-option>
-          <mat-option value="16.00">16.00</mat-option>
-          <mat-option value="17.00">17.00</mat-option>
-          <mat-option value="18.00">18.00</mat-option>
-          <mat-option value="19.00">19.00</mat-option>
-          <mat-option value="20.00">20.00</mat-option>
+          <mat-option value="08:00:00">08.00</mat-option>
+          <mat-option value="09:00:00">09.00</mat-option>
+          <mat-option value="10:00:00">10.00</mat-option>
+          <mat-option value="11:00:00">11.00</mat-option>
+          <mat-option value="12:00:00">12.00</mat-option>
+          <mat-option value="13:00:00">13.00</mat-option>
+          <mat-option value="14:00:00">14.00</mat-option>
+          <mat-option value="15:00:00">15.00</mat-option>
+          <mat-option value="16:00:00">16.00</mat-option>
+          <mat-option value="17:00:00">17.00</mat-option>
+          <mat-option value="18:00:00">18.00</mat-option>
+          <mat-option value="19:00:00">19.00</mat-option>
+          <mat-option value="20:00:00">20.00</mat-option>
         </mat-select>
       </mat-form-field>
+
       <div>
         <small class='alert'>** All reservations will remain pending validation. Once validated you will receive an informative email.</small>
       </div>
@@ -108,6 +110,7 @@
         [viewDate]="viewDate"
         [events]="events"
         [refresh]="refresh"
+        [weekStartsOn]="1"
         [activeDayIsOpen]="activeDayIsOpen"
         (dayClicked)="dayClicked($event.day)"
         (eventClicked)="handleEvent('Clicked', $event.event)"
@@ -119,6 +122,7 @@
         [viewDate]="viewDate"
         [events]="events"
         [refresh]="refresh"
+        [weekStartsOn]="1"
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-week-view>

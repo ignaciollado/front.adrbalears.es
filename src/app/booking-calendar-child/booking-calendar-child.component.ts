@@ -1,10 +1,10 @@
-import { Component, ViewEncapsulation, Inject } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, finalize } from 'rxjs';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { colors } from '../utils/colors';
-import { addDays, isSameDay, isSameMonth, startOfDay, startOfWeek, subDays } from 'date-fns';
+import { addDays, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
 import { BookingDTO } from '../Models/booking.model';
 import { BookingService } from '../Services/booking.service';
