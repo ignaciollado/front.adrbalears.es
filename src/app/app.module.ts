@@ -36,6 +36,8 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { CustomDateAdapter } from './custom-date-adapter';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -49,7 +51,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
         DetailPostComponent,
         ConfirmDialogComponent
     ],
-    providers: [],
+    providers: [{provide: DateAdapter, useClass: CustomDateAdapter}],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

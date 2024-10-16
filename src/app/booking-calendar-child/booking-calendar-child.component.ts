@@ -4,7 +4,7 @@ import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, 
 import { Subject, finalize } from 'rxjs';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { colors } from '../utils/colors';
-import { addDays, addHours, isSameDay, isSameMonth, setDay, startOfDay, subDays, subSeconds } from 'date-fns';
+import { addDays, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
 import { BookingDTO } from '../Models/booking.model';
 import { BookingService } from '../Services/booking.service';
@@ -12,6 +12,7 @@ import { SharedService } from '../Services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EmailManagementService } from '../Services/emailManagement.service';
 import { EventColor } from 'calendar-utils';
+import { NGX_MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER } from '@angular-material-components/datetime-picker/lib/date-selection-model';
 
 @Component({
   selector: 'app-booking-calendar-child',
@@ -51,7 +52,7 @@ export class BookingCalendarChildComponent {
   public showTime = false
   public color: ThemePalette = 'primary'
 
-  view: CalendarView = CalendarView.Month
+  view: CalendarView = CalendarView.Week
 
   isDragable: boolean = false
   isbeforeStart: boolean = false
