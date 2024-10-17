@@ -16,7 +16,7 @@ import { FormatBookingPipe } from './Pipe/format-quantity.pipe';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -40,6 +40,7 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { LOCALE_ID } from '@angular/core';
 
 /* import { registerLocaleData } from '@angular/common'
 import localeEs from '@angular/common/locales/es'
@@ -64,7 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ConfirmDialogComponent
     ],
   /*   providers: [{provide: DateAdapter, useClass: CustomDateAdapter}], */
-    providers: [],
+    providers: [{provide: LOCALE_ID, useValue: 'ca-ES'}, {provide: MAT_DATE_LOCALE, useValue: 'ca-ES'}],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, finalize } from 'rxjs';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarWeekViewBeforeRenderEvent, CalendarDateFormatter, DAYS_OF_WEEK } from 'angular-calendar';
 import { colors } from '../utils/colors';
 import { addDays, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
@@ -47,7 +47,6 @@ export class BookingCalendarChildComponent {
   public disabled = false
   public showSpinners = true
   public showSeconds = false
-  public stepHour = .5
   public stepMinute = 1
   public stepSecond = 1
   public enableMeridian = false
@@ -55,6 +54,12 @@ export class BookingCalendarChildComponent {
   public disableMinute = false
   public showTime = false
   public color: ThemePalette = 'primary'
+
+  locale: string = 'fr';
+
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
+
+  weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
 
   view: CalendarView = CalendarView.Week
 
@@ -177,10 +182,9 @@ export class BookingCalendarChildComponent {
     private dateAdapter: DateAdapter<Date>,
     private emailManagementService: EmailManagementService,
     ) {
-/*       translate.setDefaultLang('ca');
-      translate.use('en'); */
-    this.dateAdapter.getFirstDayOfWeek = () => 1
-    this.dateAdapter.setLocale = () => 'ca'
+
+    /* this.dateAdapter.getFirstDayOfWeek = () => 1
+    this.dateAdapter.setLocale = () => 'ca' */
     this.theBooking = new BookingDTO( 0, '', '', '', this.dateAdapter.today(), this.dateAdapter.today(), 'Pending', false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
@@ -453,6 +457,18 @@ export class BookingCalendarChildComponent {
     this.modalData = { event, action }
     document.getElementById("resourceDetail")?.classList.remove("ocultar")
     document.getElementById("resourceDetail")!.innerHTML = event.title
+  }
+
+  beforeWeekViewRender(renderEvent: CalendarWeekViewBeforeRenderEvent) {
+    renderEvent.hourColumns.forEach((hourColumn) => {
+      hourColumn.hours.forEach((hour) => {
+        hour.segments.forEach((segment) => {
+          if (segment.date.getHours() > 2) {
+            segment.cssClass = "bg-pink"
+          }
+        })
+      })
+    })
   }
 
 

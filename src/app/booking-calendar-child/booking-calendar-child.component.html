@@ -101,7 +101,7 @@
     <small class='alert'>{{bookingForm.status | json}}</small> -->
     <span id="postFeedback"></span>
   </form>
-  <div class='event-detail ocultar' id="resourceDetail"></div>
+  
 
   <div class="the-calendar">
     <mwl-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate" [locale]="currentLang"></mwl-utils-calendar-header>
@@ -111,8 +111,10 @@
         [viewDate]="viewDate"
         [events]="events"
         [refresh]="refresh"
-        [weekStartsOn]="1"
+        [weekStartsOn]="weekStartsOn"
+        [weekendDays]="weekendDays"
         [activeDayIsOpen]="activeDayIsOpen"
+        [cellTemplate]="customCellTemplate"
         (dayClicked)="dayClicked($event.day)"
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)"
@@ -124,7 +126,13 @@
         [viewDate]="viewDate"
         [events]="events"
         [refresh]="refresh"
-        [weekStartsOn]="1"
+        [hourDuration]="60"
+        [dayStartHour]="8"
+        [dayEndHour]="18"
+        [hourSegments]="1"
+        [weekStartsOn]="weekStartsOn"
+        [weekendDays]="weekendDays"
+        (beforeViewRender)="beforeWeekViewRender($event)"
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-week-view>
@@ -134,15 +142,30 @@
         [viewDate]="viewDate"
         [events]="events"
         [refresh]="refresh"
+        [hourDuration]="60"
         [dayStartHour]="8"
         [dayEndHour]="18"
-        [hourSegments]="4"
+        [hourSegments]="1"
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-day-view>
     </div>
+    <div class='event-detail ocultar' id="resourceDetail"></div>
   </div>
-
-  
 </div>
+
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+  <div class="cal-cell-top">
+    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
+      >{{ day.badgeTotal }}</span
+    >
+    <span class="cal-day-number"
+      >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
+    >
+  </div>
+  <small style="margin: 5px"
+    >There are {{ day.events.length }} events on this day</small
+  >
+</ng-template>
 
