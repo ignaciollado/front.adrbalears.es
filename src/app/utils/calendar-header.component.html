@@ -1,3 +1,4 @@
+
 <div class="row text-center">
     <div class="col-md-4">
       <div class="btn-group">
@@ -6,32 +7,32 @@
           (click)="viewChange.emit(CalendarView.Month)"
           [class.active]="view === CalendarView.Month"
         >
-          <span *ngIf="locale === 'en-EN'">Month</span>
-          <span *ngIf="locale === 'es-ES'">Mes</span>
-          <span *ngIf="locale === 'ca-ES'">Mes</span>
+          <span *ngIf="currentLang === 'en-EN'">Month</span>
+          <span *ngIf="currentLang === 'es-ES'">Mes</span>
+          <span *ngIf="currentLang === 'ca-ES'">Mes</span>
         </div>
         <div
           class="btn btn-primary"
           (click)="viewChange.emit(CalendarView.Week)"
           [class.active]="view === CalendarView.Week"
         >
-          <span *ngIf="locale === 'en-EN'">Week</span>
-          <span *ngIf="locale === 'es-ES'">Semana</span>
-          <span *ngIf="locale === 'ca-ES'">Setmana</span>
+          <span *ngIf="currentLang === 'en-EN'">Week</span>
+          <span *ngIf="currentLang === 'es-ES'">Semana</span>
+          <span *ngIf="currentLang === 'ca-ES'">Setmana</span>
         </div>
         <div
           class="btn btn-primary"
           (click)="viewChange.emit(CalendarView.Day)"
           [class.active]="view === CalendarView.Day"
         >
-          <span *ngIf="locale === 'en-EN'">Day</span>
-          <span *ngIf="locale === 'es-ES'">Día</span>
-          <span *ngIf="locale === 'ca-ES'">Dia</span>
+          <span *ngIf="currentLang === 'en-EN'">Day</span>
+          <span *ngIf="currentLang === 'es-ES'">Día</span>
+          <span *ngIf="currentLang === 'ca-ES'">Dia</span>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <h5>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h5>
+      <h5>{{ viewDate | calendarDate: view + 'ViewTitle':currentLang }}</h5>
     </div>
     <div class="col-md-4">
       <div class="btn-group">
@@ -42,9 +43,9 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          <span *ngIf="locale === 'en-EN'">Previous</span>
-          <span *ngIf="locale === 'es-ES'">Anterior</span>
-          <span *ngIf="locale === 'ca-ES'">Anterior</span>
+          <span *ngIf="currentLang === 'en-EN'">Previous</span>
+          <span *ngIf="currentLang === 'es-ES'">Anterior</span>
+          <span *ngIf="currentLang === 'ca-ES'">Anterior</span>
         </div>
         <div
           class="btn btn-outline-secondary"
@@ -52,9 +53,9 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          <span *ngIf="locale === 'en-EN'">Today</span>
-          <span *ngIf="locale === 'es-ES'">Hoy</span>
-          <span *ngIf="locale === 'ca-ES'">Avui</span> 
+          <span *ngIf="currentLang === 'en-EN'">Today</span>
+          <span *ngIf="currentLang === 'es-ES'">Hoy</span>
+          <span *ngIf="currentLang === 'ca-ES'">Avui</span> 
         </div>
         <div
           class="btn btn-primary"
@@ -63,9 +64,9 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          <span *ngIf="locale === 'en-EN'">Next</span>
-          <span *ngIf="locale === 'es-ES'">Siguiente</span>
-          <span *ngIf="locale === 'ca-ES'">Següent</span> 
+          <span *ngIf="currentLang === 'en-EN'">Next</span>
+          <span *ngIf="currentLang === 'es-ES'">Siguiente</span>
+          <span *ngIf="currentLang === 'ca-ES'">Següent</span> 
         </div>
       </div>
     </div>

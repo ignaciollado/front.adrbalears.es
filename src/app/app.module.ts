@@ -1,6 +1,9 @@
 import { NgModule, isDevMode } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { I18nModule } from "./i18n/i18n.module";
 import { BrowserModule } from '@angular/platform-browser';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
@@ -36,12 +40,15 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { LOCALE_ID } from '@angular/core'
-import { registerLocaleData } from '@angular/common'
-import localeEs from '@angular/common/locales/es'
 
-registerLocaleData(localeEs);
+/* import { registerLocaleData } from '@angular/common'
+import localeEs from '@angular/common/locales/es'
+registerLocaleData(localeEs);*/
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+  }
 
 @NgModule({
     declarations: [
@@ -57,10 +64,16 @@ registerLocaleData(localeEs);
         ConfirmDialogComponent
     ],
   /*   providers: [{provide: DateAdapter, useClass: CustomDateAdapter}], */
-    providers: [{ provide: LOCALE_ID, useValue: 'es-ES' }, { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
+    providers: [],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
+        TranslateModule.forRoot({loader: {
+            provide: TranslateLoader,
+              useFactory: HttpLoaderFactory,
+              deps: [HttpClient]
+          }}),
+        I18nModule,
         AppRoutingModule,
         ReactiveFormsModule,
         HttpClientModule,

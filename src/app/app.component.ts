@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import { CalendarEvent, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
-import { colors } from './utils/colors';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
 
-import { addDays, addHours, isSameDay, setDay, startOfDay, subDays, subSeconds } from 'date-fns';
 
 @Component({
   selector: 'app-root',

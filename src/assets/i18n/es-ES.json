@@ -1,0 +1,16 @@
+{
+  "app": {
+    "booking-selection": "Por favor, rellena tus datos de reserva:",
+    "hello": "Hola {{value}}",
+    "title": "Traducción Demo",
+    "your-name": "Tu nombre",
+    "your-ID-card": "CIF",
+    "email-address": "Un correo electrónico para contactarte",
+    "email-address-valid": "Por favor, danos un correo electrónico válido",
+    "resource-to-book": "Selecciona el recurso que quieres alquilar",
+    "from-date": "Desde la fecha",
+    "to-date": "Hasta la fecha",
+    "accept-terms-and-conditions": "Aceptar los términos y condiciones",
+    "booking-in-pending-state": "** Todas las reservas quedarán pendientes de validación. Una vez validadas recibirás un correo electrónico informativo."
+  }
+}

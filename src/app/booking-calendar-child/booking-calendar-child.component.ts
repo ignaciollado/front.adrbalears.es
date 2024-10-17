@@ -12,6 +12,10 @@ import { SharedService } from '../Services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EmailManagementService } from '../Services/emailManagement.service';
 import { EventColor } from 'calendar-utils';
+import { registerLocaleData } from '@angular/common';
+import localeCa from '@angular/common/locales/ca';
+import localeEs from '@angular/common/locales/es'
+registerLocaleData(localeCa);
 
 @Component({
   selector: 'app-booking-calendar-child',
@@ -171,9 +175,12 @@ export class BookingCalendarChildComponent {
     private bookingService: BookingService,
     private sharedService: SharedService,
     private dateAdapter: DateAdapter<Date>,
-    private emailManagementService: EmailManagementService
+    private emailManagementService: EmailManagementService,
     ) {
+/*       translate.setDefaultLang('ca');
+      translate.use('en'); */
     this.dateAdapter.getFirstDayOfWeek = () => 1
+    this.dateAdapter.setLocale = () => 'ca'
     this.theBooking = new BookingDTO( 0, '', '', '', this.dateAdapter.today(), this.dateAdapter.today(), 'Pending', false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
@@ -217,7 +224,7 @@ export class BookingCalendarChildComponent {
   }
 
   ngOnInit() {
-    this.currentLang = localStorage.getItem('preferredLang')
+   /*  this.currentLang = localStorage.getItem('preferredLang') */
     this.loadBookingList()
   }
 

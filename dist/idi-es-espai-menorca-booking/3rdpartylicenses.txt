@@ -59,6 +59,9 @@ MIT
 @angular/forms
 MIT
 
+@angular/localize
+MIT
+
 @angular/material
 MIT
 The MIT License
@@ -142,6 +145,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+
+@ngx-translate/core
+SEE LICENSE IN LICENSE
+
+@ngx-translate/http-loader
+SEE LICENSE IN LICENSE
 
 @popperjs/core
 MIT

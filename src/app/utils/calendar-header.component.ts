@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
 import { CalendarView } from 'angular-calendar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'mwl-utils-calendar-header',
   templateUrl: './calendar-header.component.html',
   styleUrls: ['./calendar-header.component.scss'],
 })
+
 export class CalendarHeaderComponent {
   @Input() view!: CalendarView;
 
@@ -19,11 +20,15 @@ export class CalendarHeaderComponent {
   @Output() viewDateChange = new EventEmitter<Date>();
 
   CalendarView = CalendarView;
+  currentLang: string
 
+  constructor( private translate:TranslateService ) {
+    console.log( translate.currentLang )
+    this.currentLang = translate.currentLang
+  }
 
-
-  constructor() {
-   
+  ngOnInit() {
+    console.log (this.locale)
   }
   
   

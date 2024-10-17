@@ -1,0 +1,16 @@
+{
+  "app": {
+    "booking-selection": "Per favor, introdueix totes les dades de la reserva:",
+    "hello": "Hola {{value}}",
+    "title": "Traducción Demo",
+    "your-name": "El teu nom",
+    "your-ID-card": "CIF",
+    "email-address": "Un correu electrònic per a contactar-te",
+    "email-address-valid": "Per favor, dona'ns un correu electrònic vàlid",
+    "resource-to-book": "Selecciona el recurs que vols llogar",
+    "from-date": "Des de la data",
+    "to-date": "Fins a la data",
+    "accept-terms-and-conditions": "Acceptar els termes i condicions",
+    "booking-in-pending-state": "** Totes les reserves romandran pendents de validació. Una vegada validades rebràs un correu electrònic informatiu."
+  }
+}

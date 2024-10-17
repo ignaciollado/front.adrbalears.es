@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "idi-es-espai-menorca-booking": {
+      "i18n": {
+        "sourceLocale": "es"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {

@@ -1,0 +1,16 @@
+{
+  "app": {
+    "booking-selection": "Please, enter your booking data:",
+    "hello": "hello {{value}}",
+    "title": "Translation Demo",
+    "your-name": "Your name",
+    "your-ID-card": "Your ID card",
+    "email-address": "An email address to contact you",
+    "email-address-valid": "Please, enter a valid email address",
+    "resource-to-book": "Select the resource to book",
+    "from-date": "From date",
+    "to-date": "To date",
+    "accept-terms-and-conditions": "Accept terms and conditions",
+    "booking-in-pending-state": "** All bookings will remain pending validation. Once validated you will receive an informative email."
+  }
+}

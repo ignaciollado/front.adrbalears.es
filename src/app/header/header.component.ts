@@ -1,6 +1,7 @@
 import { Component, inject, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,11 @@ import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 export class HeaderComponent {
     currentLang: string ="en-EN";
 
-    constructor( private router: Router ) { }
+    constructor( private router: Router, private translate:TranslateService ) { 
+        translate.addLangs(['en-EN', 'ca-ES', 'es-ES']);
+        translate.setDefaultLang('ca-ES'); /* lenguaje a utilizar en el caso de que falten traducciones */
+    /* translate.use('ca-ES'); */
+    }
 
     ngOnInit(): void {
 
@@ -164,8 +169,16 @@ projectLandingPage(projectName: string, contentID: string, categoryID: string, s
     this.router.navigate([`landing-page/${projectName}/${contentID}/${categoryID}/${showLinks}/${faseProCSSClass}/${newsCategory}/${agendaCategory}`])
 }
 
-switchLanguage( lang:string ) {
+/* switchLanguage( lang:string ) {
     localStorage.setItem('preferredLang', lang)
     location.reload() 
-}
+} */
+
+switchLanguage( lang:string ) {
+    console.log ("lang: ", lang)
+    this.translate.use(lang)
+    localStorage.setItem('preferredLang', lang)
+    location.reload()
+  }
+
 }
