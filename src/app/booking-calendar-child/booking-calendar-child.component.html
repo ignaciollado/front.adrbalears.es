@@ -102,7 +102,6 @@
     <span id="postFeedback"></span>
   </form>
   
-
   <div class="the-calendar">
     <mwl-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate" [locale]="currentLang"></mwl-utils-calendar-header>
     <div [ngSwitch]="view">
@@ -132,6 +131,7 @@
         [hourSegments]="1"
         [weekStartsOn]="weekStartsOn"
         [weekendDays]="weekendDays"
+        [hourSegmentTemplate]=""
         (beforeViewRender)="beforeWeekViewRender($event)"
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
@@ -154,7 +154,6 @@
   </div>
 </div>
 
-
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
   <div class="cal-cell-top">
     <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
@@ -169,3 +168,16 @@
   >
 </ng-template>
 
+<ng-template #customhourSegmentTemplate let-day="day" let-locale="locale">
+  <div class="cal-cell-top">
+    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
+      >{{ day.badgeTotal }}</span
+    >
+    <span class="cal-day-number"
+      >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
+    >
+  </div>
+  <small style="margin: 5px"
+    >There are {{ day.events.length }} events on this day</small
+  >
+</ng-template>
