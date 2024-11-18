@@ -3,7 +3,73 @@
     [formGroup] = "bookingForm"
     (ngSubmit) = "onSubmit()"
     *ngIf = "bookingForm">
-    <h2>{{ 'app.booking-selection' | translate }}</h2>  
+    <h2>{{ 'app.booking-selection' | translate }}</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'app.resource-to-book' | translate }}</mat-label>
+      <mat-select [formControl]="resourceToBook" name=" resourceToBook">
+        <mat-option value="white-room">Sala BLANCA</mat-option>
+        <mat-option value="blue-room">Sala BLAVA</mat-option>
+        <mat-option value="yellow-room">Sala GROGA</mat-option>
+        <mat-option value="red-room">Sala VERMELLA</mat-option>
+        <mat-option value="A-pavillion">Pavelló A</mat-option>
+        <!--           <mat-option value="B-pavillion">Pavelló B</mat-option>
+        <mat-option value="AB-pavillion">Pavelló A + B</mat-option> -->
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'app.from-date' | translate }}</mat-label>
+      <!--  <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="weekEndFilter"> -->
+      <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate">
+      <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" *ngIf="showTime">
+      <mat-select [formControl]="fromDateFromTime" id="fromDateFromTime">
+        <mat-option value="08:00:00">08.00</mat-option>
+        <mat-option value="09:00:00">09.00</mat-option>
+        <mat-option value="10:00:00">10.00</mat-option>
+        <mat-option value="11:00:00">11.00</mat-option>
+        <mat-option value="12:00:00">12.00</mat-option>
+        <mat-option value="13:00:00">13.00</mat-option>
+        <mat-option value="14:00:00">14.00</mat-option>
+        <mat-option value="15:00:00">15.00</mat-option>
+        <mat-option value="16:00:00">16.00</mat-option>
+        <mat-option value="17:00:00">17.00</mat-option>
+        <mat-option value="18:00:00">18.00</mat-option>
+        <mat-option value="19:00:00">19.00</mat-option>
+        <mat-option value="20:00:00">20.00</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'app.to-date' | translate }}</mat-label>
+      <!--   <input matInput [matDatepicker]="pickerToDate" [formControl]="toDate" [min]="minDateTo" [matDatepickerFilter]="weekEndFilter"> -->
+      <input matInput [matDatepicker]="pickerToDate" [formControl]="toDate" [min]="minDateTo"> 
+      <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="showTime">
+      <mat-select [formControl]="toDateToTime" id="toDateToTime">
+        <mat-option value="08:00:00">08.00</mat-option>
+        <mat-option value="09:00:00">09.00</mat-option>
+        <mat-option value="10:00:00">10.00</mat-option>
+        <mat-option value="11:00:00">11.00</mat-option>
+        <mat-option value="12:00:00">12.00</mat-option>
+        <mat-option value="13:00:00">13.00</mat-option>
+        <mat-option value="14:00:00">14.00</mat-option>
+        <mat-option value="15:00:00">15.00</mat-option>
+        <mat-option value="16:00:00">16.00</mat-option>
+        <mat-option value="17:00:00">17.00</mat-option>
+        <mat-option value="18:00:00">18.00</mat-option>
+        <mat-option value="19:00:00">19.00</mat-option>
+        <mat-option value="20:00:00">20.00</mat-option>
+      </mat-select>
+    </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>{{ 'app.your-name' | translate }}</mat-label>
         <input matInput [formControl]="bookerName">
@@ -20,71 +86,6 @@
         <mat-error *ngIf="bookerEMail.hasError('email') && !bookerEMail.hasError('required')">
           {{ 'app.email-address-valid' | translate }}
         </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'app.resource-to-book' | translate }}</mat-label>
-        <mat-select [formControl]="resourceToBook" name=" resourceToBook">
-          <mat-option value="white-room">Sala BLANCA</mat-option>
-          <mat-option value="blue-room">Sala BLAVA</mat-option>
-          <mat-option value="yellow-room">Sala GROGA</mat-option>
-          <mat-option value="red-room">Sala VERMELLA</mat-option>
-          <mat-option value="A-pavillion">Pavelló A</mat-option>
-          <!--           <mat-option value="B-pavillion">Pavelló B</mat-option>
-          <mat-option value="AB-pavillion">Pavelló A + B</mat-option> -->
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'app.from-date' | translate }}</mat-label>
-        <!--  <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="weekEndFilter"> -->
-        <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate">
-        <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
-        <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
-      </mat-form-field>
-      
-      <mat-form-field appearance="outline" *ngIf="showTime">
-        <mat-select [formControl]="fromDateFromTime" id="fromDateFromTime">
-          <mat-option value="08:00:00">08.00</mat-option>
-          <mat-option value="09:00:00">09.00</mat-option>
-          <mat-option value="10:00:00">10.00</mat-option>
-          <mat-option value="11:00:00">11.00</mat-option>
-          <mat-option value="12:00:00">12.00</mat-option>
-          <mat-option value="13:00:00">13.00</mat-option>
-          <mat-option value="14:00:00">14.00</mat-option>
-          <mat-option value="15:00:00">15.00</mat-option>
-          <mat-option value="16:00:00">16.00</mat-option>
-          <mat-option value="17:00:00">17.00</mat-option>
-          <mat-option value="18:00:00">18.00</mat-option>
-          <mat-option value="19:00:00">19.00</mat-option>
-          <mat-option value="20:00:00">20.00</mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'app.to-date' | translate }}</mat-label>
-      <!--   <input matInput [matDatepicker]="pickerToDate" [formControl]="toDate" [min]="minDateTo" [matDatepickerFilter]="weekEndFilter"> -->
-        <input matInput [matDatepicker]="pickerToDate" [formControl]="toDate" [min]="minDateTo"> 
-        <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
-        <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" *ngIf="showTime">
-        <mat-select [formControl]="toDateToTime" id="toDateToTime">
-          <mat-option value="08:00:00">08.00</mat-option>
-          <mat-option value="09:00:00">09.00</mat-option>
-          <mat-option value="10:00:00">10.00</mat-option>
-          <mat-option value="11:00:00">11.00</mat-option>
-          <mat-option value="12:00:00">12.00</mat-option>
-          <mat-option value="13:00:00">13.00</mat-option>
-          <mat-option value="14:00:00">14.00</mat-option>
-          <mat-option value="15:00:00">15.00</mat-option>
-          <mat-option value="16:00:00">16.00</mat-option>
-          <mat-option value="17:00:00">17.00</mat-option>
-          <mat-option value="18:00:00">18.00</mat-option>
-          <mat-option value="19:00:00">19.00</mat-option>
-          <mat-option value="20:00:00">20.00</mat-option>
-        </mat-select>
       </mat-form-field>
 
       <div>
