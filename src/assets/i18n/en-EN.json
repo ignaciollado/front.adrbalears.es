@@ -11,6 +11,9 @@
     "from-date": "From date",
     "to-date": "To date",
     "accept-terms-and-conditions": "Accept terms and conditions",
-    "booking-in-pending-state": "** All bookings will remain pending validation. Once validated you will receive an informative email."
+    "booking-in-pending-state": "** All bookings will remain pending validation. Once validated you will receive an informative email.",
+    "send": "Send",
+    "there-are": "There are",
+    "events-on-this-day": "bookings"
   }
 }

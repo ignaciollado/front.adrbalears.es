@@ -96,7 +96,7 @@
         </mat-checkbox>
     </section>
     <section class="button-submit">
-      <button mat-raised-button color="primary" id="submit" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking proposal">Send</button>
+      <button mat-raised-button color="primary" id="submit" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking request">{{ 'send' | translate}}</button>
     </section>
 <!--     <small class='alert'>{{bookingForm.value | json}}</small>
     <small class='alert'>{{bookingForm.status | json}}</small> -->
@@ -164,8 +164,8 @@
       >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
     >
   </div>
-  <small style="margin: 5px"
-    >There are {{ day.events.length }} events on this day</small
+  <small style="margin: 5px" *ngIf="day.events.length>0"
+    >{{'there-are' | translate}} {{ day.events.length }} {{'events-on-this-day' | translate}}</small
   >
 </ng-template>
 
@@ -178,7 +178,7 @@
       >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
     >
   </div>
-  <small style="margin: 5px"
-    >There are {{ day.events.length }} events on this day</small
+  <small style="margin: 5px" *ngIf="day.events.length>0"
+    >{{'there-are' | translate}} {{ day.events.length }} {{'events-on-this-day' | translate}}</small
   >
 </ng-template>

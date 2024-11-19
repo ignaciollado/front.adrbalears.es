@@ -61,7 +61,7 @@ export class BookingCalendarChildComponent {
 
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
 
-  view: CalendarView = CalendarView.Week
+  view: CalendarView = CalendarView.Month
 
   isDragable: boolean = false
   isbeforeStart: boolean = false

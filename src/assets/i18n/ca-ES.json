@@ -11,6 +11,9 @@
     "from-date": "Des de la data",
     "to-date": "Fins a la data",
     "accept-terms-and-conditions": "Acceptar els termes i condicions",
-    "booking-in-pending-state": "** Totes les reserves romandran pendents de validació. Una vegada validades rebràs un correu electrònic informatiu."
+    "booking-in-pending-state": "** Totes les reserves romandran pendents de validació. Una vegada validades rebràs un correu electrònic informatiu.",
+    "send": "Envia",
+    "there-are": "Hi ha",
+    "events-on-this-day": "reserves"
   }
 }

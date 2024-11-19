@@ -11,6 +11,9 @@
     "from-date": "Desde la fecha",
     "to-date": "Hasta la fecha",
     "accept-terms-and-conditions": "Aceptar los términos y condiciones",
-    "booking-in-pending-state": "** Todas las reservas quedarán pendientes de validación. Una vez validadas recibirás un correo electrónico informativo."
+    "booking-in-pending-state": "** Todas las reservas quedarán pendientes de validación. Una vez validadas recibirás un correo electrónico informativo.",
+    "send": "Envía",
+    "there-are": "Hay",
+    "events-on-this-day": "reservas"
   }
 }
