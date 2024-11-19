@@ -20,8 +20,8 @@
 
     <mat-form-field appearance="outline">
       <mat-label>{{ 'app.from-date' | translate }}</mat-label>
-      <!--  <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="weekEndFilter"> -->
-      <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate">
+      <!-- <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="weekEndFilter"> -->
+      <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="BookedDaysFilter">
       <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
       <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
     </mat-form-field>
@@ -70,33 +70,35 @@
       </mat-select>
     </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'app.your-name' | translate }}</mat-label>
-        <input matInput [formControl]="bookerName">
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'app.your-name' | translate }}</mat-label>
+      <input matInput [formControl]="bookerName">
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'app.your-ID-card' | translate }}</mat-label>
-        <input matInput [formControl]="idCard" matTooltip="We need your ID card for the budget and/or the invoice" maxlength="9" minlength="9">
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'app.your-ID-card' | translate }}</mat-label>
+      <input matInput [formControl]="idCard" matTooltip="We need your ID card for the budget and/or the invoice" maxlength="9" minlength="9">
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'app.email-address' | translate }}</mat-label>
-        <input matInput [formControl]="bookerEMail" matTooltip="We'll use this mail to conact you">
-        <mat-error *ngIf="bookerEMail.hasError('email') && !bookerEMail.hasError('required')">
-          {{ 'app.email-address-valid' | translate }}
-        </mat-error>
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'app.email-address' | translate }}</mat-label>
+      <input matInput [formControl]="bookerEMail" matTooltip="We'll use this mail to conact you">
+      <mat-error *ngIf="bookerEMail.hasError('email') && !bookerEMail.hasError('required')">{{ 'app.email-address-valid' | translate }}</mat-error>
+    </mat-form-field>
 
-      <div>
-        <small class='alert'>{{ 'app.booking-in-pending-state' | translate }}</small>
-      </div>
+    <div>
+      <small class='alert'>{{ 'app.booking-in-pending-state' | translate }}</small>
+    </div>
     <section class="example-section">
       <mat-checkbox class="example-margin" [formControl]="acceptTerms">{{ 'app.accept-terms-and-conditions' | translate }}
         </mat-checkbox>
     </section>
     <section class="button-submit">
-      <button mat-raised-button color="primary" id="submit" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking request">{{ 'send' | translate}}</button>
+      <button mat-raised-button color="primary" id="submit" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking request">
+        <span *ngIf="currentLang === 'es-ES'">Envía</span>
+        <span *ngIf="currentLang === 'ca-ES'">Envia</span>
+        <span *ngIf="currentLang === 'en-EN'">Send</span>
+      </button>
     </section>
 <!--     <small class='alert'>{{bookingForm.value | json}}</small>
     <small class='alert'>{{bookingForm.status | json}}</small> -->
@@ -117,11 +119,10 @@
         [cellTemplate]="customCellTemplate"
         (dayClicked)="dayClicked($event.day)"
         (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)"
-        >
+        (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-month-view>
 
-      <mwl-calendar-week-view
+<!--       <mwl-calendar-week-view
         *ngSwitchCase="CalendarView.Week"
         [viewDate]="viewDate"
         [events]="events"
@@ -136,9 +137,9 @@
         (beforeViewRender)="beforeWeekViewRender($event)"
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
-      </mwl-calendar-week-view>
+      </mwl-calendar-week-view> -->
 
-      <mwl-calendar-day-view
+<!--       <mwl-calendar-day-view
         *ngSwitchCase="CalendarView.Day"
         [viewDate]="viewDate"
         [events]="events"
@@ -149,7 +150,7 @@
         [hourSegments]="1"
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
-      </mwl-calendar-day-view>
+      </mwl-calendar-day-view> -->
     </div>
     <div class='event-detail ocultar' id="resourceDetail"></div>
   </div>

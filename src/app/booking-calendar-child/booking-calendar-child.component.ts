@@ -14,7 +14,7 @@ import { EmailManagementService } from '../Services/emailManagement.service';
 import { EventColor } from 'calendar-utils';
 import { registerLocaleData } from '@angular/common';
 import localeCa from '@angular/common/locales/ca';
-import localeEs from '@angular/common/locales/es'
+
 registerLocaleData(localeCa);
 
 @Component({
@@ -25,7 +25,6 @@ registerLocaleData(localeCa);
 })
 
 export class BookingCalendarChildComponent {
-
   minDate: Date
   minDateTo: Date
   maxDate: Date
@@ -188,9 +187,9 @@ export class BookingCalendarChildComponent {
     this.theBooking = new BookingDTO( 0, '', '', '', this.dateAdapter.today(), this.dateAdapter.today(), 'Pending', false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
-    const currentDay = new Date().getDate()+1
+    const currentDay = new Date().getDate()+0 /* número de días a partir de la fecha actual que estarán activados */
 
-    this.minDate = new Date(currentYear, currentMonth, currentDay+10) /* Reservas con una antelación de 10 días */
+    this.minDate = new Date(currentYear, currentMonth, currentDay+1) /* Reservas con una antelación de 1 días */
     this.minDateTo = this.minDate
     this.maxDate = new Date(currentYear + 1, 11, 31)
 
@@ -228,8 +227,8 @@ export class BookingCalendarChildComponent {
   }
 
   ngOnInit() {
-   /*  this.currentLang = localStorage.getItem('preferredLang') */
-    this.loadBookingList()
+   this.currentLang = localStorage.getItem('preferredLang')
+   this.loadBookingList()
   }
 
   private loadBookingList() {
@@ -409,13 +408,11 @@ export class BookingCalendarChildComponent {
   }
 
   public resourceSelected( resource: string ) {
-
       if (resource.split("-")[1] === 'room') {
         this.showTime = true
       } else if (resource.split("-")[1] === 'pavillion') {
         this.showTime = false
       }
-
   }
 
   /* events: CalendarEvent[] = [] */
@@ -597,16 +594,31 @@ export class BookingCalendarChildComponent {
             this.loadBookingList()
           },
           (error: HttpErrorResponse) => {
-            errorResponse = error;
-            this.sharedService.errorLog(errorResponse);
+            errorResponse = error
+            this.sharedService.errorLog(errorResponse)
           }
         );
   }
 
   weekEndFilter: (date: Date | null) => boolean =
     (date: Date | null) => {
-    const day = date?.getDay();
-    return day !== 0 && day !== 6;
+    const day = date?.getDay()
+    return day !== 0 && day !== 6
+    //0 means sunday
+    //6 means saturday
+  }
+
+  BookedDaysFilter: (date: Date | null) => boolean =
+    (date: Date | null) => {
+    let bookingDates: string[] = ['2024/11/26', '2024/11/27', '2024/11/25', '2024/11/28']  
+    let day: number
+
+    bookingDates.forEach( (item: string) => {
+      day = new Date(item).getDay()
+      console.log (day)
+    })
+
+    return day !== 0 && day !== 6
     //0 means sunday
     //6 means saturday
   }
