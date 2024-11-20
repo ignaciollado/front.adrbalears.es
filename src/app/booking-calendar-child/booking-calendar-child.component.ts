@@ -608,19 +608,21 @@ export class BookingCalendarChildComponent {
     //6 means saturday
   }
 
-  BookedDaysFilter: (date: Date | null) => boolean =
-    (date: Date | null) => {
-    let bookingDates: string[] = ['2024/11/26', '2024/11/27', '2024/11/25', '2024/11/28']  
-    let day: number
-
-    bookingDates.forEach( (item: string) => {
-      day = new Date(item).getDay()
-      console.log (day)
-    })
-
-    return day !== 0 && day !== 6
-    //0 means sunday
-    //6 means saturday
+  bookingDates: Date[] = [new Date(2024, 10, 26), new Date(2024, 10, 25), new Date(2024, 10, 29), new Date(2024, 10, 28)]  
+  
+  BookedDaysFilterFrom: (d: Date | null) => boolean = 
+  (d: Date | null) => {
+    if (!d) return false;
+    const time = d.getTime();
+    return !this.bookingDates.some(date => date.getTime() === time);
   }
+
+  BookedDaysFilterTo: (d: Date | null) => boolean = 
+  (d: Date | null) => {
+    if (!d) return false;
+    const time = d.getTime();
+    return !this.bookingDates.some(date => date.getTime() === time);
+  }
+
 }
 
