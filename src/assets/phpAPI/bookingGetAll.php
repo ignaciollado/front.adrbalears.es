@@ -8,8 +8,8 @@ mysqli_query($conn, "SET NAMES 'utf8'");
 
 $sql = "SELECT * FROM 
             booking_service
-            WHERE (state !='notValid')
-            ORDER by id";
+            WHERE (state !='notValid' AND fromDate >= CURRENT_DATE())
+            ORDER by fromDate ASC";
 
 $result = mysqli_query($conn, $sql);
 

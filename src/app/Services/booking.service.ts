@@ -4,6 +4,7 @@ import { SharedService } from './shared.service';
 import { Observable, catchError } from 'rxjs';
 import { BookingDTO } from '../Models/booking.model';
 import { designOrderDTO } from '../Models/design-order';
+import { WpPost } from '../Models/wp-post-data.dto';
 
 const URL_API = '../../assets/phpAPI/'
 
@@ -26,6 +27,9 @@ export interface deleteResponse {
 })
 
 export class BookingService {
+  private pageURL =   'https://app.adrbalears.es/wp-json/wp/v2/pages';
+  headers = new HttpHeaders()
+  .set( 'Content-Type', 'application/vnd.api+json' ) 
 
   constructor(
       private http: HttpClient,
@@ -40,6 +44,11 @@ export class BookingService {
   getAllBookingsByClient(companyId:any): Observable<BookingDTO[]> {
     return this.http
       .get<BookingDTO[]>(`${URL_API}bookingGetByClient.php?companyId=${companyId}`, httpOptions)
+  }
+
+  getBookingByResource(resource: string): Observable<BookingDTO[]> {
+    return this.http
+      .get<BookingDTO[]>(`${URL_API}bookingGetByResource.php?resource=${resource}`)
   }
 
   getBookingById(bookingId: string): Observable<BookingDTO> {
@@ -90,5 +99,10 @@ export class BookingService {
     return this.http
       .delete<deleteResponse>(`${URL_API}bookingDelete.php?bookingId=${bookingId}`)
       .pipe(catchError(this.sharedService.handleError));
+  }
+
+  /* Obtener un contenido del gestor CMS app.adrbalears.es */
+  getOneContent(id: string|null): Observable<WpPost> {
+    return this.http.get<WpPost>(`${this.pageURL}/${id}`, { headers: this.headers })
   }
 }

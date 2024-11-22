@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, finalize } from 'rxjs';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarWeekViewBeforeRenderEvent, CalendarDateFormatter, DAYS_OF_WEEK } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarWeekViewBeforeRenderEvent, DAYS_OF_WEEK } from 'angular-calendar';
 import { colors } from '../utils/colors';
 import { addDays, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
@@ -283,7 +283,6 @@ export class BookingCalendarChildComponent {
                   myTitle = "<b>-SALA BLAVA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
                   startHour = event.fromDate+" "+event.fromDateFromTime
                   endHour = event.toDate+" "+event.toDateToTime
-                  console.log (startHour, endHour, new Date( startHour ), new Date( endHour ))
                   eventItem = {
                     title:  myTitle,
                     color:  myColor,
@@ -398,7 +397,6 @@ export class BookingCalendarChildComponent {
             this.refresh.next() /* Para que en la primera carga del calendario pinte los eventos que hay en la bbdd */
           })
         }
-        console.log(eventItem) 
         },
          (error: HttpErrorResponse) => {
            errorResponse = error.error;
@@ -608,20 +606,48 @@ export class BookingCalendarChildComponent {
     //6 means saturday
   }
 
-  bookingDates: Date[] = [new Date(2024, 10, 26), new Date(2024, 10, 25), new Date(2024, 10, 29), new Date(2024, 10, 28)]  
+  bookingDatesFrom: Date[] = [new Date(2024, 10, 26), new Date(2024, 10, 25), new Date(2024, 10, 29), new Date(2024, 10, 28), new Date(2024, 10, 27)]
+  bookingDatesTo:   Date[] = [new Date(2024, 11, 26), new Date(2024, 11, 25), new Date(2024, 10, 29), new Date(2024, 10, 28)]
+
+  /* bookingDatesFrom: Date[] = []
+  bookingDatesTo:   Date[] = [] */
+  onResourceChange(resourceItem:any) {
+    this.bookingService.getBookingByResource(resourceItem.value)
+      .subscribe((itemResource:BookingDTO[]) => {
+        if (itemResource) {
+          itemResource.forEach((resourceItem:any) => {
+            if (resourceItem.resourceBooked === 'A-pavillion') {
+              resourceItem.fromDate.getMonth -1
+              resourceItem.toDate.getMonth -1
+              this.bookingDatesFrom.push(new Date (resourceItem.fromDate) )
+              this.bookingDatesTo.push(new Date (resourceItem.toDate) )
+            } else {
+              console.log ("Room booked dates and times: ", resourceItem.resourceBooked, resourceItem.fromDate, resourceItem.fromDateFromTime, resourceItem.toDate, resourceItem.toDateToTime)
+            }
+            console.log ("booked dates: ", this.bookingDatesFrom, this.bookingDatesTo) 
+          })
+        } else {
+          console.log (`no bookings for item ${resourceItem.value}`)
+        }
+      })
+  }
+
+  disableTimeFrom(fromTime:any) {
+    console.log ("from Time: ", fromTime.value)
+  }
   
   BookedDaysFilterFrom: (d: Date | null) => boolean = 
   (d: Date | null) => {
     if (!d) return false;
     const time = d.getTime();
-    return !this.bookingDates.some(date => date.getTime() === time);
+    return !this.bookingDatesFrom.some(date => date.getTime() === time);
   }
 
   BookedDaysFilterTo: (d: Date | null) => boolean = 
   (d: Date | null) => {
     if (!d) return false;
     const time = d.getTime();
-    return !this.bookingDates.some(date => date.getTime() === time);
+    return !this.bookingDatesTo.some(date => date.getTime() === time);
   }
 
 }

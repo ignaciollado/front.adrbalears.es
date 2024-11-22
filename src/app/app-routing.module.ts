@@ -4,11 +4,13 @@ import { BookingCalendarChildComponent } from './booking-calendar-child/booking-
 import { DissenyFormComponent } from './disseny-form/disseny-form.component';
 import { BodyComponent } from './body/body.component';
 import { ListPostsComponent } from './posts/list-posts/list-posts.component';
+import { ShowDetailedContentComponent } from './show-detailed-content/show-detailed-content.component';
 
 const routes: Routes = [
   { path: "disseny", component: DissenyFormComponent},
   { path: 'listDesignRequests', component: ListPostsComponent},
   { path: "menorca", component: BookingCalendarChildComponent},
+  { path: "show-detail/:id", component: ShowDetailedContentComponent},
   { path: '*', component: BodyComponent },
   { path: '', component: BodyComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }

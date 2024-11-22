@@ -41,6 +41,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { LOCALE_ID } from '@angular/core';
+import { ShowDetailedContentComponent } from './show-detailed-content/show-detailed-content.component';
 
 /* import { registerLocaleData } from '@angular/common'
 import localeEs from '@angular/common/locales/es'
@@ -62,7 +63,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         FooterComponent,
         ListPostsComponent,
         DetailPostComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        ShowDetailedContentComponent
     ],
   /*   providers: [{provide: DateAdapter, useClass: CustomDateAdapter}], */
     providers: [{provide: LOCALE_ID, useValue: 'ca-ES'}, {provide: MAT_DATE_LOCALE, useValue: 'ca-ES'}],

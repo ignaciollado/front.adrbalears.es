@@ -5,16 +5,16 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require_once 'conectar_a_bbdd.php';
 
 mysqli_query($conn, "SET NAMES 'utf8'");
+$resource = $_GET['resource'];
 
 $sql = "SELECT * FROM 
-            booking_service
-            WHERE (state !='notValid' AND fromDate >= CURRENT_DATE())
+            booking_service 
+            WHERE (fromDate >= CURRENT_DATE() AND resourceBooked = '$resource')
             ORDER by fromDate ASC";
 
 $result = mysqli_query($conn, $sql);
-
-while($consumptions = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-    $vec[] = $consumptions;
+while($resourcesBooked = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+  $vec[] = $resourcesBooked;
 }
 
 $cad = json_encode($vec);
