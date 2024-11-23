@@ -181,7 +181,6 @@ export class BookingCalendarChildComponent {
     private dateAdapter: DateAdapter<Date>,
     private emailManagementService: EmailManagementService,
     ) {
-
     /* this.dateAdapter.getFirstDayOfWeek = () => 1
     this.dateAdapter.setLocale = () => 'ca' */
     this.theBooking = new BookingDTO( 0, '', '', '', this.dateAdapter.today(), this.dateAdapter.today(), 'Pending', false);
@@ -606,7 +605,7 @@ export class BookingCalendarChildComponent {
     //6 means saturday
   }
 
-  bookingDatesFrom: Date[] = [new Date(2024, 10, 26), new Date(2024, 10, 25), new Date(2024, 10, 29), new Date(2024, 10, 28), new Date(2024, 10, 27)]
+  bookingDatesFrom: Date[] = [new Date(2024, 10, 26), new Date(2024, 10, 25), new Date(2024, 10, 29), new Date(2024, 10, 28)]
   bookingDatesTo:   Date[] = [new Date(2024, 11, 26), new Date(2024, 11, 25), new Date(2024, 10, 29), new Date(2024, 10, 28)]
 
   /* bookingDatesFrom: Date[] = []

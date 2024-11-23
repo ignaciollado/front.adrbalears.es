@@ -2,6 +2,7 @@ import { Component, inject, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import { isThisISOWeek } from 'date-fns';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +10,14 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    currentLang: string ="en-EN";
-
-    constructor( private router: Router, private translate:TranslateService ) { 
-        translate.addLangs(['en-EN', 'ca-ES', 'es-ES']);
-        translate.setDefaultLang('ca-ES'); /* lenguaje a utilizar en el caso de que falten traducciones */
-    /* translate.use('ca-ES'); */
+    defaultLang:string = "ca-ES"
+    constructor( private router: Router, private translate:TranslateService ) {
+        if (localStorage.getItem("preferredLang") === 'undefined') {
+            localStorage.setItem("preferredLang", this.defaultLang)
+        }
     }
 
     ngOnInit(): void {
-
-    this.currentLang = localStorage.getItem('preferredLang')
 }
     
 private offcanvasService = inject(NgbOffcanvas);

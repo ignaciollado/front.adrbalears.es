@@ -18,9 +18,7 @@ export class SelectLanguageComponent implements OnInit {
 
   constructor(public translate: TranslateService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   switchLanguage( lang:string ) {
     console.log ("lang: ", lang)

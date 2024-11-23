@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,14 @@ export class AppComponent {
   isbeforeStart: boolean = false
   isafterEnd: boolean = false
   @Input() bookingData: string = ""
-
+  currentLang: string ="en-EN";
+  
+  constructor( private router: Router, private translate:TranslateService ) { 
+    translate.addLangs(['en-EN', 'ca-ES', 'es-ES'])
+    /* translate.setDefaultLang('en-EN'); */ /* lenguaje a utilizar en el caso de que falten traducciones */
+    /* translate.use('ca-ES'); */
+}
+  
   events: CalendarEvent[] = [
   /*   {
       start: subDays(startOfDay(new Date()), 1),
@@ -92,7 +100,7 @@ export class AppComponent {
 
   refresh = new Subject<void>();
 
-/*   validateEventTimesChanged = (
+  /* validateEventTimesChanged = (
     { event, newStart, newEnd, allDay }: CalendarEventTimesChangedEvent,
     addCssClass = true
   ) => {
