@@ -643,7 +643,7 @@ export class BookingCalendarChildComponent {
     let currentDate = start; 
     while (currentDate <= end) { this.bookingDates.push(new Date(currentDate)); currentDate.setDate(currentDate.getDate() + 1) }
     this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesFrom.push(resourceItem) })
-    this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesTo.push(resourceItem) })
+   /*  this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesTo.push(resourceItem) }) */
   }
 
   disableTimeFrom(fromTime:any) {

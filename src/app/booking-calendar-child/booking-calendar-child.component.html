@@ -18,7 +18,6 @@
 
     <mat-form-field appearance="outline">
       <mat-label>{{ 'app.from-date' | translate }}</mat-label>
-      <!-- <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="weekEndFilter"> -->
       <input matInput [matDatepicker]="pickerFromDate" [formControl]="fromDate" [min]="minDate" [matDatepickerFilter]="BookedDaysFilterFrom" (onChange)="disableTimeFrom($event)">
       <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
       <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
@@ -42,10 +41,16 @@
       </mat-select>
     </mat-form-field>
     
+<!--     <mat-form-field appearance="outline">
+      <mat-label>{{ 'app.to-date' | translate }}</mat-label>
+      <input matInput [matDatepicker]="pickerToDate" [formControl]="toDate" [min]="minDateTo" [matDatepickerFilter]="BookedDaysFilterFrom">
+      <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
+    </mat-form-field> -->
+
     <mat-form-field appearance="outline">
       <mat-label>{{ 'app.to-date' | translate }}</mat-label>
-      <!--   <input matInput [matDatepicker]="pickerToDate" [formControl]="toDate" [min]="minDateTo" [matDatepickerFilter]="weekEndFilter"> -->
-      <input matInput [matDatepicker]="pickerToDate" [formControl]="toDate" [min]="minDateTo" [matDatepickerFilter]="BookedDaysFilterTo"> 
+      <input matInput [matDatepicker]="pickerToDate" [formControl]="toDate" [min]="minDateTo" [matDatepickerFilter]="BookedDaysFilterFrom">
       <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
       <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
     </mat-form-field>
