@@ -33,6 +33,7 @@ export class BookingCalendarChildComponent {
   toDate: FormControl
   toDateToTime!: FormControl
   resourceToBook: UntypedFormControl
+  userType: UntypedFormControl
   bookerName: UntypedFormControl
   idCard: UntypedFormControl
   bookerEMail: UntypedFormControl
@@ -42,6 +43,7 @@ export class BookingCalendarChildComponent {
   theBooking: BookingDTO
   bookings: BookingDTO[] = []
   currentLang: string = ""
+  fullYearFrom: number
 
   public disabled = false
   public showSpinners = true
@@ -173,6 +175,8 @@ export class BookingCalendarChildComponent {
       draggable: this.isDragable,
     }, */
   ];
+  fullMonthFrom: number;
+  fullDayFrom: number;
 
   constructor (
     private formBuilder: UntypedFormBuilder,
@@ -192,6 +196,7 @@ export class BookingCalendarChildComponent {
     this.minDateTo = this.minDate
     this.maxDate = new Date(currentYear + 1, 11, 31)
 
+    this.userType = new UntypedFormControl('', [Validators.required])
     this.bookerName = new UntypedFormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(60) ])
     this.idCard = new UntypedFormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(9)])
     this.bookerEMail = new UntypedFormControl('', [ Validators.required, Validators.email ])
@@ -203,6 +208,7 @@ export class BookingCalendarChildComponent {
     this.acceptTerms = new FormControl(false, [Validators.requiredTrue])
 
     this.bookingForm = this.formBuilder.group ({
+      userType: this.userType,
       bookerName: this.bookerName,
       idCard: this.idCard,
       bookerEMail: this.bookerEMail,
@@ -466,7 +472,7 @@ export class BookingCalendarChildComponent {
   }
 
 
-  /*   validateEventTimesChanged = (
+  /* validateEventTimesChanged = (
     { event, newStart, newEnd, allDay }: CalendarEventTimesChangedEvent,
     addCssClass = true
   ) => {
@@ -605,21 +611,21 @@ export class BookingCalendarChildComponent {
     //6 means saturday
   }
 
-  bookingDatesFrom: Date[] = [new Date(2024, 10, 26), new Date(2024, 10, 25), new Date(2024, 10, 29), new Date(2024, 10, 28)]
-  bookingDatesTo:   Date[] = [new Date(2024, 11, 26), new Date(2024, 11, 25), new Date(2024, 10, 29), new Date(2024, 10, 28)]
 
-  /* bookingDatesFrom: Date[] = []
-  bookingDatesTo:   Date[] = [] */
+  bookingDatesFrom: Date[] = []
+  bookingDatesTo:   Date[] = []
+  bookingDates: Date[] = []
+
   onResourceChange(resourceItem:any) {
     this.bookingService.getBookingByResource(resourceItem.value)
       .subscribe((itemResource:BookingDTO[]) => {
         if (itemResource) {
           itemResource.forEach((resourceItem:any) => {
             if (resourceItem.resourceBooked === 'A-pavillion') {
-              resourceItem.fromDate.getMonth -1
-              resourceItem.toDate.getMonth -1
-              this.bookingDatesFrom.push(new Date (resourceItem.fromDate) )
-              this.bookingDatesTo.push(new Date (resourceItem.toDate) )
+              this.createDateArray(resourceItem.fromDate, resourceItem.toDate)
+              this.addDateFrom(resourceItem.fromDate)
+              this.addDateTo(resourceItem.toDate)
+
             } else {
               console.log ("Room booked dates and times: ", resourceItem.resourceBooked, resourceItem.fromDate, resourceItem.fromDateFromTime, resourceItem.toDate, resourceItem.toDateToTime)
             }
@@ -630,6 +636,17 @@ export class BookingCalendarChildComponent {
         }
       })
   }
+
+  addDateFrom(newDate: string) { const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesFrom.push(date)}
+  addDateTo(newDate: string) { const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesTo.push(date)}
+  createDateArray(startDate: string, endDate: string) { 
+    const start = new Date(startDate); 
+    const end = new Date(endDate); 
+    let currentDate = start; 
+    while (currentDate <= end) { 
+      console.log (currentDate)
+      this.bookingDates.push(new Date(currentDate)); currentDate.setDate(currentDate.getDate() + 1)
+    }}
 
   disableTimeFrom(fromTime:any) {
     console.log ("from Time: ", fromTime.value)

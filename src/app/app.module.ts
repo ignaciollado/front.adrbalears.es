@@ -40,6 +40,7 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {CdkListbox, CdkOption} from '@angular/cdk/listbox';
 import { LOCALE_ID } from '@angular/core';
 import { ShowDetailedContentComponent } from './show-detailed-content/show-detailed-content.component';
 
@@ -96,6 +97,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatCardModule,
         MatChipsModule,
         MatButtonToggleModule,
+        CdkListbox,
+        CdkOption,
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         

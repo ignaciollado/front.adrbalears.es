@@ -67,6 +67,15 @@
         <mat-option value="20:00:00">20.00</mat-option>
       </mat-select>
     </mat-form-field>
+    <label class="example-listbox-label" id="example-shirt-size-label">
+      Usuario:
+    </label><br>
+
+    <mat-radio-group formControlName="userType" color="primary" labelPosition="after" class="my-radio-group">
+      <mat-radio-button value="E" class="my-radio-button">Tipo A</mat-radio-button>  
+      <mat-radio-button value="S" class="my-radio-button">Tipo B</mat-radio-button>  
+      <mat-radio-button value="B" class="my-radio-button">Tipo C</mat-radio-button>      
+    </mat-radio-group>
 
     <mat-form-field appearance="outline">
       <mat-label>{{ 'app.your-name' | translate }}</mat-label>

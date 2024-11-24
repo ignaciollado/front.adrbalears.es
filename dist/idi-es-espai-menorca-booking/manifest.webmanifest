@@ -1,6 +1,6 @@
 {
-  "name": "adr-balears-es-requests",
-  "short_name": "adr-balears-es-requests",
+  "name": "adr-balears-es-front",
+  "short_name": "adr-balears-es-front",
   "theme_color": "#003747",
   "background_color": "#0098cb",
   "display": "standalone",
