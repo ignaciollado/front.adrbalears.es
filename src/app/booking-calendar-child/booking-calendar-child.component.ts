@@ -623,13 +623,9 @@ export class BookingCalendarChildComponent {
           itemResource.forEach((resourceItem:any) => {
             if (resourceItem.resourceBooked === 'A-pavillion') {
               this.createDateArray(resourceItem.fromDate, resourceItem.toDate)
-              this.addDateFrom(resourceItem.fromDate)
-              this.addDateTo(resourceItem.toDate)
-
             } else {
               console.log ("Room booked dates and times: ", resourceItem.resourceBooked, resourceItem.fromDate, resourceItem.fromDateFromTime, resourceItem.toDate, resourceItem.toDateToTime)
             }
-            console.log ("booked dates: ", this.bookingDatesFrom, this.bookingDatesTo) 
           })
         } else {
           console.log (`no bookings for item ${resourceItem.value}`)
@@ -637,16 +633,18 @@ export class BookingCalendarChildComponent {
       })
   }
 
-  addDateFrom(newDate: string) { const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesFrom.push(date)}
-  addDateTo(newDate: string) { const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesTo.push(date)}
+/*   addDateFrom(newDate: string) {const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesFrom.push(date)}
+  addDateTo(newDate: string) {const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesTo.push(date)} */
   createDateArray(startDate: string, endDate: string) { 
-    const start = new Date(startDate); 
-    const end = new Date(endDate); 
+    const start = new Date(startDate)
+    const end = new Date(endDate)
+    start.setHours(0, 0, 0, 0)
+    end.setHours(0, 0, 0, 0)
     let currentDate = start; 
-    while (currentDate <= end) { 
-      console.log (currentDate)
-      this.bookingDates.push(new Date(currentDate)); currentDate.setDate(currentDate.getDate() + 1)
-    }}
+    while (currentDate <= end) { this.bookingDates.push(new Date(currentDate)); currentDate.setDate(currentDate.getDate() + 1) }
+    this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesFrom.push(resourceItem) })
+    this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesTo.push(resourceItem) })
+  }
 
   disableTimeFrom(fromTime:any) {
     console.log ("from Time: ", fromTime.value)
