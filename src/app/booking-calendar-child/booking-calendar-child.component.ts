@@ -175,6 +175,7 @@ export class BookingCalendarChildComponent {
       draggable: this.isDragable,
     }, */
   ];
+
   fullMonthFrom: number;
   fullDayFrom: number;
 
@@ -190,7 +191,7 @@ export class BookingCalendarChildComponent {
     this.theBooking = new BookingDTO( 0, '', '', '', this.dateAdapter.today(), this.dateAdapter.today(), 'Pending', false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
-    const currentDay = new Date().getDate()+0 /* número de días a partir de la fecha actual que estarán activados */
+    const currentDay = new Date().getDate()+10 /* número de días a partir de la fecha actual que estarán activados */
 
     this.minDate = new Date(currentYear, currentMonth, currentDay+1) /* Reservas con una antelación de 1 días */
     this.minDateTo = this.minDate
@@ -472,7 +473,7 @@ export class BookingCalendarChildComponent {
   }
 
 
-  /* validateEventTimesChanged = (
+/* validateEventTimesChanged = (
     { event, newStart, newEnd, allDay }: CalendarEventTimesChangedEvent,
     addCssClass = true
   ) => {

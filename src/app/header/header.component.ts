@@ -16,7 +16,6 @@ export class HeaderComponent {
             localStorage.setItem("preferredLang", this.defaultLang)
         }
     }
-
     ngOnInit(): void {
 }
     
@@ -177,6 +176,5 @@ switchLanguage( lang:string ) {
     this.translate.use(lang)
     localStorage.setItem('preferredLang', lang)
     location.reload()
-  }
-
+}
 }
