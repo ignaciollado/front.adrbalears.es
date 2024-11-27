@@ -2,6 +2,9 @@ import { NgModule, isDevMode } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { I18nModule } from "./i18n/i18n.module";
 import { BrowserModule } from '@angular/platform-browser';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import  localeES from '@angular/common/locales/es';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -41,12 +44,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {CdkListbox, CdkOption} from '@angular/cdk/listbox';
-import { LOCALE_ID } from '@angular/core';
 import { ShowDetailedContentComponent } from './show-detailed-content/show-detailed-content.component';
 
-/* import { registerLocaleData } from '@angular/common'
-import localeEs from '@angular/common/locales/es'
-registerLocaleData(localeEs);*/
+
+/* registerLocaleData(localeES); */
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {

@@ -4,9 +4,23 @@ import { SharedService } from './shared.service';
 import { Observable, catchError } from 'rxjs';
 import { BookingDTO } from '../Models/booking.model';
 import { designOrderDTO } from '../Models/design-order';
+import { BookingAdrBalearsDTO } from '../Models/booking.model';
 import { WpPost } from '../Models/wp-post-data.dto';
 
 const URL_API = '../../assets/phpAPI/'
+
+const PRE_URL_BACKOFFICE = "https://pre.backoffice.idi.es/api"
+const URL_BACKOFFICE = "https://backoffice.idi.es/api"
+const token_bearer = "MEN2024*@"
+const httpOptionsADRBalears = {
+  headers: new HttpHeaders({
+    'Authorization': `Bearer ${token_bearer}`
+  })
+}
+
+const WPpageURL = 'https://app.adrbalears.es/wp-json/wp/v2/pages';
+const headers = new HttpHeaders()
+      .set( 'Content-Type', 'application/vnd.api+json' ) 
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -27,10 +41,7 @@ export interface deleteResponse {
 })
 
 export class BookingService {
-  private pageURL =   'https://app.adrbalears.es/wp-json/wp/v2/pages';
-  headers = new HttpHeaders()
-  .set( 'Content-Type', 'application/vnd.api+json' ) 
-
+  
   constructor(
       private http: HttpClient,
       private sharedService: SharedService
@@ -85,7 +96,6 @@ export class BookingService {
   }
 
   updateDesignRequest(orderID: string, newState: string): Observable<any> {
-  
     return this.http
       .patch<designOrderDTO>(`${URL_API}designOrderUpdate.php?orderID=${orderID}&newState=${newState}`, newState)
   }
@@ -103,6 +113,19 @@ export class BookingService {
 
   /* Obtener un contenido del gestor CMS app.adrbalears.es */
   getOneContent(id: string|null): Observable<WpPost> {
-    return this.http.get<WpPost>(`${this.pageURL}/${id}`, { headers: this.headers })
+    return this.http.get<WpPost>(`${WPpageURL}/${id}`, { headers: headers })
   }
+  /* -------------------------------------------------------------------------------------------------------- */
+  /* BACKOFFICE ADR Balears */
+
+  getAllBookingsADRBalears(): Observable<BookingAdrBalearsDTO[]> {
+    return this.http
+      .get<BookingAdrBalearsDTO[]>(`${PRE_URL_BACKOFFICE}/booking`, httpOptionsADRBalears)
+  }
+
+  getBookingByIdADRBalears(bookingId: string): Observable<BookingAdrBalearsDTO> {
+    return this.http
+      .get<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/Locator=${bookingId}`, httpOptionsADRBalears)
+  }
+
 }

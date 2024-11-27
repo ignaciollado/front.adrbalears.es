@@ -28,7 +28,7 @@ export class CalendarHeaderComponent {
   }
 
   ngOnInit() {
-    console.log (this.locale)
+    console.log ("Locale es: ", this.locale)
   }
   
   

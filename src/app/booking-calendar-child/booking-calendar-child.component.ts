@@ -186,8 +186,8 @@ export class BookingCalendarChildComponent {
     private dateAdapter: DateAdapter<Date>,
     private emailManagementService: EmailManagementService,
     ) {
-    /* this.dateAdapter.getFirstDayOfWeek = () => 1
-    this.dateAdapter.setLocale = () => 'ca' */
+    this.dateAdapter.getFirstDayOfWeek = () => 1
+    this.dateAdapter.setLocale = () => 'es-ES'
     this.theBooking = new BookingDTO( 0, '', '', '', this.dateAdapter.today(), this.dateAdapter.today(), 'Pending', false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
@@ -235,6 +235,16 @@ export class BookingCalendarChildComponent {
   ngOnInit() {
    this.currentLang = localStorage.getItem('preferredLang')
    this.loadBookingList()
+   this.loadBookingListADRBalears()
+  }
+
+  private loadBookingListADRBalears() {
+    this.bookingService.getAllBookingsADRBalears()
+        .subscribe(
+          (item:any) => {
+            console.log ("Bookings ADR Balears: ", item)
+          }
+        )
   }
 
   private loadBookingList() {
