@@ -612,6 +612,11 @@ export class BookingCalendarChildComponent {
             this.sharedService.errorLog(errorResponse)
           }
         );
+
+    this.bookingService.sendPostRequest(this.theBooking)
+      .subscribe((insertResponse:any) => {
+        console.log(insertResponse)
+      })
   }
 
   weekEndFilter: (date: Date | null) => boolean =

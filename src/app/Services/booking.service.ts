@@ -134,4 +134,9 @@ export class BookingService {
       .get<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/-1/checkavailability`)
   }
 
+  sendPostRequest(data: BookingDTO): Observable<BookingAdrBalearsDTO> {
+    return this.http
+      .post<BookingAdrBalearsDTO>(PRE_URL_BACKOFFICE, data)
+  }
+
 }
