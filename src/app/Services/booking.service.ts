@@ -128,4 +128,10 @@ export class BookingService {
       .get<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/Locator=${bookingId}`, httpOptionsADRBalears)
   }
 
+  getCheckAvailabilityADRBalears(bki_id: string, boo_start: Date, boo_end: Date): Observable<BookingAdrBalearsDTO> {
+    let pro_id:number = 42
+    return this.http
+      .get<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/-1/checkavailability`)
+  }
+
 }
