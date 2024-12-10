@@ -6,7 +6,7 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cal
 import { colors } from '../utils/colors';
 import { addDays, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
-import { BookingDTO } from '../Models/booking.model';
+import { BookingDTO, BookingAdrBalearsDTO } from '../Models/booking.model';
 import { BookingService } from '../Services/booking.service';
 import { SharedService } from '../Services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -28,6 +28,8 @@ export class BookingCalendarChildComponent {
   minDate: Date
   minDateTo: Date
   maxDate: Date
+  fromMountingDate: FormControl
+  toMountingDate: FormControl
   fromDate: FormControl
   fromDateFromTime!: FormControl
   toDate: FormControl
@@ -42,6 +44,8 @@ export class BookingCalendarChildComponent {
   modal: any;
   theBooking: BookingDTO
   bookings: BookingDTO[] = []
+  bookingsADRBalears: BookingAdrBalearsDTO[] = []
+
   currentLang: string = ""
   fullYearFrom: number
 
@@ -202,6 +206,10 @@ export class BookingCalendarChildComponent {
     this.idCard = new UntypedFormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(9)])
     this.bookerEMail = new UntypedFormControl('', [ Validators.required, Validators.email ])
     this.resourceToBook = new UntypedFormControl('', [ Validators.required ])
+
+    this.fromMountingDate = new FormControl<Date | null>(null, Validators.required)
+    this.toMountingDate = new FormControl<Date | null>(null, Validators.required)
+
     this.fromDate = new FormControl<Date | null>(null, [ Validators.required ])
     this.fromDateFromTime = new FormControl('')
     this.toDate = new FormControl<Date | null>(null, [ Validators.required])
@@ -214,6 +222,8 @@ export class BookingCalendarChildComponent {
       idCard: this.idCard,
       bookerEMail: this.bookerEMail,
       resourceToBook: this.resourceToBook,
+      fromMountingDate: this.fromMountingDate,
+      toMountingDate: this.toMountingDate,
       fromDate: this.fromDate,
       fromDateFromTime : this.fromDateFromTime,
       toDate: this.toDate,
@@ -239,12 +249,28 @@ export class BookingCalendarChildComponent {
   }
 
   private loadBookingListADRBalears() {
+    let eventItem: CalendarEvent
+    let myColor: EventColor
+    let myTitle: string = ""
+    let startHour: string  
+    let endHour: string
+    let errorResponse: any
+    this.events = []
     this.bookingService.getAllBookingsADRBalears()
         .subscribe(
-          (item:any) => {
-            console.log ("Bookings ADR Balears: ", item)
+          (bookingADRBalears:BookingAdrBalearsDTO[]) => {
+            this.bookingsADRBalears = bookingADRBalears
+            if (this.bookingsADRBalears) {
+              console.log ("Bookings ADR Balears: ", this.bookingsADRBalears)
+              const json = JSON.stringify(this.bookingsADRBalears);
+              console.log ("a string -> ", json)
+              const parsed = JSON.parse(json);
+              console.log ("parsed -> ", parsed)
+              parsed.forEach( (event: any) => {
+                console.log ("Eventos en ADR:", event)
+            })
           }
-        )
+          })
   }
 
   private loadBookingList() {
@@ -552,6 +578,7 @@ export class BookingCalendarChildComponent {
 
   onSubmit():void {
     let resourceColor: any
+    console.log (this.resourceToBook)
     if (this.resourceToBook) {
       resourceColor = "colors."+ this.resourceToBook.value.split("-")[0]
     }

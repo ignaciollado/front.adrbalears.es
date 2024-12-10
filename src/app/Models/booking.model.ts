@@ -39,9 +39,9 @@ export class BookingDTO {
 
 // To parse this data:
 //
-//   import { Convert, BookingAdrBalears } from "./file";
+//   import { Convert, BookingAdrBalearsDTO } from "./file";
 //
-//   const bookingAdrBalears = Convert.toBookingAdrBalears(json);
+//   const bookingAdrBalearsDTO = Convert.toBookingAdrBalearsDTO(json);
 //
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
@@ -50,7 +50,7 @@ export interface BookingAdrBalearsDTO {
   boo_id:           number;
   bki_id:           number;
   pro_id:           number;
-  boo_title:        null;
+  boo_title:        string;
   boo_locator:      string;
   boo_company:      BooCompany;
   boo_comments:     null;
@@ -72,17 +72,16 @@ export interface BooCompany {
   name:    string;
   email:   string;
   contact: string;
-  type:    string; /* type: A, B, C, D */
 }
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-  public static toBookingAdrBalears(json: string): BookingAdrBalearsDTO {
+  public static toBookingAdrBalearsDTO(json: string): BookingAdrBalearsDTO {
       return cast(JSON.parse(json), r("BookingAdrBalearsDTO"));
   }
 
-  public static bookingAdrBalearsToJson(value: BookingAdrBalearsDTO): string {
+  public static bookingAdrBalearsDTOToJson(value: BookingAdrBalearsDTO): string {
       return JSON.stringify(uncast(value, r("BookingAdrBalearsDTO")), null, 2);
   }
 }
@@ -240,11 +239,11 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-  "BookingAdrBalears": o([
+  "BookingAdrBalearsDTO": o([
       { json: "boo_id", js: "boo_id", typ: 0 },
       { json: "bki_id", js: "bki_id", typ: 0 },
       { json: "pro_id", js: "pro_id", typ: 0 },
-      { json: "boo_title", js: "boo_title", typ: null },
+      { json: "boo_title", js: "boo_title", typ: "" },
       { json: "boo_locator", js: "boo_locator", typ: "" },
       { json: "boo_company", js: "boo_company", typ: r("BooCompany") },
       { json: "boo_comments", js: "boo_comments", typ: null },
