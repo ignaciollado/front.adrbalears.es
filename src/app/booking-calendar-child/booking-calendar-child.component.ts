@@ -262,14 +262,14 @@ export class BookingCalendarChildComponent {
             this.bookingsADRBalears = bookingADRBalears
             if (this.bookingsADRBalears) {
               console.log ("Bookings ADR Balears: ", this.bookingsADRBalears)
-              const json = JSON.stringify(this.bookingsADRBalears);
-              console.log ("a string -> ", json)
-              const parsed = JSON.parse(json);
-              console.log ("parsed -> ", parsed)
-              parsed.forEach( (event: any) => {
-                console.log ("Eventos en ADR:", event)
-            })
-          }
+             
+              const typeArr: BookingAdrBalearsDTO[] = Object
+                .entries(this.bookingsADRBalears).map(([key, value]) => value);
+                console.log(typeArr);
+                typeArr.map((item:BookingAdrBalearsDTO) => {
+                  console.log (item.bkd_comments, item.bki_id, item.bki_name)
+                })
+            }
           })
   }
 
