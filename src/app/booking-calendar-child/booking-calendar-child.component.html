@@ -16,7 +16,7 @@
       </mat-select>
     </mat-form-field>
 
-<!--     <section ngClass="mounting-dates">
+    <!--     <section ngClass="mounting-dates">
       <mat-form-field appearance="outline">
         <mat-label>{{ 'app.from-date-mounting' | translate }}</mat-label>
         <input matInput [matDatepicker]="pickerFromMountingDate" [formControl]="fromMountingDate" [min]="minDate" [matDatepickerFilter]="BookedDaysFilterFrom" (onChange)="disableTimeFrom($event)">
@@ -139,11 +139,14 @@
         [viewDate]="viewDate"
         [events]="events"
         [refresh]="refresh"
+        (beforeViewRender)="beforeMonthViewRender($event)"
         [weekStartsOn]="weekStartsOn"
         [weekendDays]="weekendDays"
         [activeDayIsOpen]="activeDayIsOpen"
         [cellTemplate]="customCellTemplate"
         (dayClicked)="dayClicked($event.day)"
+        [headerTemplate]="customHeaderTemplate"
+        
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-month-view>
@@ -182,12 +185,18 @@
   </div>
 </div>
 
+<ng-template #customHeaderTemplate let-day="day" let-locale="locale">
+  <div>
+    <span>Click the '+info' label to view details</span>
+  </div>
+</ng-template>
+
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
   <div class="cal-cell-top">
-    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{day.badgeTotal}} {{day.title}}</span>
+    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{day.badgeTotal}}</span>
     <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
   </div>
-  <small style="margin: 15px" *ngIf="day.events.length>0" title="click-me for details">
+  <small style="margin: 15px" *ngIf="day.events.length>0" title="click-me for details" ngClass="bg-adr">
     +info
   </small>
 </ng-template>

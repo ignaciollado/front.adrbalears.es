@@ -2,7 +2,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, finalize } from 'rxjs';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarWeekViewBeforeRenderEvent, DAYS_OF_WEEK } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, 
+  CalendarEventTimesChangedEvent, CalendarMonthViewBeforeRenderEvent, 
+  CalendarView, CalendarWeekViewBeforeRenderEvent, DAYS_OF_WEEK, CalendarEventTitleFormatter } from 'angular-calendar';
 import { colors } from '../utils/colors';
 import { addDays, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
@@ -25,26 +27,26 @@ registerLocaleData(localeCa);
 })
 
 export class BookingCalendarChildComponent {
-  minDate: Date
-  minDateTo: Date
-  maxDate: Date
-  fromMountingDate: FormControl
-  toMountingDate: FormControl
-  fromDate: FormControl
-  fromDateFromTime!: FormControl
-  toDate: FormControl
-  toDateToTime!: FormControl
-  resourceToBook: UntypedFormControl
-  userType: UntypedFormControl
-  bookerName: UntypedFormControl
-  idCard: UntypedFormControl
-  bookerEMail: UntypedFormControl
-  bookingForm: UntypedFormGroup
-  acceptTerms: FormControl<any>
-  modal: any;
-  theBooking: BookingDTO
-  bookings: BookingDTO[] = []
-  bookingsADRBalears: BookingAdrBalearsDTO[] = []
+  public minDate: Date
+  public minDateTo: Date
+  public maxDate: Date
+  public fromMountingDate: FormControl
+  public toMountingDate: FormControl
+  public fromDate: FormControl
+  public fromDateFromTime!: FormControl
+  public toDate: FormControl
+  public toDateToTime!: FormControl
+  public resourceToBook: UntypedFormControl
+  public userType: UntypedFormControl
+  public bookerName: UntypedFormControl
+  public idCard: UntypedFormControl
+  public bookerEMail: UntypedFormControl
+  public bookingForm: UntypedFormGroup
+  public acceptTerms: FormControl<any>
+  public modal: any;
+  public theBooking: BookingDTO
+  public bookings: BookingDTO[] = []
+  public bookingsADRBalears: BookingAdrBalearsDTO[] = []
 
   currentLang: string = ""
   fullYearFrom: number
@@ -77,6 +79,10 @@ export class BookingCalendarChildComponent {
   modalData?: {
     action: string;
     event: CalendarEvent;
+  }
+
+  month(event: CalendarEvent): string {
+    return `Custom prefix: ${event.title}`;
   }
 
   /* events: CalendarEvent[] = [] */
@@ -329,7 +335,7 @@ export class BookingCalendarChildComponent {
           })
   }
 
-  private loadBookingList() {
+/*   private loadBookingList() {
     let eventItem: CalendarEvent
     let myColor: EventColor
     let myTitle: string = ""
@@ -492,7 +498,7 @@ export class BookingCalendarChildComponent {
                     break                
                 }
             this.events.push(eventItem)
-            this.refresh.next() /* Para que en la primera carga del calendario pinte los eventos que hay en la bbdd */
+            this.refresh.next() 
           })
         }
         },
@@ -501,7 +507,7 @@ export class BookingCalendarChildComponent {
            this.sharedService.errorLog(errorResponse)
          }
        );
-  }
+  } */
 
   public resourceSelected( resource: string ) {
       if (resource.split("-")[1] === 'room') {
@@ -513,7 +519,18 @@ export class BookingCalendarChildComponent {
 
   /* events: CalendarEvent[] = [] */
 
-  activeDayIsOpen: boolean = false;
+  beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent): void {
+    return
+    renderEvent.body.forEach((day) => {
+      const dayOfMonth = day.date.getDate();
+      
+      if (dayOfMonth > 5 && dayOfMonth < 10 && day.inMonth) {
+        day.cssClass = 'bg-pink';
+      }
+    });
+  }
+
+  activeDayIsOpen: boolean = true;
 
   refresh = new Subject<void>();
 
@@ -688,7 +705,8 @@ export class BookingCalendarChildComponent {
             this.bookerName.reset()
             this.bookerEMail.reset()
             this.idCard.reset()
-            this.loadBookingList()
+            //this.loadBookingList()
+            this.loadBookingListADRBalears()
           },
           (error: HttpErrorResponse) => {
             errorResponse = error
