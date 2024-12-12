@@ -30,13 +30,14 @@ form {
   hyphens: manual;
 }
 
-.mounting-dates {
+.event-dates {
   background-color: #0098CB;
   padding: .5rem;
   margin-bottom: .5rem;
+  border-radius: .3rem;
 }
 
-.event-dates {
+.mounting-dates {
   background-color: #003747;
   padding: .5rem;
 }
@@ -101,6 +102,10 @@ mat-form-field {
 
 mat-label, .mat-mdc-form-field-required-marker, .mdc-icon-button {
   color: #fff!important;
+}
+
+.contrasted-text {
+  color: #000!important;
 }
 
 /* #postFeedback {

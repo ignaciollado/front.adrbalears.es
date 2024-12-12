@@ -244,7 +244,7 @@ export class BookingCalendarChildComponent {
 
   ngOnInit() {
    this.currentLang = localStorage.getItem('preferredLang')
-   this.loadBookingList()
+   //this.loadBookingList()
    this.loadBookingListADRBalears()
   }
 
@@ -255,20 +255,76 @@ export class BookingCalendarChildComponent {
     let startHour: string  
     let endHour: string
     let errorResponse: any
+    let bookingState: string = ""
     this.events = []
     this.bookingService.getAllBookingsADRBalears()
         .subscribe(
           (bookingADRBalears:BookingAdrBalearsDTO[]) => {
             this.bookingsADRBalears = bookingADRBalears
             if (this.bookingsADRBalears) {
-              console.log ("Bookings ADR Balears: ", this.bookingsADRBalears)
-             
               const typeArr: BookingAdrBalearsDTO[] = Object
-                .entries(this.bookingsADRBalears).map(([key, value]) => value);
-                console.log(typeArr);
-                typeArr.map((item:BookingAdrBalearsDTO) => {
-                  console.log (item.bkd_comments, item.bki_id, item.bki_name)
-                })
+                .entries(this.bookingsADRBalears).map(([key, value]) => value)
+                for(var index in typeArr[0])
+                {
+                  console.log (typeArr[0])
+                  switch(typeArr[0][index].bki_id) {
+                    case 2:
+                      console.log("Sala toronja")
+                      break
+                    case 3:
+                      console.log("Sala blanca")
+                      break
+                    case 4:
+                      console.log("Sala Blava")
+                      break
+                    case 5:
+                      console.log("Sala Groga")
+                      break
+                    case 6:
+                      console.log("Sala Vermella")
+                      break
+                    case 7:
+                      if (typeArr[0][index].booking_status === 1) {
+                        myColor = colors.grey
+                      } else {
+                        myColor = colors.pavellonA
+                      }
+                      switch  (typeArr[0][index].booking_status) {
+                        case 1:
+                          bookingState = "Reserva pendiente"
+                          break
+                        case 2:
+                          bookingState = "Validado"
+                          break
+                        default:
+                          bookingState = "No lo sé " + typeArr[0][index].booking_status
+                      }
+                      myTitle = typeArr[0][index].boo_title + "<br><b>Pavelló Exposició A</b><br>Reserva desde el "  + new Date(typeArr[0][index].bkd_start).toLocaleDateString() + " hasta el " + new Date(typeArr[0][index].bkd_end).toLocaleDateString() + "<br>Estado: " + bookingState
+                      eventItem = {
+                        title:  myTitle,
+                        color:  myColor,
+                        start:  subDays(startOfDay(new Date(typeArr[0][index].bkd_start)), 0),
+                        end:    addDays(new Date(typeArr[0][index].bkd_end), 0),
+                        meta: {
+                          type: 'info'
+                        },
+                        allDay: false,
+                        cssClass: 'event-class',
+                        resizable: {
+                          beforeStart: this.isbeforeStart,
+                          afterEnd: this.isafterEnd,
+                        },
+                        draggable: this.isDragable,
+                      }
+                      break
+                    default:
+                      console.log (`${typeArr[0][index].bki_id} no sé que recurso es`)
+                  }
+                  this.events.push(eventItem)
+                  this.refresh.next() /* Para que en la primera carga del calendario pinte los eventos que hay en la bbdd */
+                }
+                /* console.log ("los eventos: ", this.events) */
+            
             }
           })
   }
@@ -493,7 +549,7 @@ export class BookingCalendarChildComponent {
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action }
     document.getElementById("resourceDetail")?.classList.remove("ocultar")
-    document.getElementById("resourceDetail")!.innerHTML = event.title
+    document.getElementById("resourceDetail")!.innerHTML = "--"+event.title+"--"
   }
 
   beforeWeekViewRender(renderEvent: CalendarWeekViewBeforeRenderEvent) {
