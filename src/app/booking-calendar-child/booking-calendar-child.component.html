@@ -146,7 +146,6 @@
         [cellTemplate]="customCellTemplate"
         (dayClicked)="dayClicked($event.day)"
         [headerTemplate]="customHeaderTemplate"
-        
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-month-view>
@@ -196,9 +195,7 @@
     <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{day.badgeTotal}}</span>
     <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
   </div>
-  <small style="margin: 15px" *ngIf="day.events.length>0" title="click-me for details" ngClass="bg-adr">
-    +info
-  </small>
+  <small style="margin: 15px" *ngIf="day.events.length > 0" title="click-me for details" ngClass="bg-adr">+info</small>
 </ng-template>
 
 <ng-template #customhourSegmentTemplate let-day="day" let-locale="locale">

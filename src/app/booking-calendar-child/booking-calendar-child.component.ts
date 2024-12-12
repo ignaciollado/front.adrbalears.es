@@ -14,7 +14,7 @@ import { SharedService } from '../Services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EmailManagementService } from '../Services/emailManagement.service';
 import { EventColor } from 'calendar-utils';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localeCa from '@angular/common/locales/ca';
 
 registerLocaleData(localeCa);
@@ -273,39 +273,157 @@ export class BookingCalendarChildComponent {
                 for(var index in typeArr[0])
                 {
                   console.log (typeArr[0])
-                  switch(typeArr[0][index].bki_id) {
+                  switch  (typeArr[0][index].booking_status) {
+                    case 1:
+                      bookingState = "Reserva pendiente"
+                      break
                     case 2:
-                      console.log("Sala toronja")
+                      bookingState = "Validado"
                       break
-                    case 3:
-                      console.log("Sala blanca")
-                      break
-                    case 4:
-                      console.log("Sala Blava")
-                      break
-                    case 5:
-                      console.log("Sala Groga")
-                      break
-                    case 6:
-                      console.log("Sala Vermella")
-                      break
-                    case 7:
+                    default:
+                      bookingState = "No lo sé " + typeArr[0][index].booking_status
+                  }
+
+                  const startTime: Date = new Date(typeArr[0][index].bkd_start);
+                  const starthours: string = startTime.getHours().toString().padStart(2, '0');
+                  const startminutes: string = startTime.getMinutes().toString().padStart(2, '0');
+                  const startseconds: string = startTime.getSeconds().toString().padStart(2, '0');
+                  const startTimeFormated: string = starthours+":"+startminutes+":"+startseconds
+
+                  const endTime: Date = new Date(typeArr[0][index].bkd_end);
+                  const endhours: string = endTime.getHours().toString().padStart(2, '0');
+                  const endminutes: string = endTime.getMinutes().toString().padStart(2, '0');
+                  const endseconds: string = endTime.getSeconds().toString().padStart(2, '0');
+                  const endTimeFormated: string = endhours+":"+endminutes+":"+endseconds
+
+                  switch(typeArr[0][index].bki_id) {
+                    case 2: /* SALA TORONJA PERO NO EXISTE EN PRODUCCIÓN */
                       if (typeArr[0][index].booking_status === 1) {
                         myColor = colors.grey
                       } else {
                         myColor = colors.pavellonA
                       }
-                      switch  (typeArr[0][index].booking_status) {
-                        case 1:
-                          bookingState = "Reserva pendiente"
-                          break
-                        case 2:
-                          bookingState = "Validado"
-                          break
-                        default:
-                          bookingState = "No lo sé " + typeArr[0][index].booking_status
+                      myTitle = "<ul><li><u><b>" + typeArr[0][index].boo_title + "</b></u></li><li>Sala toronja</li><li>Reserva desde el "  + new Date(typeArr[0][index].bkd_start).toLocaleDateString() + " hasta el " + new Date(typeArr[0][index].bkd_end).toLocaleDateString() + "</li><li>Estado: " + bookingState + "</li></ul>"
+                      eventItem = {
+                        title:  myTitle,
+                        color:  myColor,
+                        start:  subDays(startOfDay(new Date(typeArr[0][index].bkd_start)), 0),
+                        end:    addDays(new Date(typeArr[0][index].bkd_end), 0),
+                        meta: {
+                          type: 'info'
+                        },
+                        allDay: false,
+                        cssClass: 'event-class',
+                        resizable: {
+                          beforeStart: this.isbeforeStart,
+                          afterEnd: this.isafterEnd,
+                        },
+                        draggable: this.isDragable,
                       }
-                      myTitle = typeArr[0][index].boo_title + "<br><b>Pavelló Exposició A</b><br>Reserva desde el "  + new Date(typeArr[0][index].bkd_start).toLocaleDateString() + " hasta el " + new Date(typeArr[0][index].bkd_end).toLocaleDateString() + "<br>Estado: " + bookingState
+                      break
+                    case 3: /* SALA BLANCA */
+                      if (typeArr[0][index].booking_status === 1) {
+                        myColor = colors.grey
+                      } else {
+                        myColor = colors.white
+                      }
+                      myTitle = "<ul><li><u><b>" + typeArr[0][index].boo_title + "</b></u></li><li>Sala blanca</li><li>Reserva desde el "  + new Date(typeArr[0][index].bkd_start).toLocaleDateString() + " hasta el " + new Date(typeArr[0][index].bkd_end).toLocaleDateString() + "</li><li>Horario: De "+startTimeFormated+" a "+endTimeFormated+"</li><li>Estado: " + bookingState + "</li></ul>"
+                      eventItem = {
+                        title:  myTitle,
+                        color:  myColor,
+                        start:  subDays(startOfDay(new Date(typeArr[0][index].bkd_start)), 0),
+                        end:    addDays(new Date(typeArr[0][index].bkd_end), 0),
+                        meta: {
+                          type: 'info'
+                        },
+                        allDay: false,
+                        cssClass: 'event-class',
+                        resizable: {
+                          beforeStart: this.isbeforeStart,
+                          afterEnd: this.isafterEnd,
+                        },
+                        draggable: this.isDragable,
+                      }                                               
+                      break
+                    case 4: /* SALA BLAVA */
+                      if (typeArr[0][index].booking_status === 1) {
+                        myColor = colors.grey
+                      } else {
+                        myColor = colors.blue
+                      }
+                      myTitle = "<ul><li><u><b>" + typeArr[0][index].boo_title + "</b></u></li><li>Sala Blava</li><li>Reserva desde el "  + new Date(typeArr[0][index].bkd_start).toLocaleDateString() + " hasta el " + new Date(typeArr[0][index].bkd_end).toLocaleDateString() + "</li><li>Horario: De "+startTimeFormated+" a "+endTimeFormated+"</li><li>Estado: " + bookingState + "</li></ul>"
+                      eventItem = {
+                        title:  myTitle,
+                        color:  myColor,
+                        start:  subDays(startOfDay(new Date(typeArr[0][index].bkd_start)), 0),
+                        end:    addDays(new Date(typeArr[0][index].bkd_end), 0),
+                        meta: {
+                          type: 'info'
+                        },
+                        allDay: false,
+                        cssClass: 'event-class',
+                        resizable: {
+                          beforeStart: this.isbeforeStart,
+                          afterEnd: this.isafterEnd,
+                        },
+                        draggable: this.isDragable,
+                      }                                        
+                      break
+                    case 5: /* SALA GROGA */
+                      if (typeArr[0][index].booking_status === 1) {
+                        myColor = colors.grey
+                      } else {
+                        myColor = colors.yellow
+                      }
+                      myTitle = "<ul><li><u><b>" + typeArr[0][index].boo_title + "</b></u></li><li>Sala Groga</li><li>Reserva desde el "  + new Date(typeArr[0][index].bkd_start).toLocaleDateString() + " hasta el " + new Date(typeArr[0][index].bkd_end).toLocaleDateString() + "</li><li>Horario: De "+startTimeFormated+" a "+endTimeFormated+"</li><li>Estado: " + bookingState + "</li></ul>"
+                      eventItem = {
+                        title:  myTitle,
+                        color:  myColor,
+                        start:  subDays(startOfDay(new Date(typeArr[0][index].bkd_start)), 0),
+                        end:    addDays(new Date(typeArr[0][index].bkd_end), 0),
+                        meta: {
+                          type: 'info'
+                        },
+                        allDay: false,
+                        cssClass: 'event-class',
+                        resizable: {
+                          beforeStart: this.isbeforeStart,
+                          afterEnd: this.isafterEnd,
+                        },
+                        draggable: this.isDragable,
+                      }                      
+                      break
+                    case 6: /* SALA VERMELLA */
+                      if (typeArr[0][index].booking_status === 1) {
+                        myColor = colors.grey
+                      } else {
+                        myColor = colors.red
+                      }
+                      myTitle = "<ul><li><u><b>" + typeArr[0][index].boo_title + "</b></u></li><li>Sala Vermella</li><li>Reserva desde el "  + new Date(typeArr[0][index].bkd_start).toLocaleDateString() + " hasta el " + new Date(typeArr[0][index].bkd_end).toLocaleDateString() + "</li><li>Horario: De "+startTimeFormated+" a "+endTimeFormated+"</li><li>Estado: " + bookingState + "</li></ul>"
+                      eventItem = {
+                        title:  myTitle,
+                        color:  myColor,
+                        start:  subDays(startOfDay(new Date(typeArr[0][index].bkd_start)), 0),
+                        end:    addDays(new Date(typeArr[0][index].bkd_end), 0),
+                        meta: {
+                          type: 'info'
+                        },
+                        allDay: false,
+                        cssClass: 'event-class',
+                        resizable: {
+                          beforeStart: this.isbeforeStart,
+                          afterEnd: this.isafterEnd,
+                        },
+                        draggable: this.isDragable,
+                      }                      
+                      break
+                    case 7: /* PAVELLÓN A */
+                      if (typeArr[0][index].booking_status === 1) {
+                        myColor = colors.grey
+                      } else {
+                        myColor = colors.pavellonA
+                      }
+                      myTitle = "<ul><li><u><b>" + typeArr[0][index].boo_title + "</b></u></li><li>Pavelló Exposició A</li><li>Reserva desde el "  + new Date(typeArr[0][index].bkd_start).toLocaleDateString() + " hasta el " + new Date(typeArr[0][index].bkd_end).toLocaleDateString() + "</li><li>Estado: " + bookingState + "</li></ul>"
                       eventItem = {
                         title:  myTitle,
                         color:  myColor,
