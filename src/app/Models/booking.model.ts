@@ -60,8 +60,8 @@ export interface BookingAdrBalearsDTO {
   bki_type:         string;
   bki_desc:         string;
   bkd_type:         string;
-  bkd_start:        Date;
-  bkd_end:          Date;
+  boo_start:        Date;
+  boo_end:          Date;
   bkd_comments:     null;
   booking_status:   number;
   last_date_status: Date;

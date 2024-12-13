@@ -134,9 +134,15 @@ export class BookingService {
       .get<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/-1/checkavailability`)
   }
 
-  sendPostRequest(data: BookingDTO): Observable<BookingAdrBalearsDTO> {
+  sendPostRequest(formData: BookingDTO): Observable<BookingAdrBalearsDTO> {
+    delete formData.fromDateFromTime
+    delete formData.toDateToTime
+    delete formData.acceptTerms
+    
+    console.log ("The formData send to ADR Balears: ", formData)
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/x-www-form-urlencoded'});
     return this.http
-      .post<BookingAdrBalearsDTO>(PRE_URL_BACKOFFICE, data)
+      .post<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking`, formData, {headers})
   }
 
 }

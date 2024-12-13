@@ -57,7 +57,6 @@ export class SharedService {
             '. Status text: ' +
             error?.statusText;
         }
-
         await this.wait(16500);
         toastMsg.className = toastMsg.className.replace('show', '');
       }
