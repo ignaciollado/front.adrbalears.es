@@ -203,7 +203,7 @@ export class BookingCalendarChildComponent {
     ) {
     this.dateAdapter.getFirstDayOfWeek = () => 1
     this.dateAdapter.setLocale = () => 'es-ES'
-    this.theBooking = new BookingDTO( 0, '', '', '', this.dateAdapter.today(), this.dateAdapter.today(), 'Pending', false);
+    this.theBooking = new BookingDTO( 0, '', '', '', '', '', 'Pending', false);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
     const currentDay = new Date().getDate()+10 /* número de días a partir de la fecha actual que estarán activados */
@@ -251,6 +251,7 @@ export class BookingCalendarChildComponent {
       const currentMonthTo = new Date(e.fromDate).getMonth()
       const currentDayTo = new Date(e.fromDate).getDate()
       this.minDateTo = new Date(currentYearTo, currentMonthTo, currentDayTo)
+      console.log ("minDate: ", this.minDate)
       if (e.bki_id) {
         this.resourceSelected(e.bki_id)
       }
@@ -633,7 +634,6 @@ export class BookingCalendarChildComponent {
   } */
 
   public resourceSelected( resource: string ) {
-      console.log ("resource selected: ", resource)
       if (resource !== '7') {
         this.showTime = true
       } else if (resource === '7') {
@@ -813,6 +813,8 @@ export class BookingCalendarChildComponent {
     this.theBooking = this.bookingForm.value
     this.bookingForm.value.boo_start.setHours( this.bookingForm.value.boo_start.getHours() + this.bookingForm.value.fromDateFromTime )
     this.bookingForm.value.boo_end.setHours( this.bookingForm.value.boo_end.getHours() + this.bookingForm.value.toDateToTime )
+    console.log (this.theBooking)
+
 /*     this.bookingService.createBooking(this.theBooking)
         .pipe(
           finalize(async () => {
@@ -919,8 +921,9 @@ export class BookingCalendarChildComponent {
    /*  this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesTo.push(resourceItem) }) */
   }
 
-  disableTimeFrom(fromTime:any) {
-    console.log ("from Time: ", fromTime.value)
+  disableDateTo(fromDate:any) {
+   /*  console.log ("from date: ", fromDate.value) */
+    /* this.minDateTo = fromDate */
   }
   
   BookedDaysFilterFrom: (d: Date | null) => boolean = 

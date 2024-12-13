@@ -138,7 +138,9 @@ export class BookingService {
     delete formData.fromDateFromTime
     delete formData.toDateToTime
     delete formData.acceptTerms
-    
+/*     formData.fromDate.toString().replace("T"," ").replace(":00.000Z", "")
+    formData.toDate.toString().replace("T"," ").replace(":00.000Z", "") */
+
     console.log ("The formData send to ADR Balears: ", formData)
     const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/x-www-form-urlencoded'});
     return this.http

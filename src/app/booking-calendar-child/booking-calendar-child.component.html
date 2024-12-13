@@ -22,7 +22,7 @@
     <section ngClass="event-dates">
       <mat-form-field appearance="outline">
         <mat-label>{{ 'app.from-date' | translate }}</mat-label>
-        <input matInput [matDatepicker]="pickerFromDate" formControlName="boo_start" [min]="minDate" [matDatepickerFilter]="BookedDaysFilterFrom" (onChange)="disableTimeFrom($event)">
+        <input matInput [matDatepicker]="pickerFromDate" formControlName="boo_start" [min]="minDate" [matDatepickerFilter]="BookedDaysFilterFrom" (dateChange)="disableDateTo($event)">
         <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
       </mat-form-field>

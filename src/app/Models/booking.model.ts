@@ -6,9 +6,9 @@ export class BookingDTO {
     name: string
     email: string
     resource: string
-    fromDate: Date
+    fromDate: string
     fromDateFromTime!: number
-    toDate: Date
+    toDate: string
     toDateToTime!: number
     allDay!: boolean
     state: string
@@ -20,8 +20,8 @@ export class BookingDTO {
       name: string,
       email: string,
       resource: string,
-      fromDate: Date,
-      toDate: Date,
+      fromDate: string,
+      toDate: string,
       state: string,
       acceptTerms: boolean
     ) {
