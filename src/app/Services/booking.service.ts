@@ -131,11 +131,8 @@ export class BookingService {
   }
 
   sendPostRequest(formData: any): Observable<BookingADRBalearsDTO> {
-    console.log ( formData.usucre, formData.pro_id, formData.name )
-
     let start: string = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es-ES", { month: "2-digit" }))+"-"+formData.boo_start.toLocaleString("es-ES", { day: "2-digit" })+" "+formData.boo_start.toLocaleString("es-ES", { hour: "2-digit" })+":"+formData.boo_start.toLocaleString("es-ES", { minute: "2-digit" })
     let end: string = formData.boo_end.getFullYear()+"-"+(formData.boo_end.toLocaleString("es-ES", { month: "2-digit" }))+"-"+formData.boo_end.toLocaleString("es-ES", { day: "2-digit" })+" "+formData.boo_end.toLocaleString("es-ES", { hour: "2-digit" })+":"+formData.boo_end.toLocaleString("es-ES", { minute: "2-digit" })
-
     let dataToADRBalears: BookingADRBalearsDTO = {
     "usucre": formData.usucre,
     "bki_id": formData.bki_id,
@@ -143,7 +140,6 @@ export class BookingService {
     "boo_start":  start,
     "boo_end":    end,
     "boo_company": {"name": formData.boo_company.name, "cif": formData.boo_company.cif, "contact": formData.boo_company.contact, "email": formData.boo_company.email},
-    /* "bookdetails": [{"start": formData.boo_start+" 00:00:00", "end": formData.boo_end+" 00:00:00"}]} */
     "bookdetails": [{"start": start+":00", "end": end+":00"}]}
 
     console.log ("The data send to ADR Balears: ", dataToADRBalears)
