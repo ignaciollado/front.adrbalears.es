@@ -2,7 +2,10 @@ import { Time } from "@angular/common"
 
 export class BookingDTO {
     bookingId!: string
-    idCard: number
+    usucre: string
+    pro_id: number
+    idCard: string
+    userType: string
     name: string
     email: string
     resource: string
@@ -10,13 +13,15 @@ export class BookingDTO {
     fromDateFromTime!: number
     toDate: string
     toDateToTime!: number
-    allDay!: boolean
+    contact: string
     state: string
     acceptTerms: boolean
 
-
     constructor (
-      idCard: number,
+      idCard: string,
+      usucre: string,
+      pro_id: number,
+      userType: string,
       name: string,
       email: string,
       resource: string,
@@ -26,6 +31,9 @@ export class BookingDTO {
       acceptTerms: boolean
     ) {
       this.idCard = idCard,
+      this.usucre = usucre,
+      this.pro_id = pro_id,
+      this.userType = userType,
       this.name = name,
       this.email = email,
       this.resource = resource,
@@ -36,53 +44,47 @@ export class BookingDTO {
     }
 }
 
-
 // To parse this data:
 //
-//   import { Convert, BookingAdrBalearsDTO } from "./file";
+//   import { Convert } from "./file";
 //
-//   const bookingAdrBalearsDTO = Convert.toBookingAdrBalearsDTO(json);
+//   const bookingADRBalearsDTO = Convert.toBookingADRBalearsDTO(json);
 //
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 
-export interface BookingAdrBalearsDTO {
-  boo_id:           number;
-  bki_id:           number;
-  pro_id:           number;
-  boo_title:        string;
-  boo_locator:      string;
-  boo_company:      BooCompany;
-  boo_comments:     null;
-  boo_usucre:       string;
-  boo_feccre:       Date;
-  bki_name:         string;
-  bki_type:         string;
-  bki_desc:         string;
-  bkd_type:         string;
-  boo_start:        Date;
-  boo_end:          Date;
-  bkd_comments:     null;
-  booking_status:   number;
-  last_date_status: Date;
+export interface BookingADRBalearsDTO {
+  usucre:       string;
+  bki_id?:      string;
+  pro_id:      number;
+  boo_start?:   string;
+  boo_end?:     string;
+  boo_company?: BooCompany;
+  boo_title?:   string;
+  bookdetails?: Bookdetail[];
 }
 
 export interface BooCompany {
-  cif:     string;
   name:    string;
-  email:   string;
+  cif:     string;
   contact: string;
+  email:   string;
+}
+
+export interface Bookdetail {
+  start: string;
+  end:   string;
 }
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-  public static toBookingAdrBalearsDTO(json: string): BookingAdrBalearsDTO {
-      return cast(JSON.parse(json), r("BookingAdrBalearsDTO"));
+  public static toBookingADRBalearsDTO(json: string): BookingADRBalearsDTO[] {
+      return cast(JSON.parse(json), a(r("BookingADRBalearsDTO")));
   }
 
-  public static bookingAdrBalearsDTOToJson(value: BookingAdrBalearsDTO): string {
-      return JSON.stringify(uncast(value, r("BookingAdrBalearsDTO")), null, 2);
+  public static bookingADRBalearsDTOToJson(value: BookingADRBalearsDTO[]): string {
+      return JSON.stringify(uncast(value, a(r("BookingADRBalearsDTO"))), null, 2);
   }
 }
 
@@ -239,30 +241,24 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-  "BookingAdrBalearsDTO": o([
-      { json: "boo_id", js: "boo_id", typ: 0 },
-      { json: "bki_id", js: "bki_id", typ: 0 },
-      { json: "pro_id", js: "pro_id", typ: 0 },
-      { json: "boo_title", js: "boo_title", typ: "" },
-      { json: "boo_locator", js: "boo_locator", typ: "" },
-      { json: "boo_company", js: "boo_company", typ: r("BooCompany") },
-      { json: "boo_comments", js: "boo_comments", typ: null },
-      { json: "boo_usucre", js: "boo_usucre", typ: "" },
-      { json: "boo_feccre", js: "boo_feccre", typ: Date },
-      { json: "bki_name", js: "bki_name", typ: "" },
-      { json: "bki_type", js: "bki_type", typ: "" },
-      { json: "bki_desc", js: "bki_desc", typ: "" },
-      { json: "bkd_type", js: "bkd_type", typ: "" },
-      { json: "bkd_start", js: "bkd_start", typ: Date },
-      { json: "bkd_end", js: "bkd_end", typ: Date },
-      { json: "bkd_comments", js: "bkd_comments", typ: null },
-      { json: "booking_status", js: "booking_status", typ: 0 },
-      { json: "last_date_status", js: "last_date_status", typ: Date },
+  "BookingADRBalearsDTO": o([
+      { json: "usucre", js: "usucre", typ: "" },
+      { json: "bki_id", js: "bki_id", typ: "" },
+      { json: "pro_id", js: "pro_id", typ: u(undefined, 0) },
+      { json: "boo_start", js: "boo_start", typ: u(undefined, "") },
+      { json: "boo_end", js: "boo_end", typ: u(undefined, "") },
+      { json: "boo_company", js: "boo_company", typ: u(undefined, r("BooCompany")) },
+      { json: "boo_title", js: "boo_title", typ: u(undefined, "") },
+      { json: "bookdetails", js: "bookdetails", typ: u(undefined, a(r("Bookdetail"))) },
   ], false),
   "BooCompany": o([
-      { json: "cif", js: "cif", typ: "" },
       { json: "name", js: "name", typ: "" },
-      { json: "email", js: "email", typ: "" },
+      { json: "cif", js: "cif", typ: "" },
       { json: "contact", js: "contact", typ: "" },
+      { json: "email", js: "email", typ: "" },
+  ], false),
+  "Bookdetail": o([
+      { json: "start", js: "start", typ: Date },
+      { json: "end", js: "end", typ: Date },
   ], false),
 };

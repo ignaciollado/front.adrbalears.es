@@ -4,7 +4,7 @@ import { SharedService } from './shared.service';
 import { Observable, catchError } from 'rxjs';
 import { BookingDTO } from '../Models/booking.model';
 import { designOrderDTO } from '../Models/design-order';
-import { BookingAdrBalearsDTO } from '../Models/booking.model';
+import { BookingADRBalearsDTO } from '../Models/booking.model';
 import { WpPost } from '../Models/wp-post-data.dto';
 
 const URL_API = '../../assets/phpAPI/'
@@ -12,11 +12,7 @@ const URL_API = '../../assets/phpAPI/'
 const PRE_URL_BACKOFFICE = "https://pre.backoffice.idi.es/api"
 const URL_BACKOFFICE = "https://backoffice.idi.es/api"
 const token_bearer = "MEN2024*@"
-const httpOptionsADRBalears = {
-  headers: new HttpHeaders({
-    'Authorization': `Bearer ${token_bearer}`
-  })
-}
+const httpOptionsADRBalears = { headers: new HttpHeaders({ 'Authorization': `Bearer ${token_bearer}` }) }
 
 const WPpageURL = 'https://app.adrbalears.es/wp-json/wp/v2/pages';
 const headers = new HttpHeaders()
@@ -118,33 +114,42 @@ export class BookingService {
   /* -------------------------------------------------------------------------------------------------------- */
   /* BACKOFFICE ADR Balears */
 
-  getAllBookingsADRBalears(): Observable<BookingAdrBalearsDTO[]> {
+  getAllBookingsADRBalears(): Observable<BookingADRBalearsDTO[]> {
     return this.http
-      .get<BookingAdrBalearsDTO[]>(`${PRE_URL_BACKOFFICE}/booking`, httpOptionsADRBalears)
+      .get<BookingADRBalearsDTO[]>(`${PRE_URL_BACKOFFICE}/booking`, httpOptionsADRBalears)
   }
 
-  getBookingByIdADRBalears(bookingId: string): Observable<BookingAdrBalearsDTO> {
+  getBookingByIdADRBalears(bookingId: string): Observable<BookingADRBalearsDTO> {
     return this.http
-      .get<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/Locator=${bookingId}`, httpOptionsADRBalears)
+      .get<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/Locator=${bookingId}`, httpOptionsADRBalears)
   }
 
-  getCheckAvailabilityADRBalears(bki_id: string, boo_start: Date, boo_end: Date): Observable<BookingAdrBalearsDTO> {
+  getCheckAvailabilityADRBalears(bki_id: string, boo_start: Date, boo_end: Date): Observable<BookingADRBalearsDTO> {
     let pro_id:number = 42
     return this.http
-      .get<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/-1/checkavailability`)
+      .get<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/-1/checkavailability`)
   }
 
-  sendPostRequest(formData: BookingDTO): Observable<BookingAdrBalearsDTO> {
-    delete formData.fromDateFromTime
-    delete formData.toDateToTime
-    delete formData.acceptTerms
-/*     formData.fromDate.toString().replace("T"," ").replace(":00.000Z", "")
-    formData.toDate.toString().replace("T"," ").replace(":00.000Z", "") */
+  sendPostRequest(formData: any): Observable<BookingADRBalearsDTO> {
+    console.log ( formData.usucre, formData.pro_id, formData.name )
 
-    console.log ("The formData send to ADR Balears: ", formData)
+    let start: string = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es-ES", { month: "2-digit" }))+"-"+formData.boo_start.toLocaleString("es-ES", { day: "2-digit" })+" "+formData.boo_start.toLocaleString("es-ES", { hour: "2-digit" })+":"+formData.boo_start.toLocaleString("es-ES", { minute: "2-digit" })
+    let end: string = formData.boo_end.getFullYear()+"-"+(formData.boo_end.toLocaleString("es-ES", { month: "2-digit" }))+"-"+formData.boo_end.toLocaleString("es-ES", { day: "2-digit" })+" "+formData.boo_end.toLocaleString("es-ES", { hour: "2-digit" })+":"+formData.boo_end.toLocaleString("es-ES", { minute: "2-digit" })
+
+    let dataToADRBalears: BookingADRBalearsDTO = {
+    "usucre": formData.usucre,
+    "bki_id": formData.bki_id,
+    "pro_id": formData.pro_id,
+    "boo_start":  start,
+    "boo_end":    end,
+    "boo_company": {"name": formData.boo_company.name, "cif": formData.boo_company.cif, "contact": formData.boo_company.contact, "email": formData.boo_company.email},
+    /* "bookdetails": [{"start": formData.boo_start+" 00:00:00", "end": formData.boo_end+" 00:00:00"}]} */
+    "bookdetails": [{"start": start+":00", "end": end+":00"}]}
+
+    console.log ("The data send to ADR Balears: ", dataToADRBalears)
     const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/x-www-form-urlencoded'});
     return this.http
-      .post<BookingAdrBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking`, formData, {headers})
+      .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking`, dataToADRBalears, {headers})
   }
 
 }

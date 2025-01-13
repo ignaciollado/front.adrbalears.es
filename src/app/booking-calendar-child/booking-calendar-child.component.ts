@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
-import { FormBuilder, FormGroup, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject, finalize } from 'rxjs';
 import { CalendarEvent, CalendarEventAction, 
   CalendarEventTimesChangedEvent, CalendarMonthViewBeforeRenderEvent, 
@@ -8,10 +8,9 @@ import { CalendarEvent, CalendarEventAction,
 import { colors } from '../utils/colors';
 import { addDays, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
 import { ThemePalette } from '@angular/material/core';
-import { BookingDTO, BookingAdrBalearsDTO } from '../Models/booking.model';
+import { BookingDTO, BookingADRBalearsDTO } from '../Models/booking.model';
 import { BookingService } from '../Services/booking.service';
 import { SharedService } from '../Services/shared.service';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { EmailManagementService } from '../Services/emailManagement.service';
 import { EventColor } from 'calendar-utils';
 import { registerLocaleData } from '@angular/common';
@@ -49,7 +48,7 @@ export class BookingCalendarChildComponent {
   public modal: any;
   public theBooking: BookingDTO
   public bookings: BookingDTO[] = []
-  public bookingsADRBalears: BookingAdrBalearsDTO[] = []
+  public bookingsADRBalears: BookingADRBalearsDTO[] = []
 
   currentLang: string = ""
   fullYearFrom: number
@@ -66,8 +65,6 @@ export class BookingCalendarChildComponent {
   public color: ThemePalette = 'primary'
 
   public boo_company: FormGroup
-
-  locale: string = 'fr';
 
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
 
@@ -203,16 +200,16 @@ export class BookingCalendarChildComponent {
     ) {
     this.dateAdapter.getFirstDayOfWeek = () => 1
     this.dateAdapter.setLocale = () => 'es-ES'
-    this.theBooking = new BookingDTO( 0, '', '', '', '', '', 'Pending', false);
+    this.theBooking = new BookingDTO ('', '', 0, '', '', '', '', '', '', '', true);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
-    const currentDay = new Date().getDate()+10 /* número de días a partir de la fecha actual que estarán activados */
+    const currentDay = new Date().getDate()+10 /* Reservas con una antelación de 10 días */
 
-    this.minDate = new Date(currentYear, currentMonth, currentDay+1) /* Reservas con una antelación de 1 días */
+    this.minDate = new Date(currentYear, currentMonth, currentDay)
     this.minDateTo = this.minDate
-    this.maxDate = new Date(currentYear + 1, 11, 31)
+    /* this.maxDate = new Date(currentYear + 1, 11, 31) */
 
-    this.title = new UntypedFormControl('', [Validators.required])
+    this.title = new UntypedFormControl('Reserva test', [Validators.required])
     this.usucre = new UntypedFormControl('ADRWeb')
     this.proID = new UntypedFormControl('42')
     this.bki_id = new UntypedFormControl('', [ Validators.required ])
@@ -247,11 +244,7 @@ export class BookingCalendarChildComponent {
     })
 
     this.bookingForm.valueChanges.subscribe((e) => {
-      const currentYearTo = new Date(e.fromDate).getFullYear()
-      const currentMonthTo = new Date(e.fromDate).getMonth()
-      const currentDayTo = new Date(e.fromDate).getDate()
-      this.minDateTo = new Date(currentYearTo, currentMonthTo, currentDayTo)
-      console.log ("minDate: ", this.minDate)
+     this.minDateTo = e.boo_start
       if (e.bki_id) {
         this.resourceSelected(e.bki_id)
       }
@@ -267,17 +260,14 @@ export class BookingCalendarChildComponent {
     let eventItem: CalendarEvent
     let myColor: EventColor
     let myTitle: string = ""
-    let startHour: string  
-    let endHour: string
-    let errorResponse: any
     let bookingState: string = ""
     this.events = []
     this.bookingService.getAllBookingsADRBalears()
         .subscribe(
-          (bookingADRBalears:BookingAdrBalearsDTO[]) => {
+          (bookingADRBalears:BookingADRBalearsDTO[]) => {
             this.bookingsADRBalears = bookingADRBalears
             if (this.bookingsADRBalears) {
-              const typeArr: BookingAdrBalearsDTO[] = Object
+              const typeArr: BookingADRBalearsDTO[] = Object
                 .entries(this.bookingsADRBalears).map(([key, value]) => value)
                 for(var index in typeArr[0])
                 {
@@ -772,8 +762,11 @@ export class BookingCalendarChildComponent {
   }
   onSubmit():void {
     let resourceColor: any
+    let errorResponse: any
+    let responseOK: boolean = false
+
     if (this.bki_id) {
-      switch (this.bki_id.value) {
+/*       switch (this.bki_id.value) {
         case '3':
           resourceColor = "colors.white"
           break
@@ -789,7 +782,7 @@ export class BookingCalendarChildComponent {
         case '7':
           resourceColor = "colors.pavellonA"
           break
-      }
+      } */
       /* resourceColor = "colors."+ this.bki_id.value.split("-")[0] */
     }
 
@@ -808,13 +801,9 @@ export class BookingCalendarChildComponent {
       },
     ]; */
 
-    let errorResponse: any
-    let responseOK: boolean = false
-    this.theBooking = this.bookingForm.value
     this.bookingForm.value.boo_start.setHours( this.bookingForm.value.boo_start.getHours() + this.bookingForm.value.fromDateFromTime )
     this.bookingForm.value.boo_end.setHours( this.bookingForm.value.boo_end.getHours() + this.bookingForm.value.toDateToTime )
-    console.log (this.theBooking)
-
+    
 /*     this.bookingService.createBooking(this.theBooking)
         .pipe(
           finalize(async () => {
@@ -852,30 +841,21 @@ export class BookingCalendarChildComponent {
           }
         ); */
 
-    this.bookingService.sendPostRequest(this.theBooking)
-    .pipe(
-      finalize(async () => {
-/*         await this.sharedService.managementToast('postFeedback', responseOK, errorResponse);
-        if (responseOK) {
-          this.emailManagementService.sendCustomerEmail(this.theBooking)
-          .subscribe((sendMailResult:any) => {
-          },
-          (error: HttpErrorResponse) => {
-            errorResponse = error;
-            this.sharedService.errorLog(errorResponse);
-          })
-        } */
-      })
-    )
+    console.log ("bookingForm value ", this.bookingForm.value)
+    this.bookingService.sendPostRequest(this.bookingForm.value)
     .subscribe((insertResponse: any) => {
-      console.log("the result is ... ",insertResponse.status)
+      console.log("the answer from backoffice is ... ",insertResponse.status)
      if (insertResponse.status === 'failure') {
       responseOK = false
       this.sharedService.managementToast('postFeedback', responseOK, insertResponse.message)
      } else {
       responseOK = true
      }
-    }, error => { console.error(error);})
+    }, error => { 
+      console.error(error)
+      responseOK = false
+      this.sharedService.managementToast('postFeedback', responseOK, error.message)
+      })
   }
 
   weekEndFilter: (date: Date | null) => boolean =

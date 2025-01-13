@@ -78,10 +78,10 @@
     </label><br>
 
     <mat-radio-group formControlName="bki_type" color="primary" labelPosition="after" class="my-radio-group">
-      <mat-radio-button value="2EVE" class="my-radio-button">A</mat-radio-button>
-      <mat-radio-button value="1MON" class="my-radio-button">B</mat-radio-button>
-      <mat-radio-button value="3DMON" class="my-radio-button">C</mat-radio-button>
-      <mat-radio-button value="D" class="my-radio-button">D</mat-radio-button>
+      <mat-radio-button value="2EVE" class="my-radio-button" #tooltip1="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_1_expl' | translate}}">{{'app.fare_1' | translate}}</mat-radio-button>
+      <mat-radio-button value="1MON" class="my-radio-button" #tooltip2="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_2_expl' | translate}}">{{'app.fare_2' | translate}}</mat-radio-button>
+      <mat-radio-button value="3DMON" class="my-radio-button" #tooltip3="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_3_expl' | translate}}">{{'app.fare_3' | translate}}</mat-radio-button>
+      <mat-radio-button value="D" class="my-radio-button" #tooltip4="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_4_expl' | translate}}">{{'app.fare_4' | translate}}</mat-radio-button>
     </mat-radio-group>
 
     <section formGroupName = "boo_company">
@@ -117,9 +117,7 @@
 
     <section class="button-submit">
       <button mat-raised-button color="primary" id="submit" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking request">
-        <span *ngIf="currentLang === 'es-ES'">Envía</span>
-        <span *ngIf="currentLang === 'ca-ES'">Envia</span>
-        <span *ngIf="currentLang === 'en-EN'">Send</span>
+        <span *ngIf="currentLang === 'es-ES'">{{ 'app.send' | translate }}</span>
       </button>
     </section>
 

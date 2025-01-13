@@ -115,33 +115,6 @@ mat-label, .mat-mdc-form-field-required-marker, .mdc-icon-button {
   color: #000!important;
 }
 
-/* #postFeedback {
-  visibility: hidden;
-  min-width: 250px;
-  color: #fff;
-  text-align: left;
-  border-radius: 10px;
-  padding: 16px;
-  z-index: 1;
-  font-size: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#postFeedback.requestOk {
-  background-color: green;
-}
-
-#postFeedback.requestKo {
-  background-color: red;
-}
-
-#postFeedback.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-} */
-
 @media (max-width: 795px) {
 
   .form-container-child {
