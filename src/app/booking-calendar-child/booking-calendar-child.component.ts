@@ -213,13 +213,13 @@ export class BookingCalendarChildComponent {
     this.title = new UntypedFormControl('Reserva test', [Validators.required])
     this.usucre = new UntypedFormControl('ADRWeb')
     this.proID = new UntypedFormControl('42')
-    this.bki_id = new UntypedFormControl('', [ Validators.required ])
-    this.bki_type = new UntypedFormControl('', [Validators.required])
+    this.bki_id = new UntypedFormControl('7', [ Validators.required ])
+    this.bki_type = new UntypedFormControl('2EVE', [Validators.required])
     this.boo_company = new FormGroup({
-      name: new UntypedFormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(60) ]),
-      cif: new UntypedFormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
-      contact: new UntypedFormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(60)]),
-      email: new UntypedFormControl('', [ Validators.required, Validators.email ])
+      name: new UntypedFormControl('empresa sl', [ Validators.required, Validators.minLength(3), Validators.maxLength(60) ]),
+      cif: new UntypedFormControl('43036826P', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
+      contact: new UntypedFormControl('Ignacio Lladó Vidal', [ Validators.required, Validators.minLength(3), Validators.maxLength(60)]),
+      email: new UntypedFormControl('nachollv@hotmail.com', [ Validators.required, Validators.email ])
     })
     this.fromMountingDate = new FormControl<Date | null>(null, Validators.required)
     this.toMountingDate = new FormControl<Date | null>(null, Validators.required)
@@ -228,7 +228,7 @@ export class BookingCalendarChildComponent {
     this.fromDateFromTime = new FormControl('')
     this.toDate = new FormControl<Date | null>(null, [ Validators.required])
     this.toDateToTime = new FormControl('')
-    this.acceptTerms = new FormControl(false, [Validators.requiredTrue])
+    this.acceptTerms = new FormControl(true, [Validators.requiredTrue])
 
     this.bookingForm = this.formBuilder.group ({
       usucre: this.usucre,
@@ -766,8 +766,8 @@ export class BookingCalendarChildComponent {
     let errorResponse: any
     let responseOK: boolean = false
 
-    if (this.bki_id) {
-/*       switch (this.bki_id.value) {
+   /*  if (this.bki_id) {
+      switch (this.bki_id.value) {
         case '3':
           resourceColor = "colors.white"
           break
@@ -785,7 +785,7 @@ export class BookingCalendarChildComponent {
           break
       } */
       /* resourceColor = "colors."+ this.bki_id.value.split("-")[0] */
-    }
+    /*}*/
 
     /* this.events = [
       ...this.events,
@@ -842,20 +842,20 @@ export class BookingCalendarChildComponent {
           }
         ); */
 
-    console.log ("bookingForm value ", this.bookingForm.value)
+    /* console.log ("bookingForm value ", this.bookingForm.value) */
     this.bookingService.sendPostRequest(this.bookingForm.value)
     .subscribe((insertResponse: any) => {
       console.log("the answer from backoffice is ... ",insertResponse)
      if (insertResponse.status === 'failure') {
       responseOK = false
-      errorResponse.error = insertResponse.status
-      errorResponse.message = insertResponse.message
-      this.sharedService.managementToast('postFeedback', responseOK, insertResponse.message)
+      /* errorResponse.error = insertResponse.status
+      errorResponse.message = insertResponse.message */
+      this.sharedService.managementToast('postFeedback', responseOK, insertResponse, 'booking')
      } else {
       responseOK = true
      }
     }, error => { 
-      console.error(error)
+      /* console.error("el error: ", error) */
       responseOK = false
       this.sharedService.managementToast('postFeedback', responseOK, error.message)
       })

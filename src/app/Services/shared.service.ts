@@ -20,7 +20,7 @@ export class SharedService {
 
   async managementToast( element: string, validRequest: boolean, error?: HttpErrorResponse, actionDone?: string ): Promise<void> {
     const toastMsg = document.getElementById(element);
-    console.log (element, validRequest, error, actionDone)
+    console.log ("en shared service: ", validRequest, error.status, error.message, actionDone)
     if (toastMsg) {
       if (validRequest) {
         toastMsg.className = 'show requestOk';
@@ -43,6 +43,13 @@ export class SharedService {
       } else {
         toastMsg.className = 'show requestKo';
         if (error?.status) {
+          if (actionDone === 'booking') {
+            toastMsg.textContent =
+            'Booking: ' +
+            error?.status+
+            ' Message: ' +
+            error?.message + ' error: '+ error?.error
+          } else {
           toastMsg.textContent =
             'Error. Message: ' +
             error?.name +
@@ -50,6 +57,7 @@ export class SharedService {
             error?.statusText +
             '. Status code: ' +
             error?.status;
+        }
         } else {
           toastMsg.textContent =
             'Error. Message: ' +
@@ -57,7 +65,7 @@ export class SharedService {
             '. Status text: ' +
             error?.statusText;
         }
-        await this.wait(16500);
+        await this.wait(206500);
         toastMsg.className = toastMsg.className.replace('show', '');
       }
     }
