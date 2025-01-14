@@ -144,7 +144,7 @@ export class BookingService {
 
     console.log ("The data send to ADR Balears: ", dataToADRBalears)
     /* const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/x-www-form-urlencoded'}) */
-    const headers = new HttpHeaders({ 'Content-Type': 'multipart/form-data'})
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`})
     return this.http
       .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/`, dataToADRBalears, { headers })
   }
