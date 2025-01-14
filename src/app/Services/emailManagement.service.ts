@@ -26,33 +26,33 @@ export class EmailManagementService {
   }
 
   sendCustomerEmail(registerForm: any): Observable<any> {
-    const email: string = registerForm.bookerEMail
-    const name: string = registerForm.bookerName
+    console.log (registerForm.value)
+    const email: string = registerForm.value.boo_company.email
+    const name: string = registerForm.value.boo_company.contact
     const phone: string = "**"
-    let fromDate: string = registerForm.fromDate.toLocaleDateString('es-ES')
+    let fromDate: string = registerForm.value.boo_start.toLocaleDateString('es-ES')
+    const fromDateFromTime: string = registerForm.value.fromDateFromTime
+    let toDate: string = registerForm.value.boo_end.toLocaleDateString('es-ES')
 
-    const fromDateFromTime: string = registerForm.fromDateFromTime
-    let toDate: string = registerForm.toDate.toLocaleDateString('es-ES')
-
-    const toDateToTime: string = registerForm.toDateToTime
+    const toDateToTime: string = registerForm.value.toDateToTime
     const subjectTxt: string = "Reserva al recinte de Menorca"
-    let resourceBooked: string = registerForm.resourceToBook
-    const projectName: string = "Recinte de Menorca"
+    let resourceBooked: string = registerForm.value.bki_id
+    const projectName: string = "RECINTE EMPRESARIAL DE MENORCA"
 
     switch (resourceBooked) {
-      case 'white-room':
+      case '3':
         resourceBooked = "SALA BLANCA"
         break
-      case 'yellow-room':
+      case '4':
         resourceBooked = "SALA GROGA"
         break
-      case 'red-room':
+      case '5':
         resourceBooked = "SALA VERMELLA"
         break
-      case 'blue-room':
+      case '6':
         resourceBooked = "SALA BLAVA"
         break
-      case 'A-pavillion':
+      case '7':
         resourceBooked = "PAVILLION A"
         break
       case 'B-pavillion':
@@ -65,7 +65,7 @@ export class EmailManagementService {
     }
 
     resourceBooked = resourceBooked +"_"+ fromDate.replaceAll("/","-") +"_"+ fromDateFromTime +"_"+ toDate.replaceAll("/","-") +"_"+ toDateToTime
-
+ 
     return this.http
       .get<any>(`${URL_API_SEND}?${email}/${name}/${phone}/${subjectTxt}/${resourceBooked}/${projectName}`)
   }

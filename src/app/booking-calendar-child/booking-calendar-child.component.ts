@@ -15,7 +15,6 @@ import { EmailManagementService } from '../Services/emailManagement.service';
 import { EventColor } from 'calendar-utils';
 import { registerLocaleData } from '@angular/common';
 import localeCa from '@angular/common/locales/ca';
-import { HttpErrorResponse } from '@angular/common/http';
 
 registerLocaleData(localeCa);
 
@@ -842,20 +841,20 @@ export class BookingCalendarChildComponent {
           }
         ); */
 
-    /* console.log ("bookingForm value ", this.bookingForm.value) */
     this.bookingService.sendPostRequest(this.bookingForm.value)
     .subscribe((insertResponse: any) => {
-      console.log("the answer from backoffice is ... ",insertResponse)
      if (insertResponse.status === 'failure') {
       responseOK = false
-      /* errorResponse.error = insertResponse.status
-      errorResponse.message = insertResponse.message */
-      this.sharedService.managementToast('postFeedback', responseOK, insertResponse, 'booking')
      } else {
       responseOK = true
+      this.emailManagementService.sendCustomerEmail(this.bookingForm)
+      .subscribe((emailsent:any) => {
+        console.log ("email enviado: ", emailsent)
+        this.bookingForm.reset()
+      })
      }
+     this.sharedService.managementToast('postFeedback', responseOK, insertResponse, 'booking')
     }, error => { 
-      /* console.error("el error: ", error) */
       responseOK = false
       this.sharedService.managementToast('postFeedback', responseOK, error.message)
       })

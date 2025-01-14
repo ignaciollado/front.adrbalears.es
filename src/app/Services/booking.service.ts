@@ -141,9 +141,6 @@ export class BookingService {
     "boo_end":    end,
     "boo_company": {"name": formData.boo_company.name, "cif": formData.boo_company.cif, "contact": formData.boo_company.contact, "email": formData.boo_company.email},
     /* "bookdetails": [{"start": start+":00", "end": end+":00"}] */}
-
-    console.log ("The data send to ADR Balears: ", dataToADRBalears)
-    /* const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/x-www-form-urlencoded'}) */
     const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`})
     return this.http
       .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/`, dataToADRBalears, { headers })

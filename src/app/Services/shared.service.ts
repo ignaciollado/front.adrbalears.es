@@ -20,10 +20,24 @@ export class SharedService {
 
   async managementToast( element: string, validRequest: boolean, error?: HttpErrorResponse, actionDone?: string ): Promise<void> {
     const toastMsg = document.getElementById(element);
-    console.log ("en shared service: ", validRequest, error.status, error.message, actionDone)
     if (toastMsg) {
       if (validRequest) {
-        toastMsg.className = 'show requestOk';
+        toastMsg.className = 'show requestOk'
+        if (actionDone === 'booking') {
+          switch ( localStorage.getItem('preferredLang') ) {
+            case 'ca-ES':
+              toastMsg.textContent = 'Sol·licitud de reserva realitzada correctament'
+            break
+            case 'es-ES':
+              toastMsg.textContent = 'Solicitud de reserva realizada correctamente.'
+            break
+            case 'en-EN':
+              toastMsg.textContent = 'Reservation application made correctly.'
+            break
+            default:
+              toastMsg.textContent = 'Solicitud de reserva realizada correctamente.'
+          }
+        } else {
         switch ( localStorage.getItem('preferredLang') ) {
           case 'ca-ES':
             toastMsg.textContent = actionDone
@@ -37,8 +51,8 @@ export class SharedService {
           default:
             toastMsg.textContent = actionDone
         }
-
-        await this.wait(4500);
+        }
+        await this.wait(10000);
         toastMsg.className = toastMsg.className.replace('show', '');
       } else {
         toastMsg.className = 'show requestKo';
@@ -65,7 +79,7 @@ export class SharedService {
             '. Status text: ' +
             error?.statusText;
         }
-        await this.wait(206500);
+        await this.wait(10000);
         toastMsg.className = toastMsg.className.replace('show', '');
       }
     }
