@@ -1,12 +1,12 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { I18nModule } from "./i18n/i18n.module";
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import  localeES from '@angular/common/locales/es';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -49,7 +49,7 @@ import { ShowDetailedContentComponent } from './show-detailed-content/show-detai
 
 /* registerLocaleData(localeES); */
 
-// AoT requires an exported function for factories
+// Función de fábrica para el cargador de traducciones
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
   }
@@ -69,7 +69,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ShowDetailedContentComponent
     ],
   /*   providers: [{provide: DateAdapter, useClass: CustomDateAdapter}], */
-    providers: [{provide: LOCALE_ID, useValue: 'ca-ES'}, {provide: MAT_DATE_LOCALE, useValue: 'ca-ES'}],
+    providers: [{provide: LOCALE_ID, useValue: 'es'}, {provide: MAT_DATE_LOCALE, useValue: 'es'}],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

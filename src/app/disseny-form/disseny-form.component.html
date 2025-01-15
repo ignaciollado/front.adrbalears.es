@@ -1,7 +1,7 @@
 <h3 class="title-home">
-  <span *ngIf="currentLang === 'es-ES'">Registro de solicitudes de diseño por parte de las direcciones generales de CAIB para el Servicio de Diseño Gráfico y Audiovisual de la ADR BALEARS.</span>
-  <span *ngIf="currentLang === 'ca-ES'">Registre de sol·licituds de disseny per part de les direccions generals de CAIB per al Servei de Disseny Gràfic i Audiovisual de l'ADR BALEARS.</span>
-  <span *ngIf="currentLang === 'en-EN'">Registration of design requests by the general directorates of CAIB for the Graphic and Audiovisual Design Service of the ADR BALEARS.</span>
+  <span *ngIf="currentLang === 'es'">Registro de solicitudes de diseño por parte de las direcciones generales de CAIB para el Servicio de Diseño Gráfico y Audiovisual de la ADR BALEARS.</span>
+  <span *ngIf="currentLang === 'ca'">Registre de sol·licituds de disseny per part de les direccions generals de CAIB per al Servei de Disseny Gràfic i Audiovisual de l'ADR BALEARS.</span>
+  <span *ngIf="currentLang === 'en'">Registration of design requests by the general directorates of CAIB for the Graphic and Audiovisual Design Service of the ADR BALEARS.</span>
   
 </h3>
 <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
@@ -9,9 +9,9 @@
     <div class="col mb-3">
         <mat-form-field appearance="outline">
           <mat-label>
-            <span *ngIf="currentLang === 'es-ES'">Directorio de organismos</span>
-            <span *ngIf="currentLang === 'ca-ES'">Directori d'organismes</span>
-            <span *ngIf="currentLang === 'en-EN'">Directory of organization units</span>
+            <span *ngIf="currentLang === 'es'">Directorio de organismos</span>
+            <span *ngIf="currentLang === 'ca'">Directori d'organismes</span>
+            <span *ngIf="currentLang === 'en'">Directory of organization units</span>
           </mat-label>
           <select matNativeControl formControlName="agency" aria-label="Default select example">
             <optgroup style="background-color:#0098cb;color:#000;" label="Presidència Govern de les Illes Balears">
@@ -139,9 +139,9 @@
 
         <mat-form-field appearance="outline">
           <mat-label>
-            <span *ngIf="currentLang === 'es-ES'">Nombre de la persona a contactar</span>
-            <span *ngIf="currentLang === 'ca-ES'">Nom de la persona a contactar</span>
-            <span *ngIf="currentLang === 'en-EN'">Contact person name</span>
+            <span *ngIf="currentLang === 'es'">Nombre de la persona a contactar</span>
+            <span *ngIf="currentLang === 'ca'">Nom de la persona a contactar</span>
+            <span *ngIf="currentLang === 'en'">Contact person name</span>
           </mat-label>
           <input matInput id="contactName" aria-describedby="nameHelp" formControlName="contactName"
           [ngClass]="f['contactName'].errors ? 'is-invalid':'is-valid'">
@@ -149,9 +149,9 @@
 
         <mat-form-field appearance="outline">
           <mat-label>
-            <span *ngIf="currentLang === 'es-ES'">Dirección electrónica de contacto</span>
-            <span *ngIf="currentLang === 'ca-ES'">Adreça electrònica de contacte</span>
-            <span *ngIf="currentLang === 'en-EN'">Contact E.mail address</span>
+            <span *ngIf="currentLang === 'es'">Dirección electrónica de contacto</span>
+            <span *ngIf="currentLang === 'ca'">Adreça electrònica de contacte</span>
+            <span *ngIf="currentLang === 'en'">Contact E.mail address</span>
           </mat-label>
           <input matInput type="email" id="contactEmail" aria-describedby="emailHelp" formControlName="contactEmail" 
           [ngClass]="f['contactEmail'].errors ? 'is-invalid':'is-valid'">
@@ -159,9 +159,9 @@
      
         <mat-form-field appearance="outline">
           <mat-label>
-            <span *ngIf="currentLang === 'es-ES'">Teléfono</span>
-            <span *ngIf="currentLang === 'ca-ES'">Telèfon</span>
-            <span *ngIf="currentLang === 'en-EN'">Phone</span>
+            <span *ngIf="currentLang === 'es'">Teléfono</span>
+            <span *ngIf="currentLang === 'ca'">Telèfon</span>
+            <span *ngIf="currentLang === 'en'">Phone</span>
           </mat-label>
           <input matInput type="tel" id="contactPhone" aria-describedby="phoneHelp" maxlength="9" minlength="9" formControlName="contactPhone" 
           [ngClass]="!f['contactPhone'].errors ? 'is-valid' : 'is-invalid'">
@@ -169,16 +169,16 @@
 
         <p>
           <mat-label>
-            <span *ngIf="currentLang === 'es-ES'">Tipo de encargo:</span>
-            <span *ngIf="currentLang === 'ca-ES'">Tipus d'encàrrec:</span>
-            <span *ngIf="currentLang === 'en-EN'">Type of order</span>
+            <span *ngIf="currentLang === 'es'">Tipo de encargo:</span>
+            <span *ngIf="currentLang === 'ca'">Tipus d'encàrrec:</span>
+            <span *ngIf="currentLang === 'en'">Type of order</span>
           </mat-label>
         </p>
 
         <p>
         <mat-radio-group aria-label="Select an option" appearance="outline" formControlName="workType">
 
-          <span *ngIf="currentLang === 'es-ES'">
+          <span *ngIf="currentLang === 'es'">
             <mat-radio-button value="Revisar fullet">Revisar folleto</mat-radio-button>
             <mat-radio-button value="Revisar guia">Revisar guía</mat-radio-button>
             <mat-radio-button value="Revisar cartell, senyalística">Revisar señalización, señalética y cartelería</mat-radio-button>
@@ -186,7 +186,7 @@
             <mat-radio-button value="Imatge corporativa">Imagen corporativa</mat-radio-button>
             <mat-radio-button value="Papereria">Papereria</mat-radio-button>            
           </span>
-          <span *ngIf="currentLang === 'ca-ES'">
+          <span *ngIf="currentLang === 'ca'">
             <mat-radio-button value="Revisar fullet">Revisar fullet</mat-radio-button>
             <mat-radio-button value="Revisar guia">Revisar guia</mat-radio-button>
             <mat-radio-button value="Revisar cartell, senyalística">Revisar senyalització, senyalística i cartelleria</mat-radio-button>
@@ -194,7 +194,7 @@
             <mat-radio-button value="Imatge corporativa">Imatge corporativa</mat-radio-button>
             <mat-radio-button value="Papereria">Papereria</mat-radio-button>            
           </span>
-          <span *ngIf="currentLang === 'en-EN'">
+          <span *ngIf="currentLang === 'en'">
             <mat-radio-button value="Revisar fullet">Review brochure</mat-radio-button>
             <mat-radio-button value="Revisar guia">Review guide</mat-radio-button>
             <mat-radio-button value="Revisar cartell, senyalística">Review signage, signage and signposting</mat-radio-button>
@@ -207,9 +207,9 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>
-            <span *ngIf="currentLang === 'es-ES'">¿Cómo te podemos ayudar?</span>
-            <span *ngIf="currentLang === 'ca-ES'">Com et podem ajudar?</span>
-            <span *ngIf="currentLang === 'en-EN'">How can we help you?</span>
+            <span *ngIf="currentLang === 'es'">¿Cómo te podemos ayudar?</span>
+            <span *ngIf="currentLang === 'ca'">Com et podem ajudar?</span>
+            <span *ngIf="currentLang === 'en'">How can we help you?</span>
           </mat-label>
           <textarea matInput rows="5" id="body" formControlName="body" 
           [ngClass]="f['body'].errors ? 'is-invalid':'is-valid'"></textarea>
@@ -220,9 +220,9 @@
         formControlName="acceptTerms" 
         [ngClass]="f['acceptTerms'].errors ? 'is-invalid':'is-valid'">
         <a href='https://adrbalears.es/aviso-legal/2773' target="_blank">
-          <span *ngIf="currentLang === 'es-ES'">Aceptar términos y condiciones</span>
-          <span *ngIf="currentLang === 'ca-ES'">Acceptar termes i condicions</span>
-          <span *ngIf="currentLang === 'en-EN'">Accept terms and conditions</span>
+          <span *ngIf="currentLang === 'es'">Aceptar términos y condiciones</span>
+          <span *ngIf="currentLang === 'ca'">Acceptar termes i condicions</span>
+          <span *ngIf="currentLang === 'en'">Accept terms and conditions</span>
         </a>
       </mat-checkbox>
       </p>
@@ -233,8 +233,8 @@
       <div class="text-center" *ngIf ="!submitted">Enviar</div>
       <div class="spinner-border" role="status" *ngIf ="contactForm.valid && submitted">
         <span class="visually-hidden">
-          <span *ngIf="currentLang === 'es-ES'">Enviando consulta ...</span>
-          <span *ngIf="currentLang === 'ca-ES'">Enviant consulta ...</span>
+          <span *ngIf="currentLang === 'es'">Enviando consulta ...</span>
+          <span *ngIf="currentLang === 'ca'">Enviant consulta ...</span>
         </span>
       </div>
     </button>

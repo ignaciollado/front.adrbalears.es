@@ -22,7 +22,7 @@
     <section ngClass="event-dates">
       <mat-form-field appearance="outline">
         <mat-label>{{ 'app.from-date' | translate }}</mat-label>
-        <input matInput [matDatepicker]="pickerFromDate" formControlName="boo_start" [min]="minDate" [matDatepickerFilter]="BookedDaysFilterFrom" (dateChange)="disableDateTo($event)">
+        <input matInput [matDatepicker]="pickerFromDate" formControlName="boo_start" [min]="minDate" [matDatepickerFilter]="BookedDaysFilterFrom" (dateChange)="setDateTo($event)">
         <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
       </mat-form-field>
@@ -77,11 +77,11 @@
       Usuario tipo:
     </label><br>
 
-    <mat-radio-group formControlName="bki_type" color="primary" labelPosition="after" class="my-radio-group">
-      <mat-radio-button value="2EVE" class="my-radio-button" #tooltip1="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_1_expl' | translate}}">{{'app.fare_1' | translate}}</mat-radio-button>
-      <mat-radio-button value="1MON" class="my-radio-button" #tooltip2="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_2_expl' | translate}}">{{'app.fare_2' | translate}}</mat-radio-button>
-      <mat-radio-button value="3DMON" class="my-radio-button" #tooltip3="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_3_expl' | translate}}">{{'app.fare_3' | translate}}</mat-radio-button>
-      <mat-radio-button value="D" class="my-radio-button" #tooltip4="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_4_expl' | translate}}">{{'app.fare_4' | translate}}</mat-radio-button>
+    <mat-radio-group formControlName="bkr_id" color="primary" labelPosition="after" class="my-radio-group">
+      <mat-radio-button value="1" class="my-radio-button" #tooltip1="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_1_expl' | translate}}">{{'app.fare_1' | translate}}</mat-radio-button>
+      <mat-radio-button value="2" class="my-radio-button" #tooltip2="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_2_expl' | translate}}">{{'app.fare_2' | translate}}</mat-radio-button>
+      <mat-radio-button value="3" class="my-radio-button" #tooltip3="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_3_expl' | translate}}">{{'app.fare_3' | translate}}</mat-radio-button>
+      <mat-radio-button value="4" class="my-radio-button" #tooltip4="matTooltip" [matTooltipPosition]="'right'" matTooltip="{{'app.fare_4_expl' | translate}}">{{'app.fare_4' | translate}}</mat-radio-button>
     </mat-radio-group>
 
     <section formGroupName = "boo_company">
@@ -119,7 +119,7 @@
 
     <section class="button-submit">
       <button mat-raised-button color="primary" id="submit" type="submit" [disabled]="!bookingForm.valid" matTooltip="Send us your booking request">
-        <span *ngIf="currentLang === 'es-ES'">{{ 'app.send' | translate }}</span>
+        <span *ngIf="currentLang === 'es'">{{ 'app.send' | translate }}</span>
       </button>
     </section>
 
@@ -129,6 +129,7 @@
   <div class="the-calendar">
     <mwl-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate" [locale]="currentLang"></mwl-utils-calendar-header>
     <div [ngSwitch]="view">
+
       <mwl-calendar-month-view
         *ngSwitchCase="CalendarView.Month"
         [viewDate]="viewDate"
@@ -144,7 +145,6 @@
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-month-view>
-
       <!--       <mwl-calendar-week-view
         *ngSwitchCase="CalendarView.Week"
         [viewDate]="viewDate"
@@ -161,7 +161,6 @@
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-week-view> -->
-
       <!--       <mwl-calendar-day-view
         *ngSwitchCase="CalendarView.Day"
         [viewDate]="viewDate"
@@ -174,6 +173,7 @@
         (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-day-view> -->
+    
     </div>
     <div class='event-detail ocultar' id="resourceDetail"></div>
   </div>

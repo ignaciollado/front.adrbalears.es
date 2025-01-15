@@ -19,10 +19,10 @@ export class AppComponent {
   isbeforeStart: boolean = false
   isafterEnd: boolean = false
   @Input() bookingData: string = ""
-  currentLang: string ="ca-ES";
+  currentLang: string ="ca";
   
   constructor( private router: Router, private translate:TranslateService ) { 
-    translate.addLangs(['en-EN', 'ca-ES', 'es-ES'])
+    translate.addLangs(['en', 'ca', 'es'])
   }
   
   events: CalendarEvent[] = [

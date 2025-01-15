@@ -9,27 +9,27 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class CalendarHeaderComponent {
-  @Input() view!: CalendarView;
 
-  @Input() viewDate!: Date;
+  @Input() view!: CalendarView
 
-  @Input() locale: string = "";
+  @Input() viewDate!: Date
 
-  @Output() viewChange = new EventEmitter<CalendarView>();
+  @Input() locale: string
 
-  @Output() viewDateChange = new EventEmitter<Date>();
+  @Output() viewChange = new EventEmitter<CalendarView>()
 
-  CalendarView = CalendarView;
+  @Output() viewDateChange = new EventEmitter<Date>()
+
+  CalendarView = CalendarView
   currentLang: string
 
-  constructor( private translate:TranslateService ) {
-    console.log( translate.currentLang )
-    this.currentLang = translate.currentLang
+  constructor( private translate: TranslateService ) {
+    console.log("current-lang-calendar-header-component: ", this.translate.currentLang )
+    this.currentLang = localStorage.getItem("preferredLang")
   }
 
   ngOnInit() {
     console.log ("Locale es: ", this.locale)
   }
-  
   
 }

@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { FormGroup, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Subject, finalize } from 'rxjs';
+import { Subject } from 'rxjs';
 import { CalendarEvent, CalendarEventAction, 
   CalendarEventTimesChangedEvent, CalendarMonthViewBeforeRenderEvent, 
   CalendarView, CalendarWeekViewBeforeRenderEvent, DAYS_OF_WEEK } from 'angular-calendar';
@@ -39,7 +39,7 @@ export class BookingCalendarChildComponent {
   public title: UntypedFormControl
   public usucre: UntypedFormControl
   public proID: UntypedFormControl
-  public bki_type: UntypedFormControl
+  public bkr_id: UntypedFormControl
   public name: UntypedFormControl
   public cif: UntypedFormControl
   public email: UntypedFormControl
@@ -199,7 +199,7 @@ export class BookingCalendarChildComponent {
     private emailManagementService: EmailManagementService,
     ) {
     this.dateAdapter.getFirstDayOfWeek = () => 1
-    this.dateAdapter.setLocale = () => 'es-ES'
+    this.dateAdapter.setLocale = () => 'es'
     this.theBooking = new BookingDTO ('', '', 0, '', '', '', '', '', '', '', true);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
@@ -209,11 +209,11 @@ export class BookingCalendarChildComponent {
     this.minDateTo = this.minDate
     /* this.maxDate = new Date(currentYear + 1, 11, 31) */
 
-    this.title = new UntypedFormControl('Reserva test', [Validators.required])
+    this.title = new UntypedFormControl('El evento RESERVA TEST', [Validators.required])
     this.usucre = new UntypedFormControl('ADRWeb')
     this.proID = new UntypedFormControl('42')
     this.bki_id = new UntypedFormControl('7', [ Validators.required ])
-    this.bki_type = new UntypedFormControl('2EVE', [Validators.required])
+    this.bkr_id = new UntypedFormControl('1', [Validators.required])
     this.boo_company = new FormGroup({
       name: new UntypedFormControl('empresa sl', [ Validators.required, Validators.minLength(3), Validators.maxLength(60) ]),
       cif: new UntypedFormControl('43036826P', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
@@ -233,7 +233,7 @@ export class BookingCalendarChildComponent {
       usucre: this.usucre,
       pro_id: this.proID,
       bki_id: this.bki_id,
-      bki_type: this.bki_type,
+      bkr_id: this.bkr_id,
       boo_company: this.boo_company,
       boo_start: this.fromDate,
       fromDateFromTime : this.fromDateFromTime,
@@ -266,6 +266,7 @@ export class BookingCalendarChildComponent {
         .subscribe(
           (bookingADRBalears:BookingADRBalearsDTO[]) => {
             this.bookingsADRBalears = bookingADRBalears
+            console.log (this.bookingsADRBalears)
             if (this.bookingsADRBalears) {
               const typeArr: BookingADRBalearsDTO[] = Object
                 .entries(this.bookingsADRBalears).map(([key, value]) => value)
@@ -695,7 +696,6 @@ export class BookingCalendarChildComponent {
     })
   }
 
-
 /* validateEventTimesChanged = (
     { event, newStart, newEnd, allDay }: CalendarEventTimesChangedEvent,
     addCssClass = true
@@ -903,9 +903,8 @@ export class BookingCalendarChildComponent {
    /*  this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesTo.push(resourceItem) }) */
   }
 
-  disableDateTo(fromDate:any) {
-   /*  console.log ("from date: ", fromDate.value) */
-    /* this.minDateTo = fromDate */
+  setDateTo(fromDate:any) {
+    this.toDate.setValue(fromDate.value)
   }
   
   BookedDaysFilterFrom: (d: Date | null) => boolean = 

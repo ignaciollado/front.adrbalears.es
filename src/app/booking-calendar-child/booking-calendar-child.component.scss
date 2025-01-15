@@ -31,7 +31,7 @@ form {
 }
 
 .event-dates {
-  background-color: #0098CB;
+  border: 1px solid #003747;
   padding: .5rem;
   margin-bottom: .5rem;
   border-radius: .3rem;
@@ -46,7 +46,7 @@ form {
   background-color: #003747;
   border-radius: .3rem;
   padding: .3rem;
-  color: white;
+  color: #fff; 
 }
 
 mat-form-field {
@@ -107,9 +107,9 @@ mat-form-field {
   margin-right: 5px;
 }
 
-mat-label, .mat-mdc-form-field-required-marker, .mdc-icon-button {
+/* mat-label, .mat-mdc-form-field-required-marker, .mdc-icon-button {
   color: #fff!important;
-}
+} */
 
 .contrasted-text {
   color: #000!important;

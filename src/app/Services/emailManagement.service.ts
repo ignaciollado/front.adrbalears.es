@@ -30,9 +30,9 @@ export class EmailManagementService {
     const email: string = registerForm.value.boo_company.email
     const name: string = registerForm.value.boo_company.contact
     const phone: string = "**"
-    let fromDate: string = registerForm.value.boo_start.toLocaleDateString('es-ES')
+    let fromDate: string = registerForm.value.boo_start.toLocaleDateString('es')
     const fromDateFromTime: string = registerForm.value.fromDateFromTime
-    let toDate: string = registerForm.value.boo_end.toLocaleDateString('es-ES')
+    let toDate: string = registerForm.value.boo_end.toLocaleDateString('es')
 
     const toDateToTime: string = registerForm.value.toDateToTime
     const subjectTxt: string = "Reserva al recinte de Menorca"

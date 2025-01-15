@@ -25,27 +25,27 @@ export class SharedService {
         toastMsg.className = 'show requestOk'
         if (actionDone === 'booking') {
           switch ( localStorage.getItem('preferredLang') ) {
-            case 'ca-ES':
-              toastMsg.textContent = 'Sol·licitud de reserva realitzada correctament'
+            case 'ca':
+              toastMsg.innerHTML = 'Sol·licitud de reserva realitzada correctament'
             break
-            case 'es-ES':
-              toastMsg.textContent = 'Solicitud de reserva realizada correctamente.'
+            case 'es':
+              toastMsg.innerHTML = 'Solicitud de reserva realizada correctamente.'
             break
-            case 'en-EN':
-              toastMsg.textContent = 'Reservation application made correctly.'
+            case 'en':
+              toastMsg.innerHTML = 'Reservation application made correctly.'
             break
             default:
-              toastMsg.textContent = 'Solicitud de reserva realizada correctamente.'
+              toastMsg.innerHTML = 'Solicitud de reserva realizada correctamente.'
           }
         } else {
         switch ( localStorage.getItem('preferredLang') ) {
-          case 'ca-ES':
+          case 'ca':
             toastMsg.textContent = actionDone
           break
-          case 'es-ES':
+          case 'es':
             toastMsg.textContent = actionDone
           break
-          case 'en-EN':
+          case 'en':
             toastMsg.textContent = actionDone
           break
           default:
@@ -58,11 +58,12 @@ export class SharedService {
         toastMsg.className = 'show requestKo';
         if (error?.status) {
           if (actionDone === 'booking') {
-            toastMsg.textContent =
-            'Booking: ' +
-            error?.status+
-            ' Message: ' +
-            error?.message + ' error: '+ error?.error
+            switch (error.error) {
+              case 'NO_AVAILABILITY':
+                toastMsg.innerHTML = "<strong>NO HAY DISPONIBILIDAD.</strong><br>"
+            }
+            toastMsg.innerHTML += error?.message
+
           } else {
           toastMsg.textContent =
             'Error. Message: ' +

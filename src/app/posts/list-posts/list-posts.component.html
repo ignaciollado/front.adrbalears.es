@@ -1,87 +1,87 @@
 <h3>
-  <span *ngIf="currentLang === 'es-ES'">Listado de encargos</span>
-  <span *ngIf="currentLang === 'ca-ES'">Llistat d'encàrrecs</span>
-  <span *ngIf="currentLang === 'en-EN'">List design requests</span>
+  <span *ngIf="currentLang === 'es'">Listado de encargos</span>
+  <span *ngIf="currentLang === 'ca'">Llistat d'encàrrecs</span>
+  <span *ngIf="currentLang === 'en'">List design requests</span>
 </h3>
 <section class="data-container mat-elevation-z8" tabindex="0">
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> 
-        <span *ngIf="currentLang === 'es-ES'">Número de orden</span>
-        <span *ngIf="currentLang === 'ca-ES'">Número d'ordre</span>
-        <span *ngIf="currentLang === 'en-EN'">Order number</span>
+        <span *ngIf="currentLang === 'es'">Número de orden</span>
+        <span *ngIf="currentLang === 'ca'">Número d'ordre</span>
+        <span *ngIf="currentLang === 'en'">Order number</span>
       </th>
       <td mat-cell *matCellDef="let element"> {{element.position}} </td>
     </ng-container>
 
     <ng-container matColumnDef="orderDate">
       <th mat-header-cell *matHeaderCellDef> 
-        <span *ngIf="currentLang === 'es-ES'">Fecha encargo</span>
-        <span *ngIf="currentLang === 'ca-ES'">Data d'encàrrec</span>
-        <span *ngIf="currentLang === 'en-EN'">Order date</span>
+        <span *ngIf="currentLang === 'es'">Fecha encargo</span>
+        <span *ngIf="currentLang === 'ca'">Data d'encàrrec</span>
+        <span *ngIf="currentLang === 'en'">Order date</span>
        </th>
       <td mat-cell *matCellDef="let element"> {{element.orderDate}} </td>
     </ng-container>
 
     <ng-container matColumnDef="agency">
       <th mat-header-cell *matHeaderCellDef> 
-        <span *ngIf="currentLang === 'es-ES'">Organismo</span>
-        <span *ngIf="currentLang === 'ca-ES'">Organisme</span>
-        <span *ngIf="currentLang === 'en-EN'">Agency</span>
+        <span *ngIf="currentLang === 'es'">Organismo</span>
+        <span *ngIf="currentLang === 'ca'">Organisme</span>
+        <span *ngIf="currentLang === 'en'">Agency</span>
        </th>
       <td mat-cell *matCellDef="let element"> {{element.agency}} </td>
     </ng-container>
 
     <ng-container matColumnDef="contactPerson">
       <th mat-header-cell *matHeaderCellDef> 
-        <span *ngIf="currentLang === 'es-ES'">Persona de contacto</span>
-        <span *ngIf="currentLang === 'ca-ES'">Persona de contacte</span>
-        <span *ngIf="currentLang === 'en-EN'">Contact person</span>
+        <span *ngIf="currentLang === 'es'">Persona de contacto</span>
+        <span *ngIf="currentLang === 'ca'">Persona de contacte</span>
+        <span *ngIf="currentLang === 'en'">Contact person</span>
          </th>
       <td mat-cell *matCellDef="let element"> {{element.contactPerson}} </td>
     </ng-container>
 
     <ng-container matColumnDef="contactMail">
       <th mat-header-cell *matHeaderCellDef> 
-        <span *ngIf="currentLang === 'es-ES'">Dirección de contacto</span>
-        <span *ngIf="currentLang === 'ca-ES'">Adreça de contacte</span>
-        <span *ngIf="currentLang === 'en-EN'">Contact E.mail</span>
+        <span *ngIf="currentLang === 'es'">Dirección de contacto</span>
+        <span *ngIf="currentLang === 'ca'">Adreça de contacte</span>
+        <span *ngIf="currentLang === 'en'">Contact E.mail</span>
        </th>
       <td mat-cell *matCellDef="let element"> {{element.contactMail}} </td>
     </ng-container>
 
     <ng-container matColumnDef="contactPhone">
       <th mat-header-cell *matHeaderCellDef>
-        <span *ngIf="currentLang === 'es-ES'">Teléfono de contacto</span>
-        <span *ngIf="currentLang === 'ca-ES'">Telèfon de contacte</span>
-        <span *ngIf="currentLang === 'en-EN'">Contact Phone</span>
+        <span *ngIf="currentLang === 'es'">Teléfono de contacto</span>
+        <span *ngIf="currentLang === 'ca'">Telèfon de contacte</span>
+        <span *ngIf="currentLang === 'en'">Contact Phone</span>
        </th>
       <td mat-cell *matCellDef="let element"> {{element.contactPhone}} </td>
     </ng-container>
 
     <ng-container matColumnDef="workType">
       <th mat-header-cell *matHeaderCellDef> 
-        <span *ngIf="currentLang === 'es-ES'">Tipo de encargo</span>
-        <span *ngIf="currentLang === 'ca-ES'">Tipus per encàrrec</span>
-        <span *ngIf="currentLang === 'en-EN'">Work type</span>
+        <span *ngIf="currentLang === 'es'">Tipo de encargo</span>
+        <span *ngIf="currentLang === 'ca'">Tipus per encàrrec</span>
+        <span *ngIf="currentLang === 'en'">Work type</span>
          </th>
       <td mat-cell *matCellDef="let element"> {{element.workType}} </td>
     </ng-container>
 
     <ng-container matColumnDef="orderState">
       <th mat-header-cell *matHeaderCellDef> 
-        <span *ngIf="currentLang === 'es-ES'">Situación</span>
-        <span *ngIf="currentLang === 'ca-ES'">Situació</span>
-        <span *ngIf="currentLang === 'en-EN'">Order State</span>
+        <span *ngIf="currentLang === 'es'">Situación</span>
+        <span *ngIf="currentLang === 'ca'">Situació</span>
+        <span *ngIf="currentLang === 'en'">Order State</span>
        </th>
       <td mat-cell *matCellDef="let element"> {{element.orderState}} </td>
     </ng-container>
 
     <ng-container matColumnDef="viewDetail">
       <th mat-header-cell *matHeaderCellDef>
-        <span *ngIf="currentLang === 'es-ES'">Ver detalles del encargo</span>
-        <span *ngIf="currentLang === 'ca-ES'">View order details</span>
-        <span *ngIf="currentLang === 'en-EN'">View order details</span>
+        <span *ngIf="currentLang === 'es'">Ver detalles del encargo</span>
+        <span *ngIf="currentLang === 'ca'">View order details</span>
+        <span *ngIf="currentLang === 'en'">View order details</span>
       </th>
       <td mat-cell *matCellDef="let element">
         <button mat-fab extended (click)="openDialog('300ms', '300ms', 'Order details', element)"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></button>

@@ -31,13 +31,13 @@ export class MessageService {
     const projectContact: string = project
 
     switch (localStorage.getItem('preferredLang')) {
-      case 'en-EN':
+      case 'en':
         subject = "ADR Balears - Contact"
         break
-      case 'es-ES':
+      case 'es':
         subject = "ADR Balears - Contacto"
         break
-      case 'ca-ES':
+      case 'ca':
         subject = "ADR Balears - Contacte"
         break
     }

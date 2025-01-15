@@ -1,0 +1,33 @@
+{
+  "app": {
+    "booking-selection": "Per favor, introdueix totes les dades de la reserva:",
+    "hello": "Hola {{value}}",
+    "title": "Títol o nom de la reserva",
+    "your-name": "Empresa que reserva",
+    "your-contact": "Contacte de la empresa que reserva",
+    "your-ID-card": "CIF",
+    "email-address": "Un correu electrònic per a contactar-te",
+    "email-address-valid": "Per favor, dona'ns un correu electrònic vàlid",
+    "resource-to-book": "Selecciona el recurs que vols reservar",
+    "from-date-mounting": "Inici muntatge",
+    "to-date-mounting": "Finalització muntatge",
+    "from-date": "Inici esdeveniment",
+    "from-time": "Des de l'hora",
+    "to-date": "Finalització esdeveniment",
+    "to-time": "Fins a l'hora",
+    "accept-terms-and-conditions": "Acceptar els termes i condicions",
+    "booking-in-pending-state": "** Totes les reserves romandran pendents de validació. Una vegada validades rebràs un correu electrònic informatiu.",
+    "send": "Envia",
+    "there-are": "Hi ha",
+    "events-on-this-day": "Reserves",
+    "user-type": "Tipus d'usuari",
+    "fare_1": "Tarifa 1: “General”",
+    "fare_2": "Tarifa 2: “Amb conveni”",
+    "fare_3": "Tarifa 3: “Reduïda”",
+    "fare_4": "Tarifa 4: “Especial”",
+    "fare_1_expl": "Aquesta tarifa s'aplica a autònoms, empreses privades i entitats en general que estiguin relacionades amb serveis de promoció econòmica empresarial i formació empresarial.",
+    "fare_2_expl": "Bonificació del 100%. Aquesta tarifa ofereix una bonificació del 100%, en el casos següents, subjecte a confirmació de l'ADR Balears: - Entitats sense ànim de lucre i associacions empresarials que tinguin per objecte la promoció econòmica del sectors productius de la illa de Menorca, sempre que l'activitat no sigui lucrativa.- Sector públic de la CAIB sempre que es dediqui a activitats de promoció empresarial.- Sector públic adscrit a la Conselleria d'Empresa, Ocupació i Energia de la CAIB.",
+    "fare_3_expl": "Bonificació del 50%. - Resta del sector públic de la CAIB.- Entitats i organismes públics del Consell Insular de Menorca.- Entitats i organismes públics dels Ajuntaments de Menorca.",
+    "fare_4_expl": "Aquesta tarifa s'aplica a qualsevol altre circumstància que valori l'ADR Balears."
+  }
+}

@@ -131,19 +131,24 @@ export class BookingService {
   }
 
   sendPostRequest(formData: any): Observable<BookingADRBalearsDTO> {
-    let start: string = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es-ES", { month: "2-digit" }))+"-"+formData.boo_start.toLocaleString("es-ES", { day: "2-digit" })+" "+formData.boo_start.toLocaleString("es-ES", { hour: "2-digit" })+":"+formData.boo_start.toLocaleString("es-ES", { minute: "2-digit" })
-    let end: string = formData.boo_end.getFullYear()+"-"+(formData.boo_end.toLocaleString("es-ES", { month: "2-digit" }))+"-"+formData.boo_end.toLocaleString("es-ES", { day: "2-digit" })+" "+formData.boo_end.toLocaleString("es-ES", { hour: "2-digit" })+":"+formData.boo_end.toLocaleString("es-ES", { minute: "2-digit" })
+    let start: string = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_start.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_start.toLocaleString("es", { hour: "2-digit" })+":"+formData.boo_start.toLocaleString("es", { minute: "2-digit" })
+    let end: string = formData.boo_end.getFullYear()+"-"+(formData.boo_end.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_end.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_end.toLocaleString("es", { hour: "2-digit" })+":"+formData.boo_end.toLocaleString("es", { minute: "2-digit" })
     let dataToADRBalears: BookingADRBalearsDTO = {
     "usucre": formData.usucre,
     "bki_id": formData.bki_id,
     "pro_id": formData.pro_id,
+    "bkd_type": formData.bki_type,
+    "bkr_id": formData.bkr_id,
+    "boo_title": formData.boo_title,
     "boo_start":  start,
     "boo_end":    end,
     "boo_company": {"name": formData.boo_company.name, "cif": formData.boo_company.cif, "contact": formData.boo_company.contact, "email": formData.boo_company.email},
     /* "bookdetails": [{"start": start+":00", "end": end+":00"}] */}
-    const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`})
+    console.log ("enviado a backoffice: ", dataToADRBalears)
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 
+      'Content-Type': 'application/json; charset=utf-8'})
     return this.http
-      .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/`, dataToADRBalears, { headers })
+      .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking`, dataToADRBalears, { headers })
   }
 
 }

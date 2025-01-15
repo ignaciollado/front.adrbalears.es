@@ -2,7 +2,6 @@ import { Component, inject, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { isThisISOWeek } from 'date-fns';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +9,11 @@ import { isThisISOWeek } from 'date-fns';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    defaultLang:string = "ca-ES"
+    defaultLang:string = "ca"
     constructor( private router: Router, private translate:TranslateService ) {
-        if (localStorage.getItem("preferredLang") === 'undefined') {
-            localStorage.setItem("preferredLang", this.defaultLang)
-        }
+        translate.addLangs(['en', 'es', 'ca']);
+        translate.setDefaultLang('ca');
+        translate.use('ca');
     }
     ngOnInit(): void {
 }
@@ -34,7 +33,7 @@ ngAfterViewInit(): void {
       language: {
           default: this.currentLang,
           translations: {
-            'en-EN': {
+            'en': {
                 consentModal: {
                     title: 'We use cookies',
                     description: 'Cookie modal description',
@@ -71,7 +70,7 @@ ngAfterViewInit(): void {
                     ]
                 }
             },
-            'es-ES': {
+            'es': {
                 consentModal: {
                     title: 'Usamos cookies',
                     description: 'Descripción de las cookies',
@@ -108,7 +107,7 @@ ngAfterViewInit(): void {
                     ]
                 }
             },
-            'ca-ES': {
+            'ca': {
                 consentModal: {
                     title: 'Empram galetes',
                     description: 'Descripció de les galetes',
@@ -172,9 +171,9 @@ projectLandingPage(projectName: string, contentID: string, categoryID: string, s
 } */
 
 switchLanguage( lang:string ) {
-    console.log ("lang: ", lang)
     this.translate.use(lang)
-    localStorage.setItem('preferredLang', lang)
-    location.reload()
+    localStorage.setItem("preferredLang", lang)
+    window.location.reload()
 }
+
 }

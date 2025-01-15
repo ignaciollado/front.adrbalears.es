@@ -8,9 +8,7 @@ import { Component } from '@angular/core';
 export class FooterComponent {
   currentLang: string = ""
 
-
   ngOnInit() {
-
     this.currentLang = localStorage.getItem('preferredLang')
   }
 
