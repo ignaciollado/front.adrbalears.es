@@ -25,13 +25,22 @@
         <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
       </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'app.to-date' | translate }}</mat-label>
+        <input matInput [matDatepicker]="pickerToDate" formControlName="boo_end" 
+        [min]="minDateTo" [matDatepickerFilter]="BookedDaysFilterFrom"
+        (dateChange)="dateChangedActions($event)">
+        <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
+      </mat-form-field>
       
       <mat-form-field appearance="outline" *ngIf="showTime">
-        <mat-label>{{ 'app.from-time' | translate }}</mat-label>
+        <mat-label>{{ 'app.booking-duration' | translate }}</mat-label>
         <mat-select formControlName="fromDateFromTime" id="fromDateFromTime">
-          <mat-option value="8">08.00</mat-option>
-          <mat-option value="9">09.00</mat-option>
-          <mat-option value="10">10.00</mat-option>
+          <mat-option value="8.00h - 20.00h">Dia complet [8.00h-20.00h]</mat-option>
+          <mat-option value="8.00h - 15.00h">½ dia [8.00h-15.00h]</mat-option>
+     <!--      <mat-option value="10">10.00</mat-option>
           <mat-option value="11">11.00</mat-option>
           <mat-option value="12">12.00</mat-option>
           <mat-option value="13">13.00</mat-option>
@@ -41,20 +50,13 @@
           <mat-option value="17">17.00</mat-option>
           <mat-option value="18">18.00</mat-option>
           <mat-option value="19">19.00</mat-option>
-          <mat-option value="20">20.00</mat-option>
+          <mat-option value="20">20.00</mat-option> -->
         </mat-select>
       </mat-form-field>
       
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'app.to-date' | translate }}</mat-label>
-        <input matInput [matDatepicker]="pickerToDate" formControlName="boo_end" 
-        [min]="minDateTo" [matDatepickerFilter]="BookedDaysFilterFrom"
-        (dateChange)="dateChangedActions($event)">
-        <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
-        <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
-      </mat-form-field>
+
   
-      <mat-form-field appearance="outline" *ngIf="showTime">
+<!--       <mat-form-field appearance="outline" *ngIf="showTime">
         <mat-label>{{ 'app.to-time' | translate }}</mat-label>
         <mat-select formControlName="toDateToTime" id="toDateToTime">
           <mat-option value="8">08.00</mat-option>
@@ -71,7 +73,7 @@
           <mat-option value="19">19.00</mat-option>
           <mat-option value="20">20.00</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
 
     </section>
 
