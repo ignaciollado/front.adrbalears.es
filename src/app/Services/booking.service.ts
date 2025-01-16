@@ -125,19 +125,22 @@ export class BookingService {
   }
 
   getCheckAvailabilityADRBalears(bki_id: string, boo_start: Date, boo_end: Date): Observable<BookingADRBalearsDTO> {
-    let pro_id:number = 42
+    let pro_id: number = 42
+    let start: string = boo_start.getFullYear()+"-"+(boo_start.toLocaleString("es", { month: "2-digit" }))+"-"+boo_start.toLocaleString("es", { day: "2-digit" })+" "+boo_start.toLocaleString("es", { hour: "2-digit" })+":"+boo_start.toLocaleString("es", { minute: "2-digit" })
+    let end: string = boo_end.getFullYear()+"-"+(boo_end.toLocaleString("es", { month: "2-digit" }))+"-"+boo_end.toLocaleString("es", { day: "2-digit" })+" "+boo_end.toLocaleString("es", { hour: "2-digit" })+":"+boo_end.toLocaleString("es", { minute: "2-digit" })
     return this.http
-      .get<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/-1/checkavailability`)
+      .get<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/-1/checkavailability?bki_id=${bki_id}&pro_id=${pro_id}&boo_start=${start}&boo_end=${end}`, httpOptionsADRBalears)
   }
 
   sendPostRequest(formData: any): Observable<BookingADRBalearsDTO> {
     let start: string = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_start.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_start.toLocaleString("es", { hour: "2-digit" })+":"+formData.boo_start.toLocaleString("es", { minute: "2-digit" })
     let end: string = formData.boo_end.getFullYear()+"-"+(formData.boo_end.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_end.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_end.toLocaleString("es", { hour: "2-digit" })+":"+formData.boo_end.toLocaleString("es", { minute: "2-digit" })
+    let bkiType : string = formData.bki_id === '7' ? "PAVELLO" : "SALA"
     let dataToADRBalears: BookingADRBalearsDTO = {
     "usucre": formData.usucre,
     "bki_id": formData.bki_id,
     "pro_id": formData.pro_id,
-    "bkd_type": formData.bki_type,
+    "bkd_type": bkiType,
     "bkr_id": formData.bkr_id,
     "boo_title": formData.boo_title,
     "boo_start":  start,

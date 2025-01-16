@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, ViewEncapsulation } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { FormGroup, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -14,9 +14,14 @@ import { SharedService } from '../Services/shared.service';
 import { EmailManagementService } from '../Services/emailManagement.service';
 import { EventColor } from 'calendar-utils';
 import { registerLocaleData } from '@angular/common';
-import localeCa from '@angular/common/locales/ca';
+import localeES from '@angular/common/locales/es';
+import localeCA from '@angular/common/locales/ca';
 
-registerLocaleData(localeCa);
+if (localStorage.getItem('preferredLang') === 'es') {
+  registerLocaleData(localeES);
+} else  {
+  registerLocaleData(localeCA);
+}
 
 @Component({
   selector: 'app-booking-calendar-child',
@@ -71,6 +76,8 @@ export class BookingCalendarChildComponent {
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
 
   view: CalendarView = CalendarView.Month
+
+  locale: string = 'ca'
 
   isDragable: boolean = false
   isbeforeStart: boolean = false
@@ -765,82 +772,9 @@ export class BookingCalendarChildComponent {
     let errorResponse: any
     let responseOK: boolean = false
 
-   /*  if (this.bki_id) {
-      switch (this.bki_id.value) {
-        case '3':
-          resourceColor = "colors.white"
-          break
-        case '4':
-          resourceColor = "colors.blue"
-          break
-        case '5':
-          resourceColor = "colors.yellow"
-          break
-        case '6':
-          resourceColor = "colors.red"
-          break
-        case '7':
-          resourceColor = "colors.pavellonA"
-          break
-      } */
-      /* resourceColor = "colors."+ this.bki_id.value.split("-")[0] */
-    /*}*/
-
-    /* this.events = [
-      ...this.events,
-      {
-        title: this.bki_id.value+"<br>...PENDING CONFIRMATION !!!",
-        start: startOfDay(this.fromDate.value),
-        end: endOfDay(this.toDate.value),
-        color: colors.grey,
-        draggable: this.isDragable,
-        resizable: {
-          beforeStart: this.isDragable,
-          afterEnd: this.isafterEnd,
-        },
-      },
-    ]; */
-
     this.bookingForm.value.boo_start.setHours( this.bookingForm.value.boo_start.getHours() + this.bookingForm.value.fromDateFromTime )
     this.bookingForm.value.boo_end.setHours( this.bookingForm.value.boo_end.getHours() + this.bookingForm.value.toDateToTime )
     
-/*     this.bookingService.createBooking(this.theBooking)
-        .pipe(
-          finalize(async () => {
-            await this.sharedService.managementToast(
-              'postFeedback',
-              responseOK,
-              errorResponse
-            );
-            if (responseOK) {
-              this.emailManagementService.sendCustomerEmail(this.theBooking)
-              .subscribe((sendMailResult:any) => {
-              },
-              (error: HttpErrorResponse) => {
-                errorResponse = error;
-                this.sharedService.errorLog(errorResponse);
-              })
-            }
-          })
-        )
-        .subscribe(
-          () => {
-            responseOK = true;
-            this.title.reset()
-            this.bki_id.reset()
-            this.fromDate.reset()
-            this.fromDateFromTime.reset()
-            this.toDate.reset()
-            this.toDateToTime.reset()
-            this.boo_company.reset()
-            this.loadBookingListADRBalears()
-          },
-          (error: HttpErrorResponse) => {
-            errorResponse = error
-            this.sharedService.errorLog(errorResponse)
-          }
-        ); */
-
     this.bookingService.sendPostRequest(this.bookingForm.value)
     .subscribe((insertResponse: any) => {
      if (insertResponse.status === 'failure') {
@@ -868,7 +802,6 @@ export class BookingCalendarChildComponent {
     //6 means saturday
   }
 
-
   bookingDatesFrom: Date[] = []
   bookingDatesTo:   Date[] = []
   bookingDates: Date[] = []
@@ -890,7 +823,7 @@ export class BookingCalendarChildComponent {
       })
   }
 
-/*   addDateFrom(newDate: string) {const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesFrom.push(date)}
+  /* addDateFrom(newDate: string) {const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesFrom.push(date)}
   addDateTo(newDate: string) {const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesTo.push(date)} */
   createDateArray(startDate: string, endDate: string) { 
     const start = new Date(startDate)
@@ -903,8 +836,22 @@ export class BookingCalendarChildComponent {
    /*  this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesTo.push(resourceItem) }) */
   }
 
-  setDateTo(fromDate:any) {
+  dateChangedActions(fromDate:any) {
+    let responseOK: boolean = false
     this.toDate.setValue(fromDate.value)
+    console.log (fromDate.value, this.toDate.value)
+    this.bookingService.getCheckAvailabilityADRBalears(this.bki_id.value, fromDate.value, this.toDate.value)
+      .subscribe((avalibility:any) => {
+        if (avalibility.status === 'failure') {
+         responseOK = false
+        } else {
+         responseOK = true
+        }
+        this.sharedService.managementToast('postFeedback', responseOK, avalibility, 'availability')
+       }, error => { 
+         responseOK = false
+         this.sharedService.managementToast('postFeedback', responseOK, error.message)
+         })
   }
   
   BookedDaysFilterFrom: (d: Date | null) => boolean = 

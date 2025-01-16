@@ -53,32 +53,29 @@ export class SharedService {
         }
         }
         await this.wait(10000);
-        toastMsg.className = toastMsg.className.replace('show', '');
-      } else {
-        toastMsg.className = 'show requestKo';
-        if (error?.status) {
-          if (actionDone === 'booking') {
+        toastMsg.className = toastMsg.className.replace('show', '')
+      } else {/* cuando NO ha ido bien: requestKo */
+        toastMsg.className = 'show requestKo'
+        if (error?.status) {/* si se trata de una reserva */
+          if (actionDone === 'booking' || actionDone === 'availability') {
             switch (error.error) {
               case 'NO_AVAILABILITY':
-                toastMsg.innerHTML = "<strong>NO HAY DISPONIBILIDAD.</strong><br>"
+                toastMsg.innerHTML = "<strong>NO HI HA DISPONIBILITAT.</strong><br>"
             }
             toastMsg.innerHTML += error?.message
-
           } else {
-          toastMsg.textContent =
-            'Error. Message: ' +
-            error?.name +
-            '. Status text: ' +
-            error?.statusText +
-            '. Status code: ' +
-            error?.status;
+          toastMsg.innerHTML = 'Error. Message: ' + error?.name + '. Status text: ' + error?.statusText + '. Status code: ' + error?.status
         }
         } else {
-          toastMsg.textContent =
-            'Error. Message: ' +
-            error?.name +
-            '. Status text: ' +
-            error?.statusText;
+          if (actionDone === 'booking' || actionDone === 'availability') {
+            switch (error.error) {
+              case 'NO_AVAILABILITY':
+                toastMsg.innerHTML = "<strong>NO HI HA DISPONIBILITAT.</strong><br>"
+            }
+            toastMsg.innerHTML += error?.message
+          } else {
+          toastMsg.innerHTML = 'Error. Message: ' + error?.name + '. Status text: ' + error?.statusText;
+          }
         }
         await this.wait(10000);
         toastMsg.className = toastMsg.className.replace('show', '');

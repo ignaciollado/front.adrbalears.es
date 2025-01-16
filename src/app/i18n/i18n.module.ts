@@ -19,7 +19,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 export class I18nModule {
   constructor(translate: TranslateService) {
 
-    translate.addLangs(['en', 'ca', 'es']) /* Indica que lenguas hay disponibles para la traducción */
+    translate.addLangs(['ca', 'es']) /* Indica que lenguas hay disponibles para la traducción */
     const browserLang = translate.getBrowserLang()
 
     if (localStorage.getItem('preferredLang') === null) {

@@ -14,7 +14,7 @@ export class CalendarHeaderComponent {
 
   @Input() viewDate!: Date
 
-  @Input() locale: string
+  @Input() locale: string = "ca"
 
   @Output() viewChange = new EventEmitter<CalendarView>()
 

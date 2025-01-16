@@ -11,11 +11,13 @@ import { TranslateService } from '@ngx-translate/core';
 export class HeaderComponent {
     defaultLang:string = "ca"
     constructor( private router: Router, private translate:TranslateService ) {
-        translate.addLangs(['en', 'es', 'ca']);
+        translate.addLangs(['es', 'ca']);
         translate.setDefaultLang('ca');
         translate.use('ca');
     }
-    ngOnInit(): void {
+
+ngOnInit(): void {
+    localStorage.setItem('preferredLang', 'ca')
 }
     
 private offcanvasService = inject(NgbOffcanvas);
