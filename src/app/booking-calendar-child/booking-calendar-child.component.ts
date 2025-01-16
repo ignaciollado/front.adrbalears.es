@@ -219,7 +219,7 @@ export class BookingCalendarChildComponent {
     this.title = new UntypedFormControl('El evento RESERVA TEST', [Validators.required])
     this.usucre = new UntypedFormControl('ADRWeb')
     this.proID = new UntypedFormControl('42')
-    this.bki_id = new UntypedFormControl('7', [ Validators.required ])
+    this.bki_id = new UntypedFormControl('', [ Validators.required ])
     this.bkr_id = new UntypedFormControl('1', [Validators.required])
     this.boo_company = new FormGroup({
       name: new UntypedFormControl('empresa sl', [ Validators.required, Validators.minLength(3), Validators.maxLength(60) ]),
@@ -666,7 +666,6 @@ export class BookingCalendarChildComponent {
       this.viewDate = date;
     }
   }
-
   eventTimesChanged({
     event,
     newStart,
@@ -684,13 +683,11 @@ export class BookingCalendarChildComponent {
     });
     this.handleEvent('Dropped or resized', event);
   }
-
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action }
     document.getElementById("resourceDetail")?.classList.remove("ocultar")
     document.getElementById("resourceDetail")!.innerHTML = "--"+event.title+"--"
   }
-
   beforeWeekViewRender(renderEvent: CalendarWeekViewBeforeRenderEvent) {
     renderEvent.hourColumns.forEach((hourColumn) => {
       hourColumn.hours.forEach((hour) => {
@@ -772,9 +769,18 @@ export class BookingCalendarChildComponent {
     let errorResponse: any
     let responseOK: boolean = false
 
-    this.bookingForm.value.boo_start.setHours( this.bookingForm.value.boo_start.getHours() + this.bookingForm.value.fromDateFromTime )
-    this.bookingForm.value.boo_end.setHours( this.bookingForm.value.boo_end.getHours() + this.bookingForm.value.toDateToTime )
-    
+/*     switch (this.fromDateFromTime.value) {
+      case '8.00h - 20.00h':
+        endTime = "20:00"
+        break
+      case '8.00h - 15.00h':
+        endTime = "15:00"
+        break
+    }
+
+    this.bookingForm.value.boo_start.setHours( this.bookingForm.value.boo_start.getHours() + startTime )
+    this.bookingForm.value.boo_end.setHours( this.bookingForm.value.boo_end.getHours() + endTime ) */
+
     this.bookingService.sendPostRequest(this.bookingForm.value)
     .subscribe((insertResponse: any) => {
      if (insertResponse.status === 'failure') {
@@ -839,7 +845,6 @@ export class BookingCalendarChildComponent {
   dateChangedActions(fromDate:any) {
     let responseOK: boolean = false
     this.toDate.setValue(fromDate.value)
-    console.log (fromDate.value, this.toDate.value)
     this.bookingService.getCheckAvailabilityADRBalears(this.bki_id.value, fromDate.value, this.toDate.value)
       .subscribe((avalibility:any) => {
         if (avalibility.status === 'failure') {
