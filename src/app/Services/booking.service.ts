@@ -133,8 +133,7 @@ export class BookingService {
   }
 
   sendPostRequest(formData: any): Observable<BookingADRBalearsDTO> {
-    let startTime: string = "8"
-    let endTime: string = "0"
+
     console.log (formData.fromDateFromTime)
 
     let start: string = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_start.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_start.toLocaleString("es", { hour: "2-digit" })+":"+formData.boo_start.toLocaleString("es", { minute: "2-digit" })
@@ -144,14 +143,15 @@ export class BookingService {
     "usucre": formData.usucre,
     "bki_id": formData.bki_id,
     "pro_id": formData.pro_id,
-    "bkd_type": bkiType,
     "bkr_id": formData.bkr_id,
-    "boo_title": formData.boo_title,
-    "boo_start":  start,
-    "boo_end":    end,
+    "boo_start": start,
+    "boo_end": end,
     "boo_company": {"name": formData.boo_company.name, "cif": formData.boo_company.cif, "contact": formData.boo_company.contact, "email": formData.boo_company.email},
-    /* "bookdetails": [{"start": start+":00", "end": end+":00"}] */}
-    console.log ("enviado a backoffice: ", dataToADRBalears, formData.boo_start)
+    "boo_title": formData.boo_title,
+    "bookdetails": [{"start": start+":00", "end": end+":00"}]
+    }
+    console.log ("enviado a backoffice: ", dataToADRBalears)
+    console.log (`boo_start: ${formData.boo_start}`)
     const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/json; charset=utf-8'})
     return this.http
       .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking`, dataToADRBalears, { headers })

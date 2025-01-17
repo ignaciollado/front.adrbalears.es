@@ -57,7 +57,7 @@ export interface BookingADRBalearsDTO {
   usucre:       string;
   bki_id?:      number;
   pro_id:       number;
-  bkd_type:     string;
+  bkd_type?:     string;
   bkr_id:       number;
   boo_start?:   string;
   boo_end?:     string;
