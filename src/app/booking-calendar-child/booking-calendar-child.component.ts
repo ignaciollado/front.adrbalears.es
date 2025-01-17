@@ -842,10 +842,10 @@ export class BookingCalendarChildComponent {
    /*  this.bookingDates.forEach((resourceItem:any) => { this.bookingDatesTo.push(resourceItem) }) */
   }
 
-  dateChangedActions(fromDate:any) {
+  dateChangedActions(data:any) {
     let responseOK: boolean = false
-    this.toDate.setValue(fromDate.value)
-    this.bookingService.getCheckAvailabilityADRBalears(this.bki_id.value, fromDate.value, this.toDate.value)
+    this.toDate.setValue(data.value)
+    this.bookingService.getCheckAvailabilityADRBalears(this.bki_id.value, data.value, this.toDate.value)
       .subscribe((avalibility:any) => {
         if (avalibility.status === 'failure') {
          responseOK = false
@@ -853,10 +853,21 @@ export class BookingCalendarChildComponent {
          responseOK = true
         }
         this.sharedService.managementToast('postFeedback', responseOK, avalibility, 'availability')
-       }, error => { 
+        }, error => {
          responseOK = false
          this.sharedService.managementToast('postFeedback', responseOK, error.message)
-         })
+        })
+  }
+
+  rateChangedAction(hours: number) {
+    let hourStart: number = 8
+    let hourEnd: number = hours
+    let boo_startDate: Date = null
+    let boo_endDate: Date = null
+    boo_startDate = this.fromDate.value
+    boo_endDate = this.toDate.value
+    boo_startDate.setHours(boo_startDate.getHours() + hourStart)
+    boo_endDate.setHours(boo_endDate.getHours() + hourEnd)
   }
   
   BookedDaysFilterFrom: (d: Date | null) => boolean = 

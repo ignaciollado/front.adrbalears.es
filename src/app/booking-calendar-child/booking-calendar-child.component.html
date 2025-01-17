@@ -37,7 +37,7 @@
       
       <mat-form-field appearance="outline" *ngIf="showTime">
         <mat-label>{{ 'app.booking-duration' | translate }}</mat-label>
-        <mat-select formControlName="fromDateFromTime" id="fromDateFromTime">
+        <mat-select formControlName="fromDateFromTime" id="fromDateFromTime" (valueChange)="rateChangedAction($event)">
           <mat-option value="20">Dia complet [8.00h-20.00h]</mat-option>
           <mat-option value="15">½ dia [8.00h-15.00h]</mat-option>
      <!--      <mat-option value="10">10.00</mat-option>
