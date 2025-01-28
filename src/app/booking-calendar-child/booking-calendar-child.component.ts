@@ -216,16 +216,16 @@ export class BookingCalendarChildComponent {
     this.minDateTo = this.minDate
     /* this.maxDate = new Date(currentYear + 1, 11, 31) */
 
-    this.title = new UntypedFormControl('El evento RESERVA TEST', [Validators.required])
+    this.title = new UntypedFormControl('', [Validators.required])
     this.usucre = new UntypedFormControl('ADRWeb')
     this.proID = new UntypedFormControl('42')
     this.bki_id = new UntypedFormControl('', [ Validators.required ])
-    this.bkr_id = new UntypedFormControl('1', [Validators.required])
+    this.bkr_id = new UntypedFormControl('', [Validators.required])
     this.boo_company = new FormGroup({
-      name: new UntypedFormControl('empresa sl', [ Validators.required, Validators.minLength(3), Validators.maxLength(60) ]),
-      cif: new UntypedFormControl('43036826P', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
-      contact: new UntypedFormControl('Ignacio Lladó Vidal', [ Validators.required, Validators.minLength(3), Validators.maxLength(60)]),
-      email: new UntypedFormControl('nachollv@hotmail.com', [ Validators.required, Validators.email ])
+      name: new UntypedFormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(60) ]),
+      cif: new UntypedFormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
+      contact: new UntypedFormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(60)]),
+      email: new UntypedFormControl('', [ Validators.required, Validators.email ])
     })
     this.fromMountingDate = new FormControl<Date | null>(null, Validators.required)
     this.toMountingDate = new FormControl<Date | null>(null, Validators.required)
@@ -666,6 +666,7 @@ export class BookingCalendarChildComponent {
       this.viewDate = date;
     }
   }
+
   eventTimesChanged({
     event,
     newStart,
@@ -683,11 +684,13 @@ export class BookingCalendarChildComponent {
     });
     this.handleEvent('Dropped or resized', event);
   }
+
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action }
     document.getElementById("resourceDetail")?.classList.remove("ocultar")
     document.getElementById("resourceDetail")!.innerHTML = "--"+event.title+"--"
   }
+
   beforeWeekViewRender(renderEvent: CalendarWeekViewBeforeRenderEvent) {
     renderEvent.hourColumns.forEach((hourColumn) => {
       hourColumn.hours.forEach((hour) => {
@@ -758,12 +761,15 @@ export class BookingCalendarChildComponent {
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
+
   setView(view: CalendarView) {
     this.view = view;
   }
+
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+
   onSubmit():void {
     let resourceColor: any
     let errorResponse: any
@@ -787,13 +793,14 @@ export class BookingCalendarChildComponent {
       responseOK = false
      } else {
       responseOK = true
+      this.sharedService.managementToast('postFeedback', responseOK, insertResponse, 'booking')
       this.emailManagementService.sendCustomerEmail(this.bookingForm)
       .subscribe((emailsent:any) => {
         console.log ("email enviado: ", emailsent)
-        this.bookingForm.reset()
+       /*  this.bookingForm.reset() */
       })
      }
-     this.sharedService.managementToast('postFeedback', responseOK, insertResponse, 'booking')
+     /* this.sharedService.managementToast('postFeedback', responseOK, insertResponse, 'booking') */
     }, error => { 
       responseOK = false
       this.sharedService.managementToast('postFeedback', responseOK, error.message)

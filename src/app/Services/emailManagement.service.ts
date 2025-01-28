@@ -53,19 +53,18 @@ export class EmailManagementService {
         resourceBooked = "SALA BLAVA"
         break
       case '7':
-        resourceBooked = "PAVILLION A"
+        resourceBooked = "Pavelló Exposició A"
         break
       case 'B-pavillion':
-        resourceBooked = "PAVILLION B"
+        resourceBooked = "Pavelló Exposició B"
         break
       case 'AB-pavillion':
-        resourceBooked = "PAVELLONS A i B"
+        resourceBooked = "Pavelló Exposició A i B"
         break
-
     }
 
     resourceBooked = resourceBooked +"_"+ fromDate.replaceAll("/","-") +"_"+ fromDateFromTime +"_"+ toDate.replaceAll("/","-") +"_"+ toDateToTime
- 
+
     return this.http
       .get<any>(`${URL_API_SEND}?${email}/${name}/${phone}/${subjectTxt}/${resourceBooked}/${projectName}`)
   }

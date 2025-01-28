@@ -148,10 +148,10 @@ export class BookingService {
     "boo_end": end,
     "boo_company": {"name": formData.boo_company.name, "cif": formData.boo_company.cif, "contact": formData.boo_company.contact, "email": formData.boo_company.email},
     "boo_title": formData.boo_title,
-    "bookdetails": [{"start": start+":00", "end": end+":00"}]
+    "bookdetails": [{"start": start, "end": end}]
     }
     console.log ("enviado a backoffice: ", dataToADRBalears)
-    console.log (`boo_start: ${formData.boo_start}`)
+    /* console.log (`boo_start: ${formData.boo_start}`) */
     const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/json; charset=utf-8'})
     return this.http
       .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking`, dataToADRBalears, { headers })
