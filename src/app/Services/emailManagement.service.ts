@@ -30,14 +30,16 @@ export class EmailManagementService {
     const email: string = registerForm.value.boo_company.email
     const name: string = registerForm.value.boo_company.contact
     const phone: string = "**"
+    const title: string = registerForm.value.boo_title
     let fromDate: string = registerForm.value.boo_start.toLocaleDateString('es')
     const fromDateFromTime: string = registerForm.value.fromDateFromTime
     let toDate: string = registerForm.value.boo_end.toLocaleDateString('es')
 
     const toDateToTime: string = registerForm.value.toDateToTime
-    const subjectTxt: string = "Reserva al recinte de Menorca"
+    const subjectTxt: string = "Reserva al RECINTE EMPRESARIAL DE MENORCA"
     let resourceBooked: string = registerForm.value.bki_id
     const projectName: string = "RECINTE EMPRESARIAL DE MENORCA"
+    console.log ("titulo: ", title)
 
     switch (resourceBooked) {
       case '3':
@@ -63,7 +65,7 @@ export class EmailManagementService {
         break
     }
 
-    resourceBooked = resourceBooked +"_"+ fromDate.replaceAll("/","-") +"_"+ fromDateFromTime +"_"+ toDate.replaceAll("/","-") +"_"+ toDateToTime
+    resourceBooked = resourceBooked +"_"+ fromDate.replaceAll("/","-") +"_"+ fromDateFromTime +"_"+ toDate.replaceAll("/","-") +"_"+ toDateToTime +"_"+ title
 
     return this.http
       .get<any>(`${URL_API_SEND}?${email}/${name}/${phone}/${subjectTxt}/${resourceBooked}/${projectName}`)
