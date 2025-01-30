@@ -33,10 +33,14 @@ a:hover {
 }
 
 #postFeedback.requestOk {
+  padding: .5rem;
+  font-size: 1rem;
   background-color: green;
 }
 
 #postFeedback.requestKo {
+  padding: .5rem;
+  font-size: 1rem;
   background-color: red;
 }
 

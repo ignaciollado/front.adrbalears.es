@@ -52,7 +52,7 @@ export class SharedService {
             toastMsg.textContent = actionDone
         }
         }
-        await this.wait(10000);
+        await this.wait(100000);
         toastMsg.className = toastMsg.className.replace('show', '')
       } else {/* cuando NO ha ido bien: requestKo */
         toastMsg.className = 'show requestKo'
@@ -77,7 +77,7 @@ export class SharedService {
           toastMsg.innerHTML = 'Error. Message: ' + error?.name + '. Status text: ' + error?.statusText;
           }
         }
-        await this.wait(10000);
+        await this.wait(100000);
         toastMsg.className = toastMsg.className.replace('show', '');
       }
     }
