@@ -39,7 +39,7 @@ export class EmailManagementService {
     const subjectTxt: string = "Reserva al RECINTE EMPRESARIAL DE MENORCA"
     let resourceBooked: string = registerForm.value.bki_id
     const projectName: string = "RECINTE EMPRESARIAL DE MENORCA"
-    console.log ("titulo: ", title)
+    console.log ("titulo: ", title, registerForm.value.bki_id)
 
     switch (resourceBooked) {
       case '3':

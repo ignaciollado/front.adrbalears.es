@@ -1,6 +1,6 @@
 .form-container-child {
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 40% 60%;
   grid-template-areas: "bookingForm bookingCalendar" "eventDetail eventDetail";
   border-radius: .5rem;
   border: 2px solid #003747;

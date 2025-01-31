@@ -867,14 +867,7 @@ export class BookingCalendarChildComponent {
   }
 
   rateChangedAction(hours: number) {
-    let hourStart: number = 8
-    let hourEnd: number = hours
-    let boo_startDate: Date = null
-    let boo_endDate: Date = null
-    boo_startDate = this.fromDate.value
-    boo_endDate = this.toDate.value
-    boo_startDate.setHours(boo_startDate.getHours() + hourStart)
-    boo_endDate.setHours(boo_endDate.getHours() + hourEnd)
+    console.log (hours)
   }
   
   BookedDaysFilterFrom: (d: Date | null) => boolean = 

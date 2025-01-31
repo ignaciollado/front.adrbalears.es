@@ -146,9 +146,10 @@ export class BookingService {
   }
 
   sendPostRequest(formData: any): Observable<BookingADRBalearsDTO> {
-
-    console.log (formData.fromDateFromTime)
-
+    let start: string
+    let end: string
+    let hourMinStart: string = '08:00'
+    let hourMinEnd: string = '20:00'
     let minutosStart: string = formData.boo_start.toLocaleString("es-ES", { minute: "2-digit" })
     let minutosEnd: string = formData.boo_end.toLocaleString("es-ES", { minute: "2-digit" })
 
@@ -159,9 +160,18 @@ export class BookingService {
       minutosEnd = minutosEnd+"0"
     }
 
-    let start: string = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_start.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_start.toLocaleString("es", { hour: "2-digit" })+":"+ minutosStart
-    let end: string = formData.boo_end.getFullYear()+"-"+(formData.boo_end.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_end.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_end.toLocaleString("es", { hour: "2-digit" })+":"+ minutosEnd
-    let bkiType : string = formData.bki_id === '7' ? "PAVELLO" : "SALA"
+    if (formData.fromDateFromTime !== undefined) {
+      hourMinEnd = formData.fromDateFromTime
+    }
+
+    /* let bkiType : string = formData.bki_id === '7' ? "PAVELLO" : "SALA" */
+    if (formData.bki_id !== '7') {
+      start = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es", { month: "2-digit" })) +"-"+ formData.boo_start.toLocaleString("es", { day: "2-digit" }) +" "+ hourMinStart
+      end = formData.boo_end.getFullYear()+"-"+(formData.boo_end.toLocaleString("es", { month: "2-digit" })) +"-"+ formData.boo_end.toLocaleString("es", { day: "2-digit" }) +" "+ hourMinEnd
+    } else  {
+      start = formData.boo_start.getFullYear()+"-"+(formData.boo_start.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_start.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_start.toLocaleString("es", { hour: "2-digit" })+":"+ minutosStart
+      end = formData.boo_end.getFullYear()+"-"+(formData.boo_end.toLocaleString("es", { month: "2-digit" }))+"-"+formData.boo_end.toLocaleString("es", { day: "2-digit" })+" "+formData.boo_end.toLocaleString("es", { hour: "2-digit" })+":"+ minutosEnd
+    }
     let dataToADRBalears: BookingADRBalearsDTO = {
     "usucre": formData.usucre,
     "bki_id": formData.bki_id,
@@ -174,7 +184,6 @@ export class BookingService {
     "bookdetails": [{"start": start, "end": end}]
     }
     console.log ("enviado a backoffice: ", dataToADRBalears)
-    /* console.log (`boo_start: ${formData.boo_start}`) */
     const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/json; charset=utf-8'})
     return this.http
       .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking`, dataToADRBalears, { headers })
