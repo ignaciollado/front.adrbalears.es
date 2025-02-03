@@ -457,187 +457,20 @@ export class BookingCalendarChildComponent {
             }
           })
   }
-
-/*   private loadBookingList() {
-    let eventItem: CalendarEvent
-    let myColor: EventColor
-    let myTitle: string = ""
-    let startHour: string  
-    let endHour: string
-    let errorResponse: any
-    this.events = []
-
-    this.bookingService.getAllBookings()
-    .pipe( )
-    .subscribe(
-        (bookings: BookingDTO[]) => {
-          this.bookings = bookings
-          if (this.bookings) {
-            this.bookings.map( (event: any) => {
-                switch(event.resourceBooked.split("-")[0]) {
-                case 'red':
-                  if (event.state === 'Pending') {
-                    myColor = colors.grey
-                  } else {
-                    myColor = colors.red
-                  }
-                  myTitle = `<b>-SALA VERMELLA-</b><br>reserva desde el ${new Date(event.fromDate).toLocaleDateString()}  a las ${event.fromDateFromTime} hasta el ${new Date(event.toDate).toLocaleDateString()} a las ${event.toDateToTime}<br>estado: *${event.state}*`
-                  startHour = event.fromDate+" "+event.fromDateFromTime
-                  endHour = event.toDate+" "+event.toDateToTime
-                  eventItem = {
-                    title:  myTitle,
-                    color:  myColor,
-                    start:  new Date( startHour ),
-                    end:    new Date( endHour ),
-                    meta: {
-                      type: 'info'
-                    },
-                    allDay: false,
-                    cssClass: 'event-class',
-                    resizable: {
-                      beforeStart: this.isbeforeStart,
-                      afterEnd: this.isafterEnd,
-                    },
-                    draggable: this.isDragable,
-                  }
-                  break
-                case 'blue':
-                  if (event.state === 'Pending') {
-                    myColor = colors.grey
-                  } else {
-                    myColor = colors.blue
-                  }
-                  myTitle = "<b>-SALA BLAVA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDate+" "+event.fromDateFromTime
-                  endHour = event.toDate+" "+event.toDateToTime
-                  eventItem = {
-                    title:  myTitle,
-                    color:  myColor,
-                    start:  new Date( startHour ),
-                    end:    new Date( endHour ),
-                    meta: {
-                      type: 'info'
-                    },
-                    allDay: false,
-                    cssClass: 'event-class',
-                    resizable: {
-                      beforeStart: this.isbeforeStart,
-                      afterEnd: this.isafterEnd,
-                    },
-                    draggable: this.isDragable,
-                  }                  
-                  break
-                case 'white':
-                  if (event.state === 'Pending') {
-                    myColor = colors.grey
-                  } else {
-                    myColor = colors.white
-                  }
-                  myTitle = "<b>-SALA BLANCA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDate+" "+event.fromDateFromTime
-                  endHour = event.toDate+" "+event.toDateToTime
-                  eventItem = {
-                    title:  myTitle,
-                    color:  myColor,
-                    start:  new Date( startHour ),
-                    end:    new Date( endHour ),
-                    meta: {
-                      type: 'info'
-                    },
-                    allDay: false,
-                    cssClass: 'event-class',
-                    resizable: {
-                      beforeStart: this.isbeforeStart,
-                      afterEnd: this.isafterEnd,
-                    },
-                    draggable: this.isDragable,
-                  }                  
-                  break
-                case 'yellow':
-                  if (event.state === 'Pending') {
-                    myColor = colors.grey
-                  } else {
-                    myColor = colors.yellow
-                  }
-                  myTitle = "<b>-SALA GROGA-</b><br>reserva desde el " + new Date(event.fromDate).toLocaleDateString() + " a las " + event.fromDateFromTime + " hasta el " + new Date(event.toDate).toLocaleDateString() + " a las " + event.toDateToTime + "<br>estado: " + event.state
-                  startHour = event.fromDate+" "+event.fromDateFromTime
-                  endHour = event.toDate+" "+event.toDateToTime
-                  eventItem = {
-                    title:  myTitle,
-                    color:  myColor,
-                    start:  new Date( startHour ),
-                    end:    new Date( endHour ),
-                    meta: {
-                      type: 'info'
-                    },
-                    allDay: false,
-                    cssClass: 'event-class',
-                    resizable: {
-                      beforeStart: this.isbeforeStart,
-                      afterEnd: this.isafterEnd,
-                    },
-                    draggable: this.isDragable,
-                  }                  
-                  break
-                case 'A':
-                  if (event.state === 'Pending') {
-                    myColor = colors.grey
-                  } else {
-                    myColor = colors.pavellonA
-                  }
-                  myTitle = "<b>-PAVELLÓ A-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
-                  eventItem = {
-                    title:  myTitle,
-                    color:  myColor,
-                    start:  subDays(startOfDay(new Date(event.fromDate)), 0),
-                    end:    addDays(new Date(event.toDate), 0),
-                    meta: {
-                      type: 'info'
-                    },
-                    allDay: false,
-                    cssClass: 'event-class',
-                    resizable: {
-                      beforeStart: this.isbeforeStart,
-                      afterEnd: this.isafterEnd,
-                    },
-                    draggable: this.isDragable,
-                  }
-                  break
-                case 'B':
-                  if (event.state === 'Pending') {
-                    myColor = colors.grey
-                  } else {
-                    myColor = colors.pavellonB
-                  }
-                  myTitle = "<b>-PAVELLÓ B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
-                  break
-                case 'AB':
-                    if (event.state === 'Pending') {
-                      myColor = colors.grey
-                    } else {
-                      myColor = colors.pavellonAB
-                    }
-                    myTitle = "<b>-PAVELLÓNS A + B-</b><br>reserva desde el "  + new Date(event.fromDate).toLocaleDateString() + " hasta el " + new Date(event.toDate).toLocaleDateString() + "<br>estado: " + event.state
-                    break                
-                }
-            this.events.push(eventItem)
-            this.refresh.next() 
-          })
-        }
-        },
-         (error: HttpErrorResponse) => {
-           errorResponse = error.error;
-           this.sharedService.errorLog(errorResponse)
-         }
-       );
-  } */
-
+  
   public resourceSelected( resource: string ) {
+    const control = this.bookingForm.get("fromDateFromTime")
       if (resource !== '7') {
         this.showTime = true
+        this.isTarifaVisible = true
+        control.setValidators(Validators.required)
       } else if (resource === '7') {
         this.showTime = false
+        this.isTarifaVisible = false
+        control.clearValidators()
+        control.reset()
       }
+     /*  control.updateValueAndValidity() */
   }
 
   /* events: CalendarEvent[] = [] */
@@ -704,61 +537,6 @@ export class BookingCalendarChildComponent {
     })
   }
 
-/* validateEventTimesChanged = (
-    { event, newStart, newEnd, allDay }: CalendarEventTimesChangedEvent,
-    addCssClass = true
-  ) => {
-    if (event.allDay) {
-      return true;
-    }
-
-    delete event.cssClass;
-    // don't allow dragging or resizing events to different days
-    const sameDay = isSameDay(newStart, newEnd);
-
-    if (!sameDay) {
-      return false;
-    }
-
-    // don't allow dragging events to the same times as other events
-    const overlappingEvent = this.events.find((otherEvent) => {
-      return (
-        otherEvent !== event &&
-        !otherEvent.allDay &&
-        ((otherEvent.start < newStart && newStart < otherEvent.end) ||
-          (otherEvent.start < newEnd && newStart < otherEvent.end))
-      );
-    });
-
-    if (overlappingEvent) {
-      if (addCssClass) {
-        event.cssClass = 'invalid-position';
-      } else {
-        return false;
-      }
-    }
-
-    return true;
-  }; */
-
-/*   addEvent(event:any): void {
-    this.events = [
-      ...this.events,
-      {
-        title: event,
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-    this.updateBooking.emit(this.events);
-  } */
-
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
@@ -775,18 +553,6 @@ export class BookingCalendarChildComponent {
     let resourceColor: any
     let errorResponse: any
     let responseOK: boolean = false
-
-/*     switch (this.fromDateFromTime.value) {
-      case '8.00h - 20.00h':
-        endTime = "20:00"
-        break
-      case '8.00h - 15.00h':
-        endTime = "15:00"
-        break
-    }
-
-    this.bookingForm.value.boo_start.setHours( this.bookingForm.value.boo_start.getHours() + startTime )
-    this.bookingForm.value.boo_end.setHours( this.bookingForm.value.boo_end.getHours() + endTime ) */
 
     this.bookingService.sendPostRequest(this.bookingForm.value)
     .subscribe((insertResponse: any) => {
@@ -821,15 +587,7 @@ export class BookingCalendarChildComponent {
   bookingDates: Date[] = []
 
   onResourceChange(resourceItem:any) {
-    this.isTarifaVisible = !this.isTarifaVisible
-    const control = this.bookingForm.get("fromDateFromTime")
-    if (this.isTarifaVisible) {
-      control.setValidators(Validators.required)
-    } else {
-      control.clearValidators()
-      control.reset()
-    }
-    control.updateValueAndValidity()
+   
     this.bookingService.getBookingByResource(resourceItem.value)
       .subscribe((itemResource:BookingDTO[]) => {
       if (itemResource) {
