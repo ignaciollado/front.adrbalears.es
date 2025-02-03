@@ -31,6 +31,7 @@ if (localStorage.getItem('preferredLang') === 'es') {
 })
 
 export class BookingCalendarChildComponent {
+  isTarifaVisible: boolean = false
   public minDate: Date
   public minDateTo: Date
   public maxDate: Date
@@ -234,7 +235,7 @@ export class BookingCalendarChildComponent {
     this.fromDateFromTime = new FormControl('')
     this.toDate = new FormControl<Date | null>(null, [ Validators.required])
     this.toDateToTime = new FormControl('')
-    this.acceptTerms = new FormControl(true, [Validators.requiredTrue])
+    this.acceptTerms = new FormControl(false, [Validators.requiredTrue])
 
     this.bookingForm = this.formBuilder.group ({
       usucre: this.usucre,
@@ -820,6 +821,15 @@ export class BookingCalendarChildComponent {
   bookingDates: Date[] = []
 
   onResourceChange(resourceItem:any) {
+    this.isTarifaVisible = !this.isTarifaVisible
+    const control = this.bookingForm.get("fromDateFromTime")
+    if (this.isTarifaVisible) {
+      control.setValidators(Validators.required)
+    } else {
+      control.clearValidators()
+      control.reset()
+    }
+    control.updateValueAndValidity()
     this.bookingService.getBookingByResource(resourceItem.value)
       .subscribe((itemResource:BookingDTO[]) => {
       if (itemResource) {
