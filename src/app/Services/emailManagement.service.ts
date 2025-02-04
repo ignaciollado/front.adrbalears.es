@@ -25,7 +25,7 @@ export class EmailManagementService {
       .get<any>(`${URL_API}&email=${emailAddress}` )
   }
 
-  sendCustomerEmail(registerForm: any): Observable<any> {
+  sendCustomerEmail(registerForm: any, locator: string): Observable<any> {
     console.log (registerForm.value)
     const email: string = registerForm.value.boo_company.email
     const name: string = registerForm.value.boo_company.contact
@@ -39,7 +39,8 @@ export class EmailManagementService {
     const subjectTxt: string = "Reserva al RECINTE EMPRESARIAL DE MENORCA"
     let resourceBooked: string = registerForm.value.bki_id
     const projectName: string = "RECINTE EMPRESARIAL DE MENORCA"
-    console.log ("titulo: ", title, registerForm.value.bki_id)
+    const locatorID: string = locator
+    console.log ("titulo: ", title, registerForm.value.bki_id, locatorID)
 
     switch (resourceBooked) {
       case '3':
@@ -65,7 +66,7 @@ export class EmailManagementService {
         break
     }
 
-    resourceBooked = resourceBooked +"_"+ fromDate.replaceAll("/","-") +"_"+ fromDateFromTime +"_"+ toDate.replaceAll("/","-") +"_"+ toDateToTime +"_"+ title
+    resourceBooked = resourceBooked +"_"+ fromDate.replaceAll("/","-") +"_"+ fromDateFromTime +"_"+ toDate.replaceAll("/","-") +"_"+ toDateToTime +"_"+ title + "_" + locatorID
 
     return this.http
       .get<any>(`${URL_API_SEND}?${email}/${name}/${phone}/${subjectTxt}/${resourceBooked}/${projectName}`)

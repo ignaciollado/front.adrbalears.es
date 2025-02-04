@@ -253,9 +253,9 @@ export class BookingCalendarChildComponent {
 
     this.bookingForm.valueChanges.subscribe((e) => {
      this.minDateTo = e.boo_start
-      if (e.bki_id) {
+     /*  if (e.bki_id) {
         this.resourceSelected(e.bki_id)
-      }
+      } */
     });
   }
 
@@ -459,7 +459,7 @@ export class BookingCalendarChildComponent {
   }
   
   public resourceSelected( resource: string ) {
-    const control = this.bookingForm.get("fromDateFromTime")
+/*     const control = this.bookingForm.get("fromDateFromTime")
       if (resource !== '7') {
         this.showTime = true
         this.isTarifaVisible = true
@@ -469,7 +469,7 @@ export class BookingCalendarChildComponent {
         this.isTarifaVisible = false
         control.clearValidators()
         control.reset()
-      }
+      } */
      /*  control.updateValueAndValidity() */
   }
 
@@ -553,6 +553,7 @@ export class BookingCalendarChildComponent {
     let resourceColor: any
     let errorResponse: any
     let responseOK: boolean = false
+    let locator: string = ""
 
     this.bookingService.sendPostRequest(this.bookingForm.value)
     .subscribe((insertResponse: any) => {
@@ -560,8 +561,9 @@ export class BookingCalendarChildComponent {
       responseOK = false
      } else {
       responseOK = true
+      locator = insertResponse.locator
       this.sharedService.managementToast('postFeedback', responseOK, insertResponse, 'booking')
-      this.emailManagementService.sendCustomerEmail(this.bookingForm)
+      this.emailManagementService.sendCustomerEmail(this.bookingForm, locator)
       .subscribe((emailsent:any) => {
         console.log ("email enviado: ", emailsent)
        /*  this.bookingForm.reset() */
@@ -587,8 +589,20 @@ export class BookingCalendarChildComponent {
   bookingDates: Date[] = []
 
   onResourceChange(resourceItem:any) {
-   
-    this.bookingService.getBookingByResource(resourceItem.value)
+
+   const control = this.bookingForm.get("fromDateFromTime")
+   if (resourceItem.value !== '7') {
+     this.showTime = true
+     this.isTarifaVisible = true
+     control.setValidators(Validators.required)
+   } else if (resourceItem.value === '7') {
+     this.showTime = false
+     this.isTarifaVisible = false
+     control.clearValidators()
+     control.reset()
+   }
+   control.updateValueAndValidity()
+/*     this.bookingService.getBookingByResource(resourceItem.value)
       .subscribe((itemResource:BookingDTO[]) => {
       if (itemResource) {
         itemResource.forEach((resourceItem:any) => {
@@ -601,7 +615,7 @@ export class BookingCalendarChildComponent {
       } else {
         console.log (`no bookings for item ${resourceItem.value}`)
       }
-      })
+      }) */
   }
 
   /* addDateFrom(newDate: string) {const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesFrom.push(date)}
