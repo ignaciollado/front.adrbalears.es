@@ -116,12 +116,12 @@ export class BookingService {
 
   getAllBookingsADRBalears(): Observable<BookingADRBalearsDTO[]> {
     return this.http
-      .get<BookingADRBalearsDTO[]>(`${PRE_URL_BACKOFFICE}/booking`, httpOptionsADRBalears)
+      .get<BookingADRBalearsDTO[]>(`${URL_BACKOFFICE}/booking`, httpOptionsADRBalears)
   }
 
   getBookingByIdADRBalears(bookingId: string): Observable<BookingADRBalearsDTO> {
     return this.http
-      .get<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/Locator=${bookingId}`, httpOptionsADRBalears)
+      .get<BookingADRBalearsDTO>(`${URL_BACKOFFICE}/booking/Locator=${bookingId}`, httpOptionsADRBalears)
   }
 
   getCheckAvailabilityADRBalears(bki_id: string, boo_start: Date, boo_end: Date): Observable<BookingADRBalearsDTO> {
@@ -142,7 +142,7 @@ export class BookingService {
 
     console.log ("checking availability of:", start, end)
     return this.http
-      .get<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking/-1/checkavailability?bki_id=${bki_id}&pro_id=${pro_id}&boo_start=${start}&boo_end=${end}`, httpOptionsADRBalears)
+      .get<BookingADRBalearsDTO>(`${URL_BACKOFFICE}/booking/-1/checkavailability?bki_id=${bki_id}&pro_id=${pro_id}&boo_start=${start}&boo_end=${end}`, httpOptionsADRBalears)
   }
 
   sendPostRequest(formData: any): Observable<BookingADRBalearsDTO> {
@@ -186,7 +186,7 @@ export class BookingService {
     console.log ("enviado a backoffice: ", dataToADRBalears)
     const headers = new HttpHeaders({'Authorization': `Bearer ${token_bearer}`, 'Content-Type': 'application/json; charset=utf-8'})
     return this.http
-      .post<BookingADRBalearsDTO>(`${PRE_URL_BACKOFFICE}/booking`, dataToADRBalears, { headers })
+      .post<BookingADRBalearsDTO>(`${URL_BACKOFFICE}/booking`, dataToADRBalears, { headers })
   }
 
 }
