@@ -17,11 +17,11 @@
     </mat-form-field>
 
     <section ngClass="event-dates">
-
       <mat-form-field appearance="outline">
         <mat-label>{{ 'app.from-date' | translate }}</mat-label>
         <input matInput [matDatepicker]="pickerFromDate" formControlName="boo_start" 
-        [min]="minDate" [matDatepickerFilter]="BookedDaysFilterFrom" (dateChange)="dateChangedActions($event)">
+        [min]="minDate" [matDatepickerFilter]="BookedDaysFilterFrom" (dateChange)="dateChangedActions($event)"
+        [max]="maxDate">
         <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerFromDate [startAt]="minDate"></mat-datepicker>
       </mat-form-field>
@@ -30,7 +30,8 @@
         <mat-label>{{ 'app.to-date' | translate }}</mat-label>
         <input matInput [matDatepicker]="pickerToDate" formControlName="boo_end" 
         [min]="minDateTo" [matDatepickerFilter]="BookedDaysFilterFrom"
-        (dateChange)="dateChangedActions($event)">
+        (dateChange)="dateChangedActions($event)"
+        [max]="maxDate">
         <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerToDate [startAt]="minDateTo"></mat-datepicker>
       </mat-form-field>
@@ -43,7 +44,7 @@
         </mat-select>
       </mat-form-field>
     </section>
-    <article id="postFeedback"></article>
+    <article id="postFeedback" *ngIf="isFeedBackVisible"></article>
     <mat-form-field appearance="outline">
       <mat-label ngClass="contrasted-text">{{ 'app.title' | translate }}</mat-label>
       <input matInput type='text' formControlName="boo_title">

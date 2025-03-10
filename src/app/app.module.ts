@@ -26,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -90,6 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatTableModule,
         MatInputModule,
         MatButtonModule,
+        MatSnackBarModule,
         MatTooltipModule,
         MatCheckboxModule,
         MatRadioModule,

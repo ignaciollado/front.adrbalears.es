@@ -54,3 +54,9 @@ a:hover {
   min-height: 1rem;
   flex: 1;
 }
+
+:root {
+  .custom-snackbar {
+    --mdc-snackbar-container-color: #0d6efd;
+  }
+}

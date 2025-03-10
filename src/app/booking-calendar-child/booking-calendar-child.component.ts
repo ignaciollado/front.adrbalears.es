@@ -16,6 +16,7 @@ import { EventColor } from 'calendar-utils';
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es';
 import localeCA from '@angular/common/locales/ca';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 if (localStorage.getItem('preferredLang') === 'es') {
   registerLocaleData(localeES);
@@ -32,6 +33,7 @@ if (localStorage.getItem('preferredLang') === 'es') {
 
 export class BookingCalendarChildComponent {
   isTarifaVisible: boolean = false
+  isFeedBackVisible: boolean = false
   public minDate: Date
   public minDateTo: Date
   public maxDate: Date
@@ -126,6 +128,7 @@ export class BookingCalendarChildComponent {
     private sharedService: SharedService,
     private dateAdapter: DateAdapter<Date>,
     private emailManagementService: EmailManagementService,
+    private snackBar: MatSnackBar,
     ) {
     this.dateAdapter.getFirstDayOfWeek = () => 1
     this.dateAdapter.setLocale = () => 'es'
@@ -135,6 +138,7 @@ export class BookingCalendarChildComponent {
     const currentDay = new Date().getDate()+10 /* Reservas con una antelación de 10 días */
 
     this.minDate = new Date(currentYear, currentMonth, currentDay)
+    this.maxDate = new Date(currentYear, currentMonth+6, currentDay) /* Reserva máximo hasta seis meses (de 180 días) */
     this.minDateTo = this.minDate
     /* this.maxDate = new Date(currentYear + 1, 11, 31) */
 
@@ -195,7 +199,6 @@ export class BookingCalendarChildComponent {
         .subscribe(
           (bookingADRBalears:BookingADRBalearsDTO[]) => {
             this.bookingsADRBalears = bookingADRBalears
-            console.log (this.bookingsADRBalears)
             if (this.bookingsADRBalears) {
               const typeArr: BookingADRBalearsDTO[] = Object
                 .entries(this.bookingsADRBalears).map(([key, value]) => value)
@@ -380,18 +383,7 @@ export class BookingCalendarChildComponent {
   }
   
   public resourceSelected( resource: string ) {
-/*     const control = this.bookingForm.get("fromDateFromTime")
-      if (resource !== '7') {
-        this.showTime = true
-        this.isTarifaVisible = true
-        control.setValidators(Validators.required)
-      } else if (resource === '7') {
-        this.showTime = false
-        this.isTarifaVisible = false
-        control.clearValidators()
-        control.reset()
-      } */
-     /*  control.updateValueAndValidity() */
+
   }
 
   /* events: CalendarEvent[] = [] */
@@ -510,8 +502,9 @@ export class BookingCalendarChildComponent {
   bookingDates: Date[] = []
 
   onResourceChange(resourceItem:any) {
-
    const control = this.bookingForm.get("fromDateFromTime")
+   console.log (resourceItem)
+   this.isFeedBackVisible = false
    if (resourceItem.value !== '7') {
      this.showTime = true
      this.isTarifaVisible = true
@@ -523,20 +516,6 @@ export class BookingCalendarChildComponent {
      control.reset()
    }
    control.updateValueAndValidity()
-/*     this.bookingService.getBookingByResource(resourceItem.value)
-      .subscribe((itemResource:BookingDTO[]) => {
-      if (itemResource) {
-        itemResource.forEach((resourceItem:any) => {
-          if (resourceItem.resourceBooked === '7') {
-            this.createDateArray(resourceItem.fromDate, resourceItem.toDate)
-          } else {
-            console.log ("Room booked dates and times: ", resourceItem.resourceBooked, resourceItem.fromDate, resourceItem.fromDateFromTime, resourceItem.toDate, resourceItem.toDateToTime)
-          }
-        })
-      } else {
-        console.log (`no bookings for item ${resourceItem.value}`)
-      }
-      }) */
   }
 
   /* addDateFrom(newDate: string) {const date = new Date(newDate); date.setHours(0, 0, 0, 0); this.bookingDatesFrom.push(date)}
@@ -554,23 +533,48 @@ export class BookingCalendarChildComponent {
 
   dateChangedActions(data:any) {
     let responseOK: boolean = false
-    this.toDate.setValue(data.value)
-    this.bookingService.getCheckAvailabilityADRBalears(this.bki_id.value, data.value, this.toDate.value)
+    this.isFeedBackVisible = false
+    this.toDate.setValue(data.value) /* Por defecto, hace que toDate sea el mismo que fromDate */
+    if (this.bki_id.value === '7' ) { /* comprobar disponbilidad si es el Pavellón A */
+      this.bookingService.getCheckAvailabilityADRBalears(this.bki_id.value, data.value, this.toDate.value)
       .subscribe((avalibility:any) => {
         if (avalibility.status === 'failure') {
-         responseOK = false
+          responseOK = false
         } else {
-         responseOK = true
+          responseOK = true
         }
+        this.showSnackBar ("AVAILABILITY ...")
+        this.isFeedBackVisible = true
         this.sharedService.managementToast('postFeedback', responseOK, avalibility, 'availability')
         }, error => {
          responseOK = false
+         this.showSnackBar ( error.message )
          this.sharedService.managementToast('postFeedback', responseOK, error.message)
         })
+    }
   }
 
   rateChangedAction(hours: number) {
-    console.log (hours)
+    let responseOK: boolean = false
+    this.bookingService.getCheckAvailabilityADRBalears(this.bki_id.value, this.bookingForm.get('boo_start').value, this.bookingForm.get('boo_end').value)
+    .subscribe((avalibility:any) => {
+      if (avalibility.status === 'failure') {
+       responseOK = false
+      } else {
+       responseOK = true
+      }
+      this.isFeedBackVisible = true
+      if (responseOK) {
+        this.showSnackBar ( "AVAILABILITY ..." )
+      } else {
+        this.showSnackBar ( "NO AVAILABILITY ..." )
+      }
+      this.sharedService.managementToast('postFeedback', responseOK, avalibility, 'availability')
+      }, error => {
+       responseOK = false
+       this.showSnackBar ( error.message )
+       this.sharedService.managementToast('postFeedback', responseOK, error.message)
+      })
   }
   
   BookedDaysFilterFrom: (d: Date | null) => boolean = 
@@ -585,5 +589,14 @@ export class BookingCalendarChildComponent {
     if (!d) return false;
     const time = d.getTime();
     return !this.bookingDatesTo.some(date => date.getTime() === time);
+  }
+
+  private showSnackBar(error: string): void {
+    this.snackBar.open(error, 'Close', {
+      duration: 10000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      panelClass: ['custom-snackbar'],
+    });
   }
 }
