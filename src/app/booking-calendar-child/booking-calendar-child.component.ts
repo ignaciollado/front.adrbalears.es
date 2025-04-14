@@ -138,7 +138,8 @@ export class BookingCalendarChildComponent {
     const currentDay = new Date().getDate()+10 /* Reservas con una antelación de 10 días */
 
     this.minDate = new Date(currentYear, currentMonth, currentDay)
-    this.maxDate = new Date(currentYear, currentMonth+6, currentDay) /* Reserva máximo hasta seis meses (de 180 días) */
+    this.maxDate = new Date(currentYear, currentMonth+36, currentDay) /*  14/04/2025 lo cambio a 36 meses para quitar el límite a petición de Silvia y Tete */
+    //this.maxDate = new Date(currentYear, currentMonth+6, currentDay) /* Reserva máximo hasta seis meses (de 180 días) */
     this.minDateTo = this.minDate
     /* this.maxDate = new Date(currentYear + 1, 11, 31) */
 
