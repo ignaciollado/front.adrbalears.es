@@ -135,7 +135,7 @@ export class BookingCalendarChildComponent {
     this.theBooking = new BookingDTO ('', '', 0, '', '', '', '', '', '', '', true);
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
-    const currentDay = new Date().getDate()+10 /* Reservas con una antelación de 10 días */
+    const currentDay = new Date().getDate() + 5 /* Reservas con una antelación de 5 días */
 
     this.minDate = new Date(currentYear, currentMonth, currentDay)
     this.maxDate = new Date(currentYear, currentMonth+36, currentDay) /*  14/04/2025 lo cambio a 36 meses para quitar el límite a petición de Silvia y Tete */
